@@ -1,0 +1,9 @@
+# REQUIRED
+name: ${project.name}
+main: ${project.groupId}.${project.name}
+version: ${project.version}
+
+# OPTIONAL
+author: Packet
+description: Uberjar of all the runtime dependencies
+load: STARTUP
