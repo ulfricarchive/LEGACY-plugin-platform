@@ -2,14 +2,16 @@ package com.ulfric.plugin.commons;
 
 import com.ulfric.commons.cdi.construct.BeanFactory;
 import com.ulfric.commons.logging.Logger;
-import com.ulfric.commons.spigot.intercept.concurrent.OnMainThread;
-import com.ulfric.commons.spigot.intercept.concurrent.OnMainThreadInterceptor;
-import com.ulfric.commons.spigot.intercept.player.MustBeAlive;
-import com.ulfric.commons.spigot.intercept.player.MustBeAliveInterceptor;
-import com.ulfric.commons.spigot.intercept.player.MustBeDead;
-import com.ulfric.commons.spigot.intercept.player.MustBeDeadInterceptor;
-import com.ulfric.commons.spigot.intercept.server.Broadcast;
-import com.ulfric.commons.spigot.intercept.server.BroadcastInterceptor;
+import com.ulfric.commons.spigot.cdi.intercept.concurrent.OnMainThread;
+import com.ulfric.commons.spigot.cdi.intercept.concurrent.OnMainThreadInterceptor;
+import com.ulfric.commons.spigot.cdi.intercept.player.MustBeAlive;
+import com.ulfric.commons.spigot.cdi.intercept.player.MustBeAliveInterceptor;
+import com.ulfric.commons.spigot.cdi.intercept.player.MustBeDead;
+import com.ulfric.commons.spigot.cdi.intercept.player.MustBeDeadInterceptor;
+import com.ulfric.commons.spigot.cdi.intercept.server.Broadcast;
+import com.ulfric.commons.spigot.cdi.intercept.server.BroadcastInterceptor;
+import com.ulfric.commons.spigot.cdi.scope.service.Service;
+import com.ulfric.commons.spigot.cdi.scope.service.ServiceScopeStrategy;
 import com.ulfric.commons.spigot.logging.ConsoleLogger;
 import com.ulfric.commons.spigot.module.Disable;
 import com.ulfric.commons.spigot.module.DisableInterceptor;
@@ -36,8 +38,9 @@ public final class Commons extends UlfricPlugin {
 	private void setupAllPlugins()
 	{
 		BeanFactory factory = this.registerBeanFactory();
-		this.registerBindings(factory);
+		this.registerScopes(factory);
 		this.registerInterceptors(factory);
+		this.registerBindings(factory);
 	}
 
 	private BeanFactory registerBeanFactory()
@@ -45,9 +48,9 @@ public final class Commons extends UlfricPlugin {
 		return ServiceUtils.registerIfAbsent(BeanFactory.class, BeanFactory::newInstance);
 	}
 
-	private void registerBindings(BeanFactory factory)
+	private void registerScopes(BeanFactory factory)
 	{
-		factory.bind(Logger.class).to(ConsoleLogger.class);
+		factory.bind(Service.class).toScope(ServiceScopeStrategy.class);
 	}
 
 	private void registerInterceptors(BeanFactory factory)
@@ -65,6 +68,11 @@ public final class Commons extends UlfricPlugin {
 
 		factory.bind(MustBeAlive.class).toInterceptor(MustBeAliveInterceptor.class);
 		factory.bind(MustBeDead.class).toInterceptor(MustBeDeadInterceptor.class);
+	}
+
+	private void registerBindings(BeanFactory factory)
+	{
+		factory.bind(Logger.class).to(ConsoleLogger.class);
 	}
 
 }
