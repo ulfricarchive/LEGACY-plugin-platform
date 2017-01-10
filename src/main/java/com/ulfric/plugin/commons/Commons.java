@@ -37,13 +37,13 @@ public final class Commons extends UlfricPlugin {
 
 	private void setupAllPlugins()
 	{
-		BeanFactory factory = this.registerBeanFactory();
-		this.registerScopes(factory);
-		this.registerInterceptors(factory);
-		this.registerBindings(factory);
+		BeanFactory globalBeanFactory = this.registerBeanFactoryService();
+		this.registerScopes(globalBeanFactory);
+		this.registerInterceptors(globalBeanFactory);
+		this.registerBindings(globalBeanFactory);
 	}
 
-	private BeanFactory registerBeanFactory()
+	private BeanFactory registerBeanFactoryService()
 	{
 		return ServiceUtils.registerIfAbsent(BeanFactory.class, BeanFactory::newInstance);
 	}
