@@ -3,13 +3,17 @@ package com.ulfric.plugin.commons;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 
 import com.ulfric.commons.cdi.ObjectFactory;
+import com.ulfric.commons.cdi.container.Container;
 import com.ulfric.commons.cdi.scope.Supplied;
 import com.ulfric.commons.cdi.scope.SuppliedScopeStrategy;
 import com.ulfric.commons.spigot.cdi.scope.service.Service;
 import com.ulfric.commons.spigot.cdi.scope.service.ServiceScopeStrategy;
 import com.ulfric.commons.spigot.container.ContainerLogger;
+import com.ulfric.commons.spigot.container.ListenerComponent;
+import com.ulfric.commons.spigot.container.ServiceComponent;
 import com.ulfric.commons.spigot.plugin.UlfricPlugin;
 import com.ulfric.commons.spigot.service.ServiceUtils;
 
@@ -23,6 +27,7 @@ public final class Commons extends UlfricPlugin {
 		this.registerGlobalObjectFactory();
 		this.registerScopes();
 		this.registerBindings();
+		this.registerComponents();
 
 		super.setupPlatform();
 	}
@@ -42,6 +47,13 @@ public final class Commons extends UlfricPlugin {
 		this.global.bind(Logger.class).to(ContainerLogger.class);
 		SuppliedScopeStrategy scope = (SuppliedScopeStrategy) this.global.request(Supplied.class);
 		scope.register(ContainerLogger.class, () -> new ContainerLogger(Bukkit.getLogger()));
+	}
+
+	@SuppressWarnings("unchecked")
+	private void registerComponents()
+	{
+		Container.registerComponentWrapper(Listener.class, ListenerComponent::new);
+		Container.registerComponentWrapper(com.ulfric.commons.service.Service.class, ServiceComponent::new);
 	}
 
 }
