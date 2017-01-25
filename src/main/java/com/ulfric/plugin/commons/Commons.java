@@ -2,13 +2,10 @@ package com.ulfric.plugin.commons;
 
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
 import com.ulfric.commons.cdi.ObjectFactory;
 import com.ulfric.commons.cdi.container.Container;
-import com.ulfric.commons.cdi.scope.Supplied;
-import com.ulfric.commons.cdi.scope.SuppliedScopeStrategy;
 import com.ulfric.commons.spigot.cdi.scope.service.Service;
 import com.ulfric.commons.spigot.cdi.scope.service.ServiceScopeStrategy;
 import com.ulfric.commons.spigot.container.ContainerLogger;
@@ -45,11 +42,10 @@ public final class Commons extends UlfricPlugin {
 	private void registerBindings()
 	{
 		this.global.bind(Logger.class).to(ContainerLogger.class);
-		SuppliedScopeStrategy scope = (SuppliedScopeStrategy) this.global.request(Supplied.class);
-		scope.register(ContainerLogger.class, () -> new ContainerLogger(Bukkit.getLogger()));
+//		SuppliedScopeStrategy scope = (SuppliedScopeStrategy) this.global.request(Supplied.class);
+//		scope.register(ContainerLogger.class, () -> new ContainerLogger(Bukkit.getLogger()));
 	}
 
-	@SuppressWarnings("unchecked")
 	private void registerComponents()
 	{
 		Container.registerComponentWrapper(Listener.class, ListenerComponent::new);
