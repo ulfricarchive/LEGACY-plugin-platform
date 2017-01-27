@@ -42,8 +42,6 @@ public final class Commons extends UlfricPlugin {
 	private void registerBindings()
 	{
 		this.global.bind(Logger.class).to(ContainerLogger.class);
-//		SuppliedScopeStrategy scope = (SuppliedScopeStrategy) this.global.request(Supplied.class);
-//		scope.register(ContainerLogger.class, () -> new ContainerLogger(Bukkit.getLogger()));
 	}
 
 	private void registerComponents()
