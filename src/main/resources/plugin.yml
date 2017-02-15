@@ -5,5 +5,5 @@ version: ${project.version}
 
 # OPTIONAL
 author: Packet
-description: Uberjar of all the runtime dependencies
+description: Required platform plugin
 load: STARTUP
