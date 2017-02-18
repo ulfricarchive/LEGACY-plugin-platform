@@ -5,13 +5,13 @@ import java.util.logging.Logger;
 import org.bukkit.event.Listener;
 
 import com.ulfric.commons.cdi.ObjectFactory;
-import com.ulfric.commons.cdi.container.Component;
 import com.ulfric.commons.cdi.container.Container;
+import com.ulfric.commons.cdi.container.Feature;
 import com.ulfric.commons.spigot.cdi.scope.service.Service;
 import com.ulfric.commons.spigot.cdi.scope.service.ServiceScopeStrategy;
 import com.ulfric.commons.spigot.container.ContainerLogger;
-import com.ulfric.commons.spigot.container.ListenerComponent;
-import com.ulfric.commons.spigot.container.ServiceComponent;
+import com.ulfric.commons.spigot.container.ListenerFeature;
+import com.ulfric.commons.spigot.container.ServiceFeature;
 import com.ulfric.commons.spigot.plugin.UlfricPlugin;
 import com.ulfric.commons.spigot.service.ServiceUtils;
 
@@ -47,13 +47,13 @@ public final class Platform extends UlfricPlugin {
 
 	private void registerComponents()
 	{
-		Container.registerComponentWrapper(Listener.class, ListenerComponent::new);
-		Container.registerComponentWrapper(com.ulfric.commons.service.Service.class, this::componentWrapper);
+		Container.registerFeatureWrapper(Listener.class, ListenerFeature::new);
+		Container.registerFeatureWrapper(com.ulfric.commons.service.Service.class, this::featureWrapper);
 	}
 
-	private <S extends com.ulfric.commons.service.Service> ServiceComponent<S> componentWrapper(Component parent, S implementation)
+	private <S extends com.ulfric.commons.service.Service> ServiceFeature<S> featureWrapper(Feature parent, S implementation)
 	{
-		return new ServiceComponent<>(parent, implementation);
+		return new ServiceFeature<>(parent, implementation);
 	}
 
 }
