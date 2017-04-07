@@ -36,4 +36,14 @@
 		</plugins>
 	</build>
 
+    <dependencies>
+        <!-- RUNTIME -->
+        <dependency>
+            <groupId>com.ulfric</groupId>
+            <artifactId>dragoon</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
 </project>
