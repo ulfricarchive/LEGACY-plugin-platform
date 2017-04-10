@@ -11,12 +11,9 @@ public final class Platform extends UlfricPlugin {
 	public void init()
 	{
 		Container container = this.getContainer();
+
 		container.install(TextContainer.class);
 		container.install(PlaceholderContainer.class);
-
-		// TESTING STUFF
-		container.install(HelloCommand.class);
-		container.install(HelloCommand.WorldCommand.class);
 	}
 
 }

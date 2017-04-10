@@ -9,6 +9,7 @@ public class PlaceholderContainer extends Container {
 	{
 		this.install(SenderNamePlaceholder.class);
 		this.install(LastTargetedByPlaceholder.class);
+		this.install(NoPermissionPlaceholder.class);
 	}
 
 }
