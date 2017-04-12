@@ -13,7 +13,9 @@ import com.ulfric.commons.spigot.data.DataStore;
 import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.data.PlayerData;
 import com.ulfric.commons.spigot.plugin.PluginUtils;
+import com.ulfric.dragoon.scope.Shared;
 
+@Shared
 class PlayerDataService implements PlayerData {
 
 	private final Map<String, DataStore> datastores = new HashMap<>();

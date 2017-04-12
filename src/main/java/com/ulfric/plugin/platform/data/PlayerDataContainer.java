@@ -9,6 +9,7 @@ public class PlayerDataContainer extends Container {
 	private void setup()
 	{
 		this.install(PlayerDataService.class);
+		this.install(PlayerDataListener.class);
 	}
 
 }
