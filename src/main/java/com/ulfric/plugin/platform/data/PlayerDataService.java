@@ -1,6 +1,5 @@
 package com.ulfric.plugin.platform.data;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -9,9 +8,11 @@ import java.util.UUID;
 
 import org.bukkit.plugin.Plugin;
 
+import com.ulfric.commons.exception.Try;
 import com.ulfric.commons.spigot.data.DataStore;
 import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.data.PlayerData;
+import com.ulfric.commons.spigot.plugin.PluginUtils;
 
 class PlayerDataService implements PlayerData {
 
@@ -50,18 +51,12 @@ class PlayerDataService implements PlayerData {
 		{
 			if (!Files.isDirectory(directory))
 			{
-				// TODO actual exception
-				throw new IllegalStateException();
+				throw new IllegalStateException(directory + " must be a directory!");
 			}
 		}
 		else
 		{
-			try {
-				// TODO Try.to
-				Files.createDirectories(directory);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			Try.to(() -> Files.createDirectories(directory));
 		}
 
 		return directory;
@@ -69,7 +64,7 @@ class PlayerDataService implements PlayerData {
 
 	private Plugin getPlugin()
 	{
-		throw new UnsupportedOperationException();
+		return PluginUtils.getProvidingPlugin(this.getClass()).orElseThrow(NullPointerException::new);
 	}
 
 }

@@ -6,7 +6,7 @@ import com.ulfric.dragoon.initialize.Initialize;
 public class PlaceholderContainer extends Container {
 
 	@Initialize
-	public void setup()
+	private void setup()
 	{
 		this.install(SenderNamePlaceholder.class);
 		this.install(LastTargetedByPlaceholder.class);

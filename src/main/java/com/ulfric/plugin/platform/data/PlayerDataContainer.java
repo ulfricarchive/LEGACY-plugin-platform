@@ -6,7 +6,7 @@ import com.ulfric.dragoon.initialize.Initialize;
 public class PlayerDataContainer extends Container {
 
 	@Initialize
-	public void setup()
+	private void setup()
 	{
 		this.install(PlayerDataService.class);
 	}

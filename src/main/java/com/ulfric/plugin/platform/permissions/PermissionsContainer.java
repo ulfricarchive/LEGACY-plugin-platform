@@ -6,7 +6,7 @@ import com.ulfric.dragoon.initialize.Initialize;
 public class PermissionsContainer extends Container {
 
 	@Initialize
-	public void setup()
+	private void setup()
 	{
 		this.install(PermissionsService.class);
 	}

@@ -60,7 +60,7 @@
             <groupId>com.ulfric.commons</groupId>
             <artifactId>commons-locale</artifactId>
             <version>1.0.0</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

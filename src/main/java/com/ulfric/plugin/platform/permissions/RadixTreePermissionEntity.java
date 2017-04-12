@@ -48,8 +48,15 @@ public final class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 	}
 
 	@Override
-	public void add(PermissionEntity parent) {
-		// TODO Auto-generated method stub
+	public void add(PermissionEntity parent)
+	{
+		if (parent instanceof RadixTreePermissionEntity)
+		{
+			this.parents.add((RadixTreePermissionEntity) parent);
+			return;
+		}
+
+		throw new UnsupportedOperationException("RadixTreePermissionEntity is incompatible with " + parent.getClass());
 	}
 
 	private boolean forceLookup(String node)

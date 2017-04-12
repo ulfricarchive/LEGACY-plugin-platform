@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import com.ulfric.commons.exception.Try;
+import com.ulfric.commons.io.YamlFilter;
 import com.ulfric.commons.spigot.data.DataStore;
 import com.ulfric.commons.spigot.data.PersistentData;
 
@@ -41,18 +43,12 @@ public class YamlDataStore implements DataStore {
 		{
 			if (!Files.isRegularFile(file))
 			{
-				// TODO exception
-				throw new IllegalStateException();
+				throw new IllegalStateException(file + " must be a regular file");
 			}
 		}
 		else
 		{
-			try {
-				// TODO Try.to
-				Files.createFile(file);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+			Try.to(() -> Files.createFile(file));
 		}
 
 		return file;
@@ -64,7 +60,7 @@ public class YamlDataStore implements DataStore {
 		try {
 			// Try.to
 			return Files.list(this.directory)
-				.filter(this::isYaml)
+				.filter(YamlFilter.INSTANCE)
 				.map(Path::getFileName)
 				.map(Path::toString)
 				.map(this::stripYaml)
@@ -73,12 +69,6 @@ public class YamlDataStore implements DataStore {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	private boolean isYaml(Path directory)
-	{
-		// TODO use YamlFilter
-		return directory.toString().endsWith(".yml");
 	}
 
 	private String stripYaml(String name)

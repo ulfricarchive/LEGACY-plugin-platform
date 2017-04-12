@@ -21,7 +21,7 @@ public class TextContainer extends Container {
 	private TextService service;
 
 	@Initialize
-	public void setup()
+	private void setup()
 	{
 		ServiceUtils.getService(ObjectFactory.class).bind(Text.class).to(TextService.class);
 		this.install(TextService.class);
