@@ -36,12 +36,6 @@ public final class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 	}
 
 	@Override
-	public boolean test(String node)
-	{
-		return this.stateCache.computeIfAbsent(node, this::forceLookup);
-	}
-
-	@Override
 	public void add(String node)
 	{
 		this.permissions.add(node);
@@ -57,6 +51,12 @@ public final class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 		}
 
 		throw new UnsupportedOperationException("RadixTreePermissionEntity is incompatible with " + parent.getClass());
+	}
+
+	@Override
+	public boolean test(String node)
+	{
+		return this.stateCache.computeIfAbsent(node, this::forceLookup);
 	}
 
 	private boolean forceLookup(String node)
