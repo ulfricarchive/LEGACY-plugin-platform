@@ -7,7 +7,7 @@ import com.ulfric.commons.spigot.metadata.Metadata;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.placeholder.PlayerPlaceholder;
 
-@Name("REQUIRED_PERMISSION_FAILED")
+@Name("NO_PERMISSION")
 public class NoPermissionPlaceholder implements PlayerPlaceholder {
 
 	@Override

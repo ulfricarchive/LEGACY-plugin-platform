@@ -17,7 +17,7 @@ public class ShutdownListener implements Listener {
 
 	@EventHandler
 	@ShutdownAudit
-	private void onShutdown(ServerShutdownEvent event)
+	public void onShutdown(ServerShutdownEvent event)
 	{
 		this.kickAllPlayers();
 		Bukkit.shutdown();
@@ -26,7 +26,12 @@ public class ShutdownListener implements Listener {
 	private void kickAllPlayers()
 	{
 		Text text = Text.getService();
-		Bukkit.getOnlinePlayers().forEach(player -> text.sendMessage(player, "shutdown-disconnect"));
+		Bukkit.broadcastMessage("KICK ALL");
+		Bukkit.getOnlinePlayers().forEach(player ->
+		{
+			String message = text.getMessage(player, "shutdown-disconnect");
+			player.kickPlayer(message);
+		});
 	}
 
 }

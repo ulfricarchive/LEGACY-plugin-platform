@@ -17,8 +17,7 @@ public class ShutdownAuditInterceptor implements Interceptor {
 	{
 		ServerShutdownEvent event = this.getEvent(invocation);
 
-		this.logger.info("Detected shutdown caused by ");
-		Thread.dumpStack();
+		this.logger.info("Detected shutdown caused by " + this.getShutdownCause());
 		if (event.isAsynchronous())
 		{
 			this.logger.warning("Shutdown was asynchronous");
@@ -38,6 +37,11 @@ public class ShutdownAuditInterceptor implements Interceptor {
 		}
 
 		throw new IllegalArgumentException("Cannot find ServerShutdownEvent from " + context.getDestinationExecutable());
+	}
+
+	private String getShutdownCause()
+	{
+		return Thread.currentThread().getStackTrace()[13].toString();
 	}
 
 }
