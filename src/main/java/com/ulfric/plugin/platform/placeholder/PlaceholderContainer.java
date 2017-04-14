@@ -8,6 +8,7 @@ public class PlaceholderContainer extends Container {
 	@Initialize
 	private void setup()
 	{
+		this.install(RulePlaceholder.class);
 		this.install(BukkitNamePlaceholder.class);
 		this.install(BukkitShutdownMessagePlaceholder.class);
 		this.install(BukkitVersionPlaceholder.class);
