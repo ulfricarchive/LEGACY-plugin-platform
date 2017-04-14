@@ -13,7 +13,7 @@ public final class YamlPersistentData implements PersistentData {
 
 	private final FileConfiguration data;
 	private final Path file;
-	private boolean modified;
+	private boolean needsWrite;
 
 	public YamlPersistentData(Path file)
 	{
@@ -23,9 +23,21 @@ public final class YamlPersistentData implements PersistentData {
 	}
 
 	@Override
+	public void markForWrite()
+	{
+		this.needsWrite = true;
+	}
+
+	@Override
+	public void unmarkForWrite()
+	{
+		this.needsWrite = false;
+	}
+
+	@Override
 	public void save()
 	{
-		if (this.modified)
+		if (this.needsWrite)
 		{
 			this.forceSave();
 		}
@@ -43,7 +55,7 @@ public final class YamlPersistentData implements PersistentData {
 	@Override
 	public void set(String path, Object value)
 	{
-		this.modified = true;
+		this.markForWrite();
 		this.data.set(path, value);
 	}
 

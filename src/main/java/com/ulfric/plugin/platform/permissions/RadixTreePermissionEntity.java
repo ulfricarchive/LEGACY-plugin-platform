@@ -5,28 +5,20 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import com.ulfric.commons.identity.Identity;
 import com.ulfric.commons.spigot.permissions.PermissionEntity;
 
-public final class RadixTreePermissionEntity extends SkeletalPermissionEntity {
+public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 
 	public static final char PREFIX_SEPERATOR = '-';
-
-	public static RadixTreePermissionEntity create(Identity identity)
-	{
-		Objects.requireNonNull(identity);
-
-		return new RadixTreePermissionEntity(identity);
-	}
 
 	private final List<RadixTreePermissionEntity> parents;
 	private final Set<String> permissions;
 	private final Map<String, Boolean> stateCache;
 
-	private RadixTreePermissionEntity(Identity identity)
+	protected RadixTreePermissionEntity(Identity identity)
 	{
 		super(identity);
 

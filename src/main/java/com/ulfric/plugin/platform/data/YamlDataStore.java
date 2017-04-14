@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import com.ulfric.commons.exception.Try;
@@ -16,7 +15,7 @@ import com.ulfric.commons.spigot.data.PersistentData;
 public class YamlDataStore implements DataStore {
 
 	private final Path directory;
-	private final Map<UUID, YamlPersistentData> data = new HashMap<>();
+	private final Map<String, YamlPersistentData> data = new HashMap<>();
 
 	public YamlDataStore(Path directory)
 	{
@@ -25,19 +24,25 @@ public class YamlDataStore implements DataStore {
 	}
 
 	@Override
-	public PersistentData getData(UUID pointer)
+	public DataStore getDataStore(String name)
+	{
+		return new YamlDataStore(this.directory.resolve(name));
+	}
+
+	@Override
+	public PersistentData getData(String pointer)
 	{
 		return this.data.computeIfAbsent(pointer, this::createPersistentData);
 	}
 
-	private YamlPersistentData createPersistentData(UUID pointer)
+	private YamlPersistentData createPersistentData(String pointer)
 	{
 		return new YamlPersistentData(this.getDataFile(pointer));
 	}
 
-	private Path getDataFile(UUID pointer)
+	private Path getDataFile(String pointer)
 	{
-		Path file = this.directory.resolve(pointer.toString() + ".yml");
+		Path file = this.directory.resolve(pointer + ".yml");
 
 		if (Files.exists(file))
 		{
@@ -64,7 +69,6 @@ public class YamlDataStore implements DataStore {
 				.map(Path::getFileName)
 				.map(Path::toString)
 				.map(this::stripYaml)
-				.map(UUID::fromString)
 				.map(this::getData);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
