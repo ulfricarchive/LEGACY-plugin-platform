@@ -14,10 +14,27 @@ import com.ulfric.commons.spigot.data.PersistentData;
 
 public class YamlDataStore implements DataStore {
 
+	public static YamlDataStore newInstance(Path directory)
+	{
+		if (Files.exists(directory))
+		{
+			if (!Files.isDirectory(directory))
+			{
+				throw new IllegalArgumentException(directory + " not a directory");
+			}
+		}
+		else
+		{
+			Try.to(() -> Files.createDirectories(directory));
+		}
+
+		return new YamlDataStore(directory);
+	}
+
 	private final Path directory;
 	private final Map<String, YamlPersistentData> data = new HashMap<>();
 
-	public YamlDataStore(Path directory)
+	private YamlDataStore(Path directory)
 	{
 		this.directory = directory;
 		// TODO watch the directory for external writes, reload files, throw illegal state exceptions
@@ -26,7 +43,7 @@ public class YamlDataStore implements DataStore {
 	@Override
 	public DataStore getDataStore(String name)
 	{
-		return new YamlDataStore(this.directory.resolve(name));
+		return YamlDataStore.newInstance(this.directory.resolve(name));
 	}
 
 	@Override
@@ -78,7 +95,7 @@ public class YamlDataStore implements DataStore {
 	private String stripYaml(String name)
 	{
 		int lastDot = name.lastIndexOf('.');
-		return name.substring(0, lastDot - 1);
+		return name.substring(0, lastDot);
 	}
 
 }

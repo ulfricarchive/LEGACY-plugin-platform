@@ -3,6 +3,7 @@ package com.ulfric.plugin.platform.permissions;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+import org.apache.commons.lang.reflect.FieldUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,19 +22,6 @@ class PermissionsListener implements Listener {
 
 	private Field permissionInjection;
 
-	public Field getPermissionInjection(Player player)
-	{
-		if (this.permissionInjection != null)
-		{
-			return this.permissionInjection;
-		}
-
-		Field permissionInjection = Try.to(() -> player.getClass().getField("perm"));
-		permissionInjection.setAccessible(true);
-		this.permissionInjection = permissionInjection;
-		return permissionInjection;
-	}
-
 	@EventHandler
 	private void onPreJoin(AsyncPlayerPreLoginEvent event)
 	{
@@ -45,7 +33,7 @@ class PermissionsListener implements Listener {
 	{
 		Player player = event.getPlayer();
 		PermissionEntity entity = this.getEntity(player.getUniqueId());
-		Permissible oldPermissions = (Permissible) Try.to(() -> this.permissionInjection.get(player));
+		Permissible oldPermissions = this.getOldPermissible(player);
 		BukkitPermissible permissible = new BukkitPermissible(oldPermissions, entity);
 		Try.to(() -> this.permissionInjection.set(player, permissible));
 	}
@@ -65,6 +53,23 @@ class PermissionsListener implements Listener {
 		Identity identity = Identity.of(uniqueId);
 		Permissions permissions = Permissions.getService();
 		return permissions.getPermissionEntity(identity);
+	}
+
+	private Permissible getOldPermissible(Player player)
+	{
+		return (Permissible) Try.to(() -> this.getPermissionInjection(player).get(player));
+	}
+
+	private Field getPermissionInjection(Player player)
+	{
+		if (this.permissionInjection != null)
+		{
+			return this.permissionInjection;
+		}
+
+		Field permissionInjection = FieldUtils.getField(player.getClass(), "perm", true);
+		this.permissionInjection = permissionInjection;
+		return permissionInjection;
 	}
 
 }
