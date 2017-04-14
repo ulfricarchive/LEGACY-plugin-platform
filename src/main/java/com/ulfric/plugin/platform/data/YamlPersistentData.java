@@ -2,6 +2,7 @@ package com.ulfric.plugin.platform.data;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Set;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -53,6 +54,12 @@ public final class YamlPersistentData implements PersistentData {
 	}
 
 	@Override
+	public String getName()
+	{
+		return this.data.getName();
+	}
+
+	@Override
 	public void set(String path, Object value)
 	{
 		this.markForWrite();
@@ -75,6 +82,12 @@ public final class YamlPersistentData implements PersistentData {
 	public int getInt(String path)
 	{
 		return this.data.getInt(path);
+	}
+
+	@Override
+	public Set<String> getKeys()
+	{
+		return this.data.getKeys(true);
 	}
 
 }

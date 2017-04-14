@@ -1,51 +1,51 @@
 package com.ulfric.plugin.platform.text;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import com.ulfric.commons.exception.Try;
-import com.ulfric.commons.io.YamlFilter;
 import com.ulfric.commons.locale.Locale;
 import com.ulfric.commons.locale.LocaleSpace;
 import com.ulfric.commons.locale.Message;
+import com.ulfric.commons.spigot.data.Data;
+import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
+import com.ulfric.dragoon.container.Container;
+import com.ulfric.dragoon.initialize.Initialize;
+import com.ulfric.dragoon.inject.Inject;
 
 class TextService implements Text {
 
 	private static final String DEFAULT_LOCALE_CODE = "en_US";
 
-	private final Map<String, CompiledMessage> messages = new HashMap<>();
+	@Inject
+	private Container container;
+
+	private Map<String, CompiledMessage> messages = new HashMap<>();
 	private LocaleSpace space;
 
-	void loadMessages(Path directory)
+	@Initialize
+	private void loadMessages()
 	{
+		this.messages = new HashMap<>();
 		this.space = new LocaleSpace();
-		this.messages.clear();
 
 		this.space.install(Locale.builder().setCode(TextService.DEFAULT_LOCALE_CODE).build());
-		Try.to(() -> Files.list(directory)).filter(YamlFilter.INSTANCE).forEach(this::loadMessagesFromFile);
+		Data.getDataStore(this.container).loadAllData().forEach(this::loadMessages);
 	}
 
-	private void loadMessagesFromFile(Path file)
+	private void loadMessages(PersistentData data)
 	{
-		YamlConfiguration configuration =
-				Try.toWithResources(() -> Files.newBufferedReader(file), YamlConfiguration::loadConfiguration);
-
 		Locale.Builder locale = Locale.builder();
-		String fileName = file.getFileName().toString();
-		locale.setCode(fileName.substring(0, fileName.lastIndexOf('.') - 1));
-		for (String code : configuration.getKeys(false))
+		locale.setCode(data.getName());
+		for (String code : data.getKeys())
 		{
 			Message message = Message.builder()
 				.setCode(code)
-				.setText(configuration.getString(code))
+				.setText(data.getString(code))
 				.build();
 
 			locale.addMessage(message);
