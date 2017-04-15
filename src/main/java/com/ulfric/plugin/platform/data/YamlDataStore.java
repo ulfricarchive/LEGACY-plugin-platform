@@ -33,6 +33,7 @@ public class YamlDataStore implements DataStore {
 
 	private final Path directory;
 	private final Map<String, YamlPersistentData> data = new HashMap<>();
+	private final Map<String, DataStore> substores = new HashMap<>();
 
 	private YamlDataStore(Path directory)
 	{
@@ -43,7 +44,7 @@ public class YamlDataStore implements DataStore {
 	@Override
 	public DataStore getDataStore(String name)
 	{
-		return YamlDataStore.newInstance(this.directory.resolve(name));
+		return this.substores.computeIfAbsent(name, key -> YamlDataStore.newInstance(this.directory.resolve(key)));
 	}
 
 	@Override

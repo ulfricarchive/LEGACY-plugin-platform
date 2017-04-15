@@ -14,8 +14,8 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 
 	public static final char PREFIX_SEPERATOR = '-';
 
-	private final List<RadixTreePermissionEntity> parents;
-	private final Set<String> permissions;
+	protected final List<RadixTreePermissionEntity> parents;
+	protected final Set<String> permissions;
 	private final Map<String, Boolean> stateCache;
 
 	protected RadixTreePermissionEntity(Identity identity)

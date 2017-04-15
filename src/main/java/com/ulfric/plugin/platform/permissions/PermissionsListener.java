@@ -11,10 +11,10 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.Permissible;
 
-import com.ulfric.commons.data.PersistentGroup;
+import com.ulfric.commons.data.Persistent;
 import com.ulfric.commons.exception.Try;
 import com.ulfric.commons.identity.Identity;
-import com.ulfric.commons.spigot.event.server.ServerShutdownEvent;
+import com.ulfric.commons.spigot.event.player.AsyncPlayerQuitEvent;
 import com.ulfric.commons.spigot.permissions.PermissionEntity;
 import com.ulfric.commons.spigot.permissions.Permissions;
 
@@ -39,12 +39,12 @@ class PermissionsListener implements Listener {
 	}
 
 	@EventHandler
-	private void onShutdown(ServerShutdownEvent event)
+	private void onQuit(AsyncPlayerQuitEvent event)
 	{
-		Permissions permissions = Permissions.getService();
-		if (permissions instanceof PersistentGroup)
+		PermissionEntity entity = this.getEntity(event.getPlayer().getUniqueId());
+		if (entity instanceof Persistent)
 		{
-			((PersistentGroup) permissions).saveAll();
+			((Persistent) entity).save();
 		}
 	}
 
