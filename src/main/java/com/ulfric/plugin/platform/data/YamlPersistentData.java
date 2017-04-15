@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -67,9 +68,14 @@ public final class YamlPersistentData implements PersistentData {
 	}
 
 	@Override
-	public Object get(String path)
+	public PersistentData getSection(String path)
 	{
-		return this.data.get(path);
+		ConfigurationSection data = this.data.getConfigurationSection(path);
+		if (data == null)
+		{
+			return null;
+		}
+		return new PersistentDataSubsection(this, data);
 	}
 
 	@Override
@@ -87,7 +93,7 @@ public final class YamlPersistentData implements PersistentData {
 	@Override
 	public Set<String> getKeys()
 	{
-		return this.data.getKeys(true);
+		return this.data.getKeys(false);
 	}
 
 }
