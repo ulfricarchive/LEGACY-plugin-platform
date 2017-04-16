@@ -16,6 +16,11 @@ public class PermissionsContainer extends Container {
 		this.install(PermissionsService.class);
 		this.install(PermissionsListener.class);
 		this.install(PlayerData.class);
+		this.install(PermissionsCommand.class);
+		this.install(PermissionsEntityCommand.class);
+		this.install(PermissionsEntityAddCommand.class);
+		this.install(PermissionsEntityAddNodeCommand.class);
+		this.install(PermissionsEntityAddParentCommand.class);
 	}
 
 }

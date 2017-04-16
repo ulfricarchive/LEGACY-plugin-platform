@@ -2,6 +2,7 @@ package com.ulfric.plugin.platform.permissions;
 
 import java.util.UUID;
 
+import com.ulfric.commons.data.Persistent;
 import com.ulfric.commons.identity.Identity;
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.DataStore;
@@ -46,6 +47,16 @@ class PermissionsService implements Permissions {
 			return this.playerData.getData(pointer);
 		}
 		return this.groupData.getData(pointer);
+	}
+
+	@Override
+	public void writePermissionEntity(PermissionEntity entity)
+	{
+		if (entity instanceof Persistent)
+		{
+			((Persistent) entity).save();
+		}
+		this.getData(entity.getIdentity()).save();
 	}
 
 }
