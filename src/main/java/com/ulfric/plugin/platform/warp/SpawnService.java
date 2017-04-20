@@ -1,7 +1,7 @@
-package com.ulfric.plugin.platform.spawn;
+package com.ulfric.plugin.platform.warp;
 
-import com.ulfric.commons.spigot.spawn.Spawn;
-import com.ulfric.commons.spigot.spawn.SpawnException;
+import com.ulfric.commons.spigot.warp.Spawn;
+import com.ulfric.commons.spigot.warp.SpawnException;
 import com.ulfric.commons.spigot.warp.Warp;
 import com.ulfric.commons.spigot.warp.Warps;
 import org.bukkit.Location;

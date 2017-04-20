@@ -1,37 +1,27 @@
-package com.ulfric.plugin.platform.spawn;
+package com.ulfric.plugin.platform.warp;
 
 import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.command.Command;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.MustBePlayer;
 import com.ulfric.commons.spigot.command.Permission;
-import com.ulfric.commons.spigot.spawn.Spawn;
 import com.ulfric.commons.spigot.text.Text;
+import com.ulfric.commons.spigot.warp.Spawn;
 import org.bukkit.entity.Player;
 
-@Name("spawn")
-@Permission("spawn-use")
+@Name("setspawn")
+@Permission("setspawn-use")
 @MustBePlayer
-public class SpawnCommand implements Command {
+public class SetSpawnCommand implements Command {
 	
 	@Override
 	public void run(Context context)
 	{
 		Player player = (Player) context.getSender();
 		
-		Spawn spawn = Spawn.getService();
-		 
-		if (spawn.isSpawnSet())
-		{
-			player.teleport(spawn.getSpawn());
-			
-			Text.getService().sendMessage(player, "spawn-use");
-		}
-		else
-		{
-			Text.getService().sendMessage(player, "spawn-not-set");
-		}
+		Spawn.getService().setSpawn(player.getLocation());
 		
+		Text.getService().sendMessage(player, "set-spawn");
 	}
 	
 }

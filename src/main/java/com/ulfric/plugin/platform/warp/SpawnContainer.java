@@ -1,7 +1,7 @@
-package com.ulfric.plugin.platform.spawn;
+package com.ulfric.plugin.platform.warp;
 
 import com.ulfric.commons.spigot.service.ServiceUtils;
-import com.ulfric.commons.spigot.spawn.Spawn;
+import com.ulfric.commons.spigot.warp.Spawn;
 import com.ulfric.dragoon.ObjectFactory;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;

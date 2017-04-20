@@ -89,7 +89,7 @@ public final class WarpService implements Warps {
 		
 		if (isWarp(name))
 		{
-			getWarp(name).setLocation(location);
+			throw new WarpException("Warp " + name + " already exists");
 		}
 		else
 		{
