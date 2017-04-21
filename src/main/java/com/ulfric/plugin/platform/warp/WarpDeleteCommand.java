@@ -17,19 +17,9 @@ public class WarpDeleteCommand extends WarpCommand {
 	@Override
 	public void run(Context context)
 	{
-		WarpService service = ServiceUtils.getService(WarpService.class);
-		
-		if (service.isWarp(this.name))
-		{
-			service.removeWarp(this.name);
-			
-			Text.getService().sendMessage(context.getSender(), "warp-delete");
-		}
-		else
-		{
-			Text.getService().sendMessage(context.getSender(), "warp-invalid");
-		}
-		
+		WarpsService service = ServiceUtils.getService(WarpsService.class);
+		service.deleteWarp(this.name);
+		Text.getService().sendMessage(context.getSender(), "warp-delete");
 	}
 	
 }

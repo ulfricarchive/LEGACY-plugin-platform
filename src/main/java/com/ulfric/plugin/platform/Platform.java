@@ -8,6 +8,7 @@ import com.ulfric.plugin.platform.permissions.PermissionsContainer;
 import com.ulfric.plugin.platform.placeholder.PlaceholderContainer;
 import com.ulfric.plugin.platform.server.ShutdownContainer;
 import com.ulfric.plugin.platform.text.TextContainer;
+import com.ulfric.plugin.platform.warp.TeleportContainer;
 import com.ulfric.plugin.platform.warp.WarpContainer;
 
 public final class Platform extends UlfricPlugin {
@@ -22,6 +23,7 @@ public final class Platform extends UlfricPlugin {
 		this.install(PlaceholderContainer.class);
 		this.install(ShutdownContainer.class);
 		this.install(GuardContainer.class);
+		this.install(TeleportContainer.class);
 		this.install(WarpContainer.class);
 	}
 

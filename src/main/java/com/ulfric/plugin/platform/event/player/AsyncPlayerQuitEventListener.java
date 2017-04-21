@@ -16,7 +16,7 @@ import com.ulfric.commons.spigot.event.Events;
 import com.ulfric.commons.spigot.event.player.AsyncPlayerQuitEvent;
 import com.ulfric.commons.spigot.task.Tasks;
 
-public class AsyncPlayerQuitEventListener implements Listener {
+class AsyncPlayerQuitEventListener implements Listener {
 
 	private final Map<UUID, Lock> locks = new ConcurrentHashMap<>();
 

@@ -9,6 +9,7 @@ public class PlayerEventsContainer extends Container {
 	private void setup()
 	{
 		this.install(AsyncPlayerQuitEventContainer.class);
+		this.install(PlayerMoveBlockEventContainer.class);
 	}
 
 }

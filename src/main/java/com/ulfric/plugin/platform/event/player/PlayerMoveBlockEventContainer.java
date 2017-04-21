@@ -3,12 +3,12 @@ package com.ulfric.plugin.platform.event.player;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 
-class AsyncPlayerQuitEventContainer extends Container {
+class PlayerMoveBlockEventContainer extends Container {
 
 	@Initialize
 	private void setup()
 	{
-		this.install(AsyncPlayerQuitEventListener.class);
+		this.install(PlayerMoveBlockEventListener.class);
 	}
 
 }

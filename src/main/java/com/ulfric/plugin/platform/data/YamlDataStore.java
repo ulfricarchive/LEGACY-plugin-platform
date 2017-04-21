@@ -53,6 +53,13 @@ public class YamlDataStore implements DataStore {
 		return this.data.computeIfAbsent(pointer, this::createPersistentData);
 	}
 
+	@Override
+	public void deleteData(String pointer)
+	{
+		this.data.remove(pointer);
+		Try.to(() -> Files.deleteIfExists(this.getDataFile(pointer)));
+	}
+
 	private YamlPersistentData createPersistentData(String pointer)
 	{
 		return new YamlPersistentData(this.getDataFile(pointer));

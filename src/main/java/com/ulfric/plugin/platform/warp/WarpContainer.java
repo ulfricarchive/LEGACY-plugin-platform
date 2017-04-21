@@ -12,14 +12,14 @@ public class WarpContainer extends Container {
 	@Inject
 	private ObjectFactory factory;
 	
-	private WarpService warps;
+	private WarpsService warps;
 	
 	@Initialize
 	private void setup()
 	{
-		this.factory.bind(Warps.class).to(WarpService.class);
-		
-		this.install(WarpService.class);
+		this.factory.bind(Warps.class).to(WarpsService.class);
+
+		this.install(WarpsService.class);
 		this.install(WarpCommand.class);
 		this.install(WarpsCommand.class);
 		this.install(WarpSetCommand.class);
@@ -30,13 +30,13 @@ public class WarpContainer extends Container {
 	@Override
 	public void onEnable()
 	{
-		this.warps = ServiceUtils.getService(WarpService.class);
+		this.warps = ServiceUtils.getService(WarpsService.class);
 	}
 	
 	@Override
 	public void onDisable()
 	{
-		ServiceUtils.unregister(WarpService.class, this.warps);
+		ServiceUtils.unregister(WarpsService.class, this.warps);
 	}
 	
 }

@@ -1,7 +1,7 @@
 package com.ulfric.plugin.platform.warp;
 
 import com.ulfric.commons.spigot.warp.Spawn;
-import com.ulfric.commons.spigot.warp.SpawnException;
+import com.ulfric.commons.spigot.warp.Teleport;
 import com.ulfric.commons.spigot.warp.Warp;
 import com.ulfric.commons.spigot.warp.Warps;
 import org.bukkit.Location;
@@ -18,43 +18,40 @@ public final class SpawnService implements Spawn {
 		
 		if (spawn == null)
 		{
-			if (warps.isWarp(SpawnService.DEFAULT_SPAWN_NAME))
-			{
-				warps.removeWarp(SpawnService.DEFAULT_SPAWN_NAME);
-			}
+			warps.deleteWarp(SpawnService.DEFAULT_SPAWN_NAME);
+			return;
 		}
-		else
-		{
-			warps.setWarp(SpawnService.DEFAULT_SPAWN_NAME, spawn);
-		}
-		
-	}
-	
-	@Override
-	public Location getSpawn()
-	{
-		Warp warp = Warps.getService().getWarp(SpawnService.DEFAULT_SPAWN_NAME);
-		
-		return warp == null ? null : warp.getLocation();
+
+		Warp spawnWarp = Warp.builder()
+				.setName(SpawnService.DEFAULT_SPAWN_NAME)
+				.setLocation(spawn)
+				.build();
+		warps.setWarp(spawnWarp);
 	}
 	
 	@Override
 	public boolean isSpawnSet()
 	{
-		return getSpawn() != null;
+		return this.getSpawn() != null;
 	}
 	
 	@Override
 	public void teleport(Entity entity)
 	{
-		Location spawn = getSpawn();
-		
+		Location spawn = this.getSpawn();
+
 		if (spawn == null)
 		{
-			throw new SpawnException("Spawn is not set");
+			throw new IllegalStateException("Spawn is not set!");
 		}
-		
-		entity.teleport(spawn);
+
+		Teleport.getService().teleport(entity, spawn);
+	}
+
+	public Location getSpawn()
+	{
+		Warp warp = Warps.getService().getWarp(SpawnService.DEFAULT_SPAWN_NAME);
+		return warp == null ? null : warp.getLocation();
 	}
 	
 }
