@@ -21,6 +21,8 @@ public class PlaceholderContainer extends Container {
 		this.install(ServerIdPlaceholder.class);
 		this.install(ServerNamePlaceholder.class);
 		this.install(ServerVersionPlaceholder.class);
+		this.install(LastBalanceViewPlaceholder.class);
+		this.install(LastBalanceViewUserPlaceholder.class);
 	}
 
 }
