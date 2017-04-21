@@ -57,6 +57,7 @@ class GuardService implements Guard {
 			.setWeight(data.getInt("weight"))
 			.setFlags(this.loadFlags(data.getSection("flags")))
 			.setBounds(this.getShape(data.getSection("bounds")))
+			.setGlobal(data.getBoolean("global"))
 			.build();
 
 		this.addActiveRegion(region);
@@ -157,12 +158,7 @@ class GuardService implements Guard {
 			return EmptyRegionList.INSTANCE;
 		}
 
-		RegionList regionsAtLocation = regions.getRegions(location);
-		if (regionsAtLocation instanceof SortedRegionList)
-		{
-			((SortedRegionList) regionsAtLocation).sort();
-		}
-		return regionsAtLocation;
+		return regions.getRegions(location);
 	}
 
 	@Override

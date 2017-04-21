@@ -71,6 +71,12 @@ abstract class BukkitConfigurationDelegator implements PersistentData {
 	}
 
 	@Override
+	public final boolean getBoolean(String path)
+	{
+		return this.data.getBoolean(path);
+	}
+
+	@Override
 	public final Set<String> getKeys()
 	{
 		return this.data.getKeys(false);
