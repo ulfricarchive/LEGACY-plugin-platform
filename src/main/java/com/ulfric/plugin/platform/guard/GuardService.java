@@ -30,6 +30,8 @@ class GuardService implements Guard {
 	@Inject
 	private Container owner;
 
+	private DataStore folder;
+
 	private Map<String, Flag<?>> flags;
 	private Map<String, Region> regionsByName;
 	private Map<UUID, RegionColl> regionsByWorld;
@@ -45,8 +47,8 @@ class GuardService implements Guard {
 
 	private void loadRegionsFromDataStore()
 	{
-		DataStore regionsDatabase = Data.getDataStore(this.owner).getDataStore("regions");
-		regionsDatabase.loadAllData().forEach(this::loadRegion);
+		this.folder = Data.getDataStore(this.owner).getDataStore("regions");
+		this.folder.loadAllData().forEach(this::loadRegion);
 	}
 
 	private void loadRegion(PersistentData data)
