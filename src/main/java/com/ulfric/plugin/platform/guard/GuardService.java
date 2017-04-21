@@ -95,11 +95,14 @@ class GuardService implements Guard {
 
 		Shape shapeCreator = (Shape) creator;
 
-		PersistentData shape = data.getSection("shape");
 		Map<String, Object> shapeData = new HashMap<>();
-		for (String shapePart : shape.getKeys())
+		PersistentData shapeConfig = data.getSection("shape");
+		if (shapeConfig != null)
 		{
-			shapeData.put(shapePart, shape.getObject(shapePart));
+			for (String shapePart : shapeConfig.getKeys())
+			{
+				shapeData.put(shapePart, shapeConfig.getObject(shapePart));
+			}
 		}
 
 		return shapeCreator.fromMap(shapeData);

@@ -32,8 +32,17 @@ public final class SortedRegionList implements RegionList {
 	@Override
 	public <T> T getDominantFlag(Flag<T> flag)
 	{
-		
-		return null;
+		for (Region region : this.regions)
+		{
+			T value = region.readFlag(flag);
+
+			if (value != null)
+			{
+				return value;
+			}
+		}
+
+		return flag.getDefaultData();
 	}
 
 }

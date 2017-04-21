@@ -3,9 +3,11 @@ package com.ulfric.plugin.platform.guard.flag;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
 
+import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.guard.BooleanFlag;
 import com.ulfric.commons.spigot.guard.Guard;
 
+@Name("Place")
 public final class PlaceFlag extends BooleanFlag {
 
 	private final Guard regions;

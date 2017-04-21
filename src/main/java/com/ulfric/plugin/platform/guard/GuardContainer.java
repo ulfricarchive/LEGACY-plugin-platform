@@ -2,7 +2,7 @@ package com.ulfric.plugin.platform.guard;
 
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
-import com.ulfric.plugin.platform.guard.flag.FlagsContainer;
+import com.ulfric.plugin.platform.guard.flag.DefaultFlagsContainer;
 
 public class GuardContainer extends Container {
 
@@ -10,7 +10,7 @@ public class GuardContainer extends Container {
 	private void initialize()
 	{
 		this.install(GuardService.class);
-		this.install(FlagsContainer.class);
+		this.install(DefaultFlagsContainer.class);
 	}
 
 }
