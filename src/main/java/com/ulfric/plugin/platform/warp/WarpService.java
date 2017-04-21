@@ -91,11 +91,8 @@ public final class WarpService implements Warps {
 		{
 			throw new WarpException("Warp " + name + " already exists");
 		}
-		else
-		{
-			this.warps.add(Warp.build().setName(name).setLocation(location).build());
-		}
-		
+
+		this.warps.add(Warp.build().setName(name).setLocation(location).build());
 		this.save();
 		this.updateNames();
 	}
