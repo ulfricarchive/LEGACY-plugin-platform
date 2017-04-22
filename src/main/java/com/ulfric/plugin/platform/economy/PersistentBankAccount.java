@@ -3,6 +3,8 @@ package com.ulfric.plugin.platform.economy;
 import java.util.UUID;
 
 import com.ulfric.commons.spigot.data.PersistentData;
+import com.ulfric.commons.spigot.economy.BalanceChangeResult;
+import com.ulfric.commons.spigot.economy.BalanceDeductionResult;
 import com.ulfric.commons.spigot.economy.BankAccount;
 
 final class PersistentBankAccount implements BankAccount {
@@ -39,7 +41,56 @@ final class PersistentBankAccount implements BankAccount {
 	{
 		synchronized(this.lock)
 		{
-			this.data.set(PersistentBankAccount.BALANCE_DATA_PATH, Math.abs(balance));
+			long value = Math.abs(balance);
+			this.data.set(PersistentBankAccount.BALANCE_DATA_PATH, value);
+		}
+	}
+
+	@Override
+	public BalanceDeductionResult deduct(long amount)
+	{
+		synchronized(this.lock)
+		{
+			long value = Math.abs(amount);
+			if (value == 0)
+			{
+				return new BalanceDeductionResult(value);
+			}
+
+			long balance = this.getBalance();
+
+			long newBalance = balance - value;
+			if (newBalance <= 0)
+			{
+				return new BalanceDeductionResult(Math.abs(newBalance));
+			}
+
+			this.setBalance(newBalance);
+			return BalanceDeductionResult.SUCCESS;
+		}
+	}
+
+	@Override
+	public BalanceChangeResult deposit(long amount)
+	{
+		synchronized(this.lock)
+		{
+			long value = Math.abs(amount);
+
+			if (value == 0)
+			{
+				return BalanceChangeResult.FAILURE;
+			}
+
+			long balance = this.getBalance();
+			long newBalance = balance + value;
+			if (newBalance <= balance)
+			{
+				return BalanceChangeResult.LargerThanMaxLong.INSTANCE;
+			}
+
+			this.setBalance(newBalance);
+			return BalanceChangeResult.SUCCESS;
 		}
 	}
 
