@@ -1,41 +1,47 @@
 package com.ulfric.plugin.platform.economy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.NotImplementedException;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.DataStore;
 import com.ulfric.commons.spigot.data.PersistentData;
+import com.ulfric.commons.spigot.economy.BankAccount;
 import com.ulfric.commons.spigot.economy.Currency;
-import com.ulfric.commons.spigot.economy.CurrencyAmount;
 import com.ulfric.commons.spigot.economy.Economy;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 import com.ulfric.dragoon.inject.Inject;
+import com.ulfric.plugin.platform.data.PlayerData;
 
 class EconomyService implements Economy {
-
-	private static final Pattern NUMBER = Pattern.compile("[^0-9]+");
 
 	@Inject
 	private Container owner;
 
-	private DataStore folder;
+	private DataStore playerData;
 
 	private final List<Currency> currencies = new ArrayList<>();
 	private final Map<String, Currency> currenciesByName = new HashMap<>();
+	private final ConcurrentMap<UUID, BankAccount> accounts = new ConcurrentHashMap<>();
 
 	@Initialize
 	private void initialize()
 	{
-		this.folder = Data.getDataStore(this.owner).getDataStore("currencies");
-		this.folder.loadAllData().forEach(this::loadCurrency);
+		DataStore folder = Data.getDataStore(this.owner);
+		this.loadCurrencies(folder.getDataStore("currencies"));
+		this.playerData = PlayerData.getPlayerData(this.owner);
+	}
+
+	private void loadCurrencies(DataStore folder)
+	{
+		folder.loadAllData().forEach(this::loadCurrency);
 	}
 
 	private void loadCurrency(PersistentData data)
@@ -60,58 +66,25 @@ class EconomyService implements Economy {
 	}
 
 	@Override
-	public CurrencyAmount getCurrencyAmount(String text)
+	public List<Currency> getCurrencies()
 	{
-		Currency currency = this.matchCurrency(text);
-
-		if (currency == null)
-		{
-			return null;
-		}
-
-		// TODO utility to do this faster
-		String parsable = EconomyService.NUMBER.matcher(text).replaceAll("");
-
-		if (parsable.isEmpty())
-		{
-			return null;
-		}
-
-		long amount = Long.valueOf(parsable);
-
-		if (amount <= 0)
-		{
-			return null;
-		}
-
-		return CurrencyAmount.valueOf(currency, amount);
-	}
-
-	private Currency matchCurrency(String text)
-	{
-		for (Currency currency : this.currencies)
-		{
-			if (currency.getPattern().matcher(text).matches())
-			{
-				return currency;
-			}
-		}
-
-		return null;
+		return Collections.unmodifiableList(this.currencies);
 	}
 
 	@Override
-	public long getBalance(UUID uniqueId, Currency currency)
+	public BankAccount getAccount(UUID uniqueId)
 	{
-		// TODO
-		throw new NotImplementedException("TODO");
+		return this.accounts.computeIfAbsent(uniqueId, this::createBankAccount);
 	}
 
-	@Override
-	public void setBalance(UUID uniqueId, CurrencyAmount amount)
+	private BankAccount createBankAccount(UUID uniqueId)
 	{
-		// TODO
-		throw new NotImplementedException("TODO");
+		return new PersistentBankAccount(uniqueId, this.getBankAccountData(uniqueId));
+	}
+
+	private PersistentData getBankAccountData(UUID uniqueId)
+	{
+		return this.playerData.getData(String.valueOf(uniqueId));
 	}
 
 }

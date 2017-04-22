@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import com.ulfric.commons.spigot.command.Command;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.argument.Argument;
+import com.ulfric.commons.spigot.economy.BankAccount;
 import com.ulfric.commons.spigot.economy.Currency;
 import com.ulfric.commons.spigot.economy.Economy;
 import com.ulfric.commons.spigot.metadata.Metadata;
@@ -53,8 +54,8 @@ public class BalanceCommand implements Command {
 		}
 
 		UUID uniqueId = ((OfflinePlayer) target).getUniqueId();
-		long balance = economy.getBalance(uniqueId, currency);
-		return currency.getSymbol() + FormatUtils.formatLong(balance);
+		BankAccount account = economy.getAccount(uniqueId);
+		return currency.getSymbol() + FormatUtils.formatLong(account.getBalance());
 	}
 
 }
