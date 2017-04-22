@@ -95,5 +95,19 @@ class PersistentRadixTreePermissionEntity extends RadixTreePermissionEntity impl
 		this.markForWrite();
 		super.add(parent);
 	}
-
+	
+	@Override
+	public void remove(String node)
+	{
+		this.markForWrite();
+		super.remove(node);
+	}
+	
+	@Override
+	public void remove(PermissionEntity parent)
+	{
+		this.markForWrite();
+		super.remove(parent);
+	}
+	
 }

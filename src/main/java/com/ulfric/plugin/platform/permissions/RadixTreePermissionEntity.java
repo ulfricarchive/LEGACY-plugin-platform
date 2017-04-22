@@ -59,10 +59,7 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 		if (parent instanceof RadixTreePermissionEntity)
 		{
 			this.parents.remove(parent);
-			return;
 		}
-		
-		throw new UnsupportedOperationException("RadixTreePermissionEntity is incompatible with " + parent.getClass());
 	}
 	
 	@Override
