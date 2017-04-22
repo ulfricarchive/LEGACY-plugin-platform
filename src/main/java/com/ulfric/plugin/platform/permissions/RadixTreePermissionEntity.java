@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import com.ulfric.commons.identity.Identity;
 import com.ulfric.commons.spigot.permissions.PermissionEntity;
+import com.ulfric.commons.spigot.permissions.Permissions;
 
 public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 
@@ -44,7 +46,32 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 
 		throw new UnsupportedOperationException("RadixTreePermissionEntity is incompatible with " + parent.getClass());
 	}
-
+	
+	@Override
+	public void remove(String node)
+	{
+		this.permissions.remove(node);
+	}
+	
+	@Override
+	public void remove(PermissionEntity parent)
+	{
+		if (parent instanceof RadixTreePermissionEntity)
+		{
+			this.parents.remove(parent);
+			return;
+		}
+		
+		throw new UnsupportedOperationException("RadixTreePermissionEntity is incompatible with " + parent.getClass());
+	}
+	
+	@Override
+	public Stream<PermissionEntity> getParents()
+	{
+		Permissions service = Permissions.getService();
+		return new ArrayList<>(this.parents).stream().map(Identity::of).map(service::getPermissionEntity);
+	}
+	
 	@Override
 	public boolean test(String node)
 	{
