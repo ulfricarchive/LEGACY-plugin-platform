@@ -2,6 +2,7 @@ package com.ulfric.plugin.platform;
 
 import com.ulfric.commons.spigot.plugin.UlfricPlugin;
 import com.ulfric.plugin.platform.data.DataContainer;
+import com.ulfric.plugin.platform.economy.EconomyContainer;
 import com.ulfric.plugin.platform.event.EventsContainer;
 import com.ulfric.plugin.platform.guard.GuardContainer;
 import com.ulfric.plugin.platform.permissions.PermissionsContainer;
@@ -25,6 +26,7 @@ public final class Platform extends UlfricPlugin {
 		this.install(GuardContainer.class);
 		this.install(TeleportContainer.class);
 		this.install(WarpContainer.class);
+		this.install(EconomyContainer.class);
 	}
 
 }

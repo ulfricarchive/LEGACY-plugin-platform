@@ -6,10 +6,10 @@ import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.economy.BalanceChangeResult;
 import com.ulfric.commons.spigot.economy.BalanceDeductionResult;
 import com.ulfric.commons.spigot.economy.BankAccount;
+import com.ulfric.commons.spigot.economy.Currency;
+import com.ulfric.commons.spigot.economy.CurrencyAmount;
 
 final class PersistentBankAccount implements BankAccount {
-
-	private static final String BALANCE_DATA_PATH = "balance";
 
 	private final Object lock = new Object();
 	private final UUID uniqueId;
@@ -18,7 +18,7 @@ final class PersistentBankAccount implements BankAccount {
 	public PersistentBankAccount(UUID uniqueId, PersistentData data)
 	{
 		this.uniqueId = uniqueId;
-		this.data = data;
+		this.data = data.getSection("balance");
 	}
 
 	@Override
@@ -28,68 +28,59 @@ final class PersistentBankAccount implements BankAccount {
 	}
 
 	@Override
-	public long getBalance()
+	public long getBalance(Currency currency)
 	{
 		synchronized(this.lock)
 		{
-			return this.data.getLong(PersistentBankAccount.BALANCE_DATA_PATH);
+			return this.data.getLong(currency.getName());
 		}
 	}
 
 	@Override
-	public void setBalance(long balance)
+	public void setBalance(CurrencyAmount amount)
 	{
 		synchronized(this.lock)
 		{
-			long value = Math.abs(balance);
-			this.data.set(PersistentBankAccount.BALANCE_DATA_PATH, value);
+			this.setBalance(amount.getCurrency(), amount.getAmount());
 		}
 	}
 
+	private void setBalance(Currency currency, long amount)
+	{
+		this.data.set(currency.getName(), amount);
+	}
+
 	@Override
-	public BalanceDeductionResult deduct(long amount)
+	public BalanceDeductionResult deduct(CurrencyAmount amount)
 	{
 		synchronized(this.lock)
 		{
-			long value = Math.abs(amount);
-			if (value == 0)
-			{
-				return new BalanceDeductionResult(value);
-			}
+			long balance = this.getBalance(amount.getCurrency());
 
-			long balance = this.getBalance();
-
-			long newBalance = balance - value;
+			long newBalance = balance - amount.getAmount();
 			if (newBalance <= 0)
 			{
 				return new BalanceDeductionResult(Math.abs(newBalance));
 			}
 
-			this.setBalance(newBalance);
+			this.setBalance(amount.getCurrency(), newBalance);
 			return BalanceDeductionResult.SUCCESS;
 		}
 	}
 
 	@Override
-	public BalanceChangeResult deposit(long amount)
+	public BalanceChangeResult deposit(CurrencyAmount amount)
 	{
 		synchronized(this.lock)
 		{
-			long value = Math.abs(amount);
-
-			if (value == 0)
-			{
-				return BalanceChangeResult.FAILURE;
-			}
-
-			long balance = this.getBalance();
-			long newBalance = balance + value;
+			long balance = this.getBalance(amount.getCurrency());
+			long newBalance = balance + amount.getAmount();
 			if (newBalance <= balance)
 			{
 				return BalanceChangeResult.LargerThanMaxLong.INSTANCE;
 			}
 
-			this.setBalance(newBalance);
+			this.setBalance(amount.getCurrency(), newBalance);
 			return BalanceChangeResult.SUCCESS;
 		}
 	}

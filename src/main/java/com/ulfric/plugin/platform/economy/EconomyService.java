@@ -56,7 +56,7 @@ class EconomyService implements Economy {
 
 		this.currencies.add(currency);
 		this.currenciesByName.put(currency.getName(), currency);
-		this.owner.install(DynamicBalanceCommand.createBalanceCommand(currency));
+		this.owner.install(BalanceCommand.createBalanceCommand(currency));
 	}
 
 	@Override
