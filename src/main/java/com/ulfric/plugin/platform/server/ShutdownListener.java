@@ -28,7 +28,7 @@ public class ShutdownListener implements Listener {
 		Text text = Text.getService();
 		Bukkit.getOnlinePlayers().forEach(player ->
 		{
-			String message = text.getMessage(player, "shutdown-disconnect");
+			String message = text.getLegacyMessage(player, "shutdown-disconnect");
 			player.kickPlayer(message);
 		});
 	}

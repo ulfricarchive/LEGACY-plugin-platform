@@ -24,12 +24,14 @@ class TextService implements Text {
 	@Inject
 	private Container container;
 
+	private Map<String, CompiledMessage> legacyMessages = new HashMap<>();
 	private Map<String, CompiledMessage> messages = new HashMap<>();
 	private LocaleSpace space;
 
 	@Initialize
 	private void loadMessages()
 	{
+		this.legacyMessages = new HashMap<>();
 		this.messages = new HashMap<>();
 		this.space = new LocaleSpace();
 
@@ -67,16 +69,17 @@ class TextService implements Text {
 	}
 
 	@Override
-	public String getMessage(CommandSender target, String code)
+	public String getLegacyMessage(CommandSender target, String code)
 	{
 		String message = this.getLocalizedMessage(target, code);
+		return this.legacyMessages.computeIfAbsent(message, CompiledMessage::compileLegacy).apply(target);
+	}
 
-		if (message == null)
-		{
-			message = code;
-		}
-
-		return this.messages.computeIfAbsent(message, CompiledMessage::compile).apply(target);
+	@Override
+	public String getRawMessage(CommandSender target, String code)
+	{
+		String message = this.getLocalizedMessage(target, code);
+		return this.messages.computeIfAbsent(message, CompiledMessage::compileRaw).apply(target);
 	}
 
 	private String getLocalizedMessage(CommandSender target, String code)
@@ -108,7 +111,7 @@ class TextService implements Text {
 		Message defaultMessage = defaultLocale.getMessage(code);
 		if (defaultMessage == null)
 		{
-			return null;
+			return code;
 		}
 		return defaultMessage.getText();
 	}

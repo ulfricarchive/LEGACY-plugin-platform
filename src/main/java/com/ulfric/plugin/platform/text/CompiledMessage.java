@@ -9,10 +9,11 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
+
+import net.md_5.bungee.chat.ComponentSerializer;
 
 final class CompiledMessage implements Function<CommandSender, String> {
 
@@ -41,15 +42,27 @@ final class CompiledMessage implements Function<CommandSender, String> {
 		CompiledMessage.PLACEHOLDERS.remove(placeholder.getName(), placeholder);
 	}
 
-	public static CompiledMessage compile(String message)
+	public static CompiledMessage compileLegacy(String message)
 	{
 		Objects.requireNonNull(message);
 
-		String coloredMessage = ChatColor.translateAlternateColorCodes('&', message);
+		String legacy = FancyMessage.parse(message).toLegacyText();
+		return CompiledMessage.compile(legacy);
+	}
 
+	public static CompiledMessage compileRaw(String message)
+	{
+		Objects.requireNonNull(message);
+
+		String raw = ComponentSerializer.toString(FancyMessage.parse(message));
+		return CompiledMessage.compile(raw);
+	}
+
+	private static CompiledMessage compile(String message)
+	{
 		List<Function<CommandSender, String>> compiledMessageParts =
-				CompiledMessage.getCompiledMessageParts(coloredMessage);
-		int expectedLength = CompiledMessage.getExpectedLength(coloredMessage);
+				CompiledMessage.getCompiledMessageParts(message);
+		int expectedLength = CompiledMessage.getExpectedLength(message);
 		return new CompiledMessage(compiledMessageParts, expectedLength);
 	}
 
