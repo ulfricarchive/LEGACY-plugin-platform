@@ -31,7 +31,7 @@ class AsyncPlayerQuitEventListener implements Listener {
 		Tasks.runAsync(() ->
 		{
 			Events.fire(new AsyncPlayerQuitEvent(player));
-			Tasks.run(lock::unlock);
+			Tasks.runSync(lock::unlock);
 		});
 	}
 
