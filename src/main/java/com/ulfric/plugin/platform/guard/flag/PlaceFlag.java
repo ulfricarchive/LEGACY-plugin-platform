@@ -6,7 +6,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.vehicle.VehicleCreateEvent;
 
 import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.guard.BooleanFlag;
@@ -46,15 +45,6 @@ public final class PlaceFlag extends BooleanFlag {
 	private void onPlaceHanging(HangingPlaceEvent event)
 	{
 		if (!this.regions.isAllowed(event.getEntity().getLocation(), this))
-		{
-			event.setCancelled(true);
-		}
-	}
-
-	@EventHandler(ignoreCancelled = true)
-	private void onVehiclePlace(VehicleCreateEvent event)
-	{
-		if (!this.regions.isAllowed(event.getVehicle().getLocation(), this))
 		{
 			event.setCancelled(true);
 		}
