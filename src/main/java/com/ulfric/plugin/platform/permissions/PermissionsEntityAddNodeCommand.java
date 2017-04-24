@@ -6,7 +6,6 @@ import com.ulfric.commons.spigot.command.Alias;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.Permission;
 import com.ulfric.commons.spigot.command.argument.Argument;
-import com.ulfric.commons.spigot.metadata.Metadata;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.permissions.Permissions;
 import com.ulfric.commons.spigot.text.Text;
@@ -25,9 +24,9 @@ public class PermissionsEntityAddNodeCommand extends PermissionsEntityAddCommand
 		this.target.add(this.node);
 		Permissions.getService().writePermissionEntity(this.target);
 		CommandSender sender = context.getSender();
-		Metadata.write(sender, MetadataDefaults.LAST_PERMISSION_TOUCH, this.target.getIdentity());
-		Metadata.write(sender, MetadataDefaults.LAST_PERMISSION_TOUCH_NODE, this.node);
-		Text.getService().sendMessage(sender, "permissions-entity-add-node");
+		Text.getService().sendMessage(sender, "permissions-entity-add-node",
+				MetadataDefaults.LAST_PERMISSION_TOUCH, this.target.getIdentity().toString(),
+				MetadataDefaults.LAST_PERMISSION_TOUCH_NODE, this.node);
 	}
 
 }

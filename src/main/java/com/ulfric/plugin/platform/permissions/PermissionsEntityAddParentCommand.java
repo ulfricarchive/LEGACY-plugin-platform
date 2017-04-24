@@ -6,7 +6,6 @@ import com.ulfric.commons.spigot.command.Alias;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.Permission;
 import com.ulfric.commons.spigot.command.argument.Argument;
-import com.ulfric.commons.spigot.metadata.Metadata;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.permissions.PermissionEntity;
 import com.ulfric.commons.spigot.permissions.Permissions;
@@ -26,9 +25,9 @@ public class PermissionsEntityAddParentCommand extends PermissionsEntityAddComma
 		this.target.add(this.parent);
 		Permissions.getService().writePermissionEntity(this.target);
 		CommandSender sender = context.getSender();
-		Metadata.write(sender, MetadataDefaults.LAST_PERMISSION_TOUCH, this.target.getIdentity());
-		Metadata.write(sender, MetadataDefaults.LAST_PERMISSION_TOUCH_NODE, this.parent);
-		Text.getService().sendMessage(sender, "permissions-entity-add-parent");
+		Text.getService().sendMessage(sender, "permissions-entity-add-parent",
+				MetadataDefaults.LAST_PERMISSION_TOUCH, this.target.getIdentity().toString(),
+				MetadataDefaults.LAST_PERMISSION_TOUCH_PARENT, this.parent.getIdentity().toString());
 	}
 
 }

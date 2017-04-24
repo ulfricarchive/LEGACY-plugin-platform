@@ -5,7 +5,6 @@ import com.ulfric.commons.spigot.command.Alias;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.Permission;
 import com.ulfric.commons.spigot.command.argument.Argument;
-import com.ulfric.commons.spigot.metadata.Metadata;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.permissions.PermissionEntity;
 import com.ulfric.commons.spigot.text.Text;
@@ -21,8 +20,8 @@ public class PermissionsEntityCommand extends PermissionsCommand {
 	@Override
 	public void run(Context context)
 	{
-		Metadata.write(context.getSender(), MetadataDefaults.LAST_PERMISSION_TOUCH, this.target.getIdentity());
-		Text.getService().sendMessage(context.getSender(), "permissions-entity");
+		Text.getService().sendMessage(context.getSender(), "permissions-entity",
+				MetadataDefaults.LAST_PERMISSION_TOUCH, this.target.getIdentity().toString());
 	}
 
 }
