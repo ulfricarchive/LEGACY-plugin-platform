@@ -53,6 +53,12 @@ abstract class BukkitConfigurationDelegator implements PersistentData {
 	}
 
 	@Override
+	public final String getString(String path, String defaultValue)
+	{
+		return this.data.getString(path, defaultValue);
+	}
+
+	@Override
 	public final List<String> getStringList(String path)
 	{
 		return this.data.getStringList(path);

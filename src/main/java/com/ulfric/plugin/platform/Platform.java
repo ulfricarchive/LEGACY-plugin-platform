@@ -5,6 +5,7 @@ import com.ulfric.plugin.platform.data.DataContainer;
 import com.ulfric.plugin.platform.economy.EconomyContainer;
 import com.ulfric.plugin.platform.event.EventsContainer;
 import com.ulfric.plugin.platform.guard.GuardContainer;
+import com.ulfric.plugin.platform.network.InetAddressHashContainer;
 import com.ulfric.plugin.platform.permissions.PermissionsContainer;
 import com.ulfric.plugin.platform.placeholder.PlaceholderContainer;
 import com.ulfric.plugin.platform.server.ShutdownContainer;
@@ -27,6 +28,7 @@ public final class Platform extends UlfricPlugin {
 		this.install(TeleportContainer.class);
 		this.install(WarpContainer.class);
 		this.install(EconomyContainer.class);
+		this.install(InetAddressHashContainer.class);
 	}
 
 }
