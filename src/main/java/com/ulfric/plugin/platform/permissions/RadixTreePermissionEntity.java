@@ -32,7 +32,10 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 	@Override
 	public void add(String node)
 	{
-		this.permissions.add(node);
+		if (this.permissions.add(node))
+		{
+			this.clearCache();
+		}
 	}
 
 	@Override
@@ -40,7 +43,10 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 	{
 		if (parent instanceof RadixTreePermissionEntity)
 		{
-			this.parents.add((RadixTreePermissionEntity) parent);
+			if (this.parents.add((RadixTreePermissionEntity) parent))
+			{
+				this.clearCache();
+			}
 			return;
 		}
 
@@ -50,7 +56,10 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 	@Override
 	public void remove(String node)
 	{
-		this.permissions.remove(node);
+		if (this.permissions.remove(node))
+		{
+			this.clearCache();
+		}
 	}
 	
 	@Override
@@ -58,10 +67,18 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 	{
 		if (parent instanceof RadixTreePermissionEntity)
 		{
-			this.parents.remove(parent);
+			if (this.parents.remove(parent))
+			{
+				this.clearCache();
+			}
 		}
 	}
-	
+
+	private void clearCache()
+	{
+		this.stateCache.clear();
+	}
+
 	@Override
 	public Stream<PermissionEntity> getParents()
 	{
