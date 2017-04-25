@@ -1,9 +1,13 @@
 package com.ulfric.plugin.platform.network;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.DataStore;
@@ -46,6 +50,17 @@ class InetAddressHashService implements InetAddressHash {
 
 		this.addressToHash.put(address, hash);
 		this.hashToAddress.put(hash, address);
+	}
+
+	@Override
+	public Stream<? extends Player> onlinePlayersForHash(String hash)
+	{
+		String address = this.getInetAddress(hash);
+		if (address == null)
+		{
+			return Collections.<Player>emptyList().stream();
+		}
+		return Bukkit.getOnlinePlayers().stream().filter(player -> player.getAddress().getHostString().equals(address));
 	}
 
 	@Override
