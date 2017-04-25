@@ -45,7 +45,7 @@ public class UniqueIdOfCommand implements Command {
 	{
 		OfflinePlayer player;
 		
-		if ((player = Bukkit.getPlayer(username)) == null)
+		if ((player = Bukkit.getPlayerExact(username)) == null)
 		{
 			player = Bukkit.getOfflinePlayer(username);
 		
