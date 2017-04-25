@@ -2,7 +2,6 @@ package com.ulfric.plugin.platform.control;
 
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
@@ -22,40 +21,23 @@ import com.ulfric.commons.spigot.text.Text;
 public class UniqueIdOfCommand implements Command {
 	
 	@Argument
-	private String name;
+	private OfflinePlayer target;
 	
 	@Override
 	public void run(Context context)
 	{
 		CommandSender sender = context.getSender();
 		
-		UUID uuid = this.getUUID(this.name);
+		UUID uniqueId = this.target.getUniqueId();
 		
-		if (uuid == null)
+		if (uniqueId == null)
 		{
-			Text.getService().sendMessage(sender, "uuidof-invalid");
+			Text.getService().sendMessage(sender, "uniqueidof-invalid");
 			return;
 		}
 		
-		Metadata.write(sender, MetadataDefaults.LAST_UNIQUEIDOF_VIEW, uuid);
-		Text.getService().sendMessage(sender, "uuidof-use");
-	}
-	
-	private UUID getUUID(String username)
-	{
-		OfflinePlayer player;
-		
-		if ((player = Bukkit.getPlayerExact(username)) == null)
-		{
-			player = Bukkit.getOfflinePlayer(username);
-		
-			if (player == null || !player.hasPlayedBefore())
-			{
-				return null;
-			}
-		}
-		
-		return player.getUniqueId();
+		Metadata.write(sender, MetadataDefaults.LAST_UNIQUEIDOF_VIEW, uniqueId);
+		Text.getService().sendMessage(sender, "uniqueidof-use");
 	}
 	
 }
