@@ -11,7 +11,6 @@ import com.ulfric.commons.spigot.command.Command;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.Permission;
 import com.ulfric.commons.spigot.command.argument.Argument;
-import com.ulfric.commons.spigot.metadata.Metadata;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.Text;
 
@@ -36,7 +35,9 @@ public class UniqueIdOfCommand implements Command {
 			return;
 		}
 		
-		Text.getService().sendMessage(sender, "uniqueidof-use", uniqueId.toString(), this.target.getName());
+		Text.getService().sendMessage(sender, "uniqueidof-use",
+				MetadataDefaults.LAST_UNIQUEIDOF_VIEW_ID, uniqueId.toString(),
+				MetadataDefaults.LAST_UNIQUEIDOF_VIEW_NAME, this.target.getName());
 	}
 	
 }
