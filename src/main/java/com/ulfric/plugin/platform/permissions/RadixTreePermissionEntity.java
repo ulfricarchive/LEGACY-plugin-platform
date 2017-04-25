@@ -52,7 +52,7 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 
 		throw new UnsupportedOperationException("RadixTreePermissionEntity is incompatible with " + parent.getClass());
 	}
-	
+
 	@Override
 	public void remove(String node)
 	{
@@ -61,7 +61,7 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 			this.clearCache();
 		}
 	}
-	
+
 	@Override
 	public void remove(PermissionEntity parent)
 	{
@@ -85,7 +85,7 @@ public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 		Permissions service = Permissions.getService();
 		return new ArrayList<>(this.parents).stream().map(Identity::of).map(service::getPermissionEntity);
 	}
-	
+
 	@Override
 	public boolean test(String node)
 	{

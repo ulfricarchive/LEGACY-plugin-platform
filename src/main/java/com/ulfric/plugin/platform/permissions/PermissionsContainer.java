@@ -21,6 +21,9 @@ public class PermissionsContainer extends Container {
 		this.install(PermissionsEntityAddCommand.class);
 		this.install(PermissionsEntityAddNodeCommand.class);
 		this.install(PermissionsEntityAddParentCommand.class);
+		this.install(PermissionsEntityRemoveCommand.class);
+		this.install(PermissionsEntityRemoveNodeCommand.class);
+		this.install(PermissionsEntityRemoveParentCommand.class);
 	}
 
 }
