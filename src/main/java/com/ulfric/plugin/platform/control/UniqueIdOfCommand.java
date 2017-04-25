@@ -1,4 +1,4 @@
-package com.ulfric.plugin.platform.command;
+package com.ulfric.plugin.platform.control;
 
 import java.util.UUID;
 
@@ -7,6 +7,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import com.ulfric.commons.naming.Name;
+import com.ulfric.commons.spigot.command.Alias;
 import com.ulfric.commons.spigot.command.Command;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.Permission;
@@ -15,9 +16,10 @@ import com.ulfric.commons.spigot.metadata.Metadata;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.Text;
 
-@Name("uuidof")
-@Permission("uuidof-use")
-public class UUIDOfCommand implements Command {
+@Name("uniqueidof")
+@Permission("uniqueidof-use")
+@Alias("uuidof")
+public class UniqueIdOfCommand implements Command {
 	
 	@Argument
 	private String name;
