@@ -36,8 +36,7 @@ public class UniqueIdOfCommand implements Command {
 			return;
 		}
 		
-		Metadata.write(sender, MetadataDefaults.LAST_UNIQUEIDOF_VIEW, this.target.getName());
-		Text.getService().sendMessage(sender, "uniqueidof-use");
+		Text.getService().sendMessage(sender, "uniqueidof-use", uniqueId.toString(), this.target.getName());
 	}
 	
 }
