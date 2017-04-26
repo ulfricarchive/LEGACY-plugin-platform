@@ -54,7 +54,7 @@ class GuardService implements Guard {
 	private void loadRegion(PersistentData data)
 	{
 		Region region = Region.builder()
-			.setName(data.getString("name"))
+			.setName(data.getString("name", data.getName()))
 			.setWorld(data.getUniqueId("world"))
 			.setWeight(data.getInt("weight"))
 			.setFlags(this.loadFlags(data.getSection("flags")))
