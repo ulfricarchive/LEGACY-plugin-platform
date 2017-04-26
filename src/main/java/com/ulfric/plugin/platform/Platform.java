@@ -7,6 +7,7 @@ import com.ulfric.plugin.platform.economy.EconomyContainer;
 import com.ulfric.plugin.platform.event.EventsContainer;
 import com.ulfric.plugin.platform.guard.GuardContainer;
 import com.ulfric.plugin.platform.network.InetAddressHashContainer;
+import com.ulfric.plugin.platform.panel.PanelContainer;
 import com.ulfric.plugin.platform.permissions.PermissionsContainer;
 import com.ulfric.plugin.platform.placeholder.PlaceholderContainer;
 import com.ulfric.plugin.platform.server.ShutdownContainer;
@@ -31,6 +32,7 @@ public final class Platform extends UlfricPlugin {
 		this.install(EconomyContainer.class);
 		this.install(InetAddressHashContainer.class);
 		this.install(ControlContainer.class);
+		this.install(PanelContainer.class);
 	}
 
 }
