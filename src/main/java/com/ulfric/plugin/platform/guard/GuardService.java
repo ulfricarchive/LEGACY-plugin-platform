@@ -21,6 +21,7 @@ import com.ulfric.commons.spigot.guard.Region;
 import com.ulfric.commons.spigot.guard.RegionColl;
 import com.ulfric.commons.spigot.guard.RegionList;
 import com.ulfric.commons.spigot.guard.Shape;
+import com.ulfric.commons.spigot.guard.ShapeType;
 import com.ulfric.dragoon.construct.InstanceUtils;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
@@ -87,20 +88,8 @@ class GuardService implements Guard {
 
 	private Shape getShape(PersistentData data)
 	{
-		String type = data.getString("type");
-		if (type == null)
-		{
-			return null;
-		}
-
-		Class<?> javaType = Try.to(() -> ClassUtils.getClass(type));
-		Object creator = InstanceUtils.createOrNull(javaType);
-		if (!(creator instanceof Shape))
-		{
-			return null;
-		}
-
-		Shape shapeCreator = (Shape) creator;
+		ShapeType type = ShapeType.getShapeType(data.getString("type"));
+		Shape creator = InstanceUtils.createOrNull(type.getShapeType());
 
 		Map<String, Object> shapeData = new HashMap<>();
 		PersistentData shapeConfig = data.getSection("shape");
@@ -112,7 +101,7 @@ class GuardService implements Guard {
 			}
 		}
 
-		return shapeCreator.fromMap(shapeData);
+		return creator.fromMap(shapeData);
 	}
 
 	@Override
