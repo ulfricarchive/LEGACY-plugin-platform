@@ -1,6 +1,7 @@
 package com.ulfric.plugin.platform.guard;
 
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -67,7 +68,7 @@ class GuardService implements Guard {
 
 	private Map<Flag<?>, Object> loadFlags(PersistentData data)
 	{
-		Map<Flag<?>, Object> flags = new HashMap<>();
+		Map<Flag<?>, Object> flags = new IdentityHashMap<>();
 
 		if (data != null)
 		{
