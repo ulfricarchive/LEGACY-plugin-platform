@@ -11,6 +11,7 @@ import com.ulfric.commons.locale.LocaleSpace;
 import com.ulfric.commons.locale.Message;
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.PersistentData;
+import com.ulfric.commons.spigot.metadata.Metadata;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 import com.ulfric.dragoon.container.Container;
@@ -69,17 +70,107 @@ class TextService implements Text {
 	}
 
 	@Override
+	public String getRawMessage(CommandSender target, String code, String... metadata)
+	{
+		this.addTemporaryMetadata(target, metadata);
+		String message = this.getRawMessage(target, code);
+		this.deleteTemporaryMetadata(target, metadata);
+
+		return message;
+	}
+
+	@Override
+	public String getLegacyMessage(CommandSender target, String code, String... metadata)
+	{
+		this.addTemporaryMetadata(target, metadata);
+		String message = this.getLegacyMessage(target, code);
+		this.deleteTemporaryMetadata(target, metadata);
+
+		return message;
+	}
+
+	private void addTemporaryMetadata(CommandSender target, String... metadata)
+	{
+		for (int x = 0, l = metadata.length; x < l; x += 2)
+		{
+			Metadata.write(target, metadata[x], metadata[x+1]);
+		}
+	}
+
+	private void deleteTemporaryMetadata(CommandSender target, String... metadata)
+	{
+		for (int x = 0, l = metadata.length; x < l; x += 2)
+		{
+			Metadata.delete(target, metadata[x]);
+		}
+	}
+
+	@Override
 	public String getLegacyMessage(CommandSender target, String code)
 	{
 		String message = this.getLocalizedMessage(target, code);
-		return this.legacyMessages.computeIfAbsent(message, CompiledMessage::compileLegacy).apply(target);
+		return this.getCompiledLegacyMessage(message).apply(target);
 	}
 
 	@Override
 	public String getRawMessage(CommandSender target, String code)
 	{
 		String message = this.getLocalizedMessage(target, code);
-		return this.messages.computeIfAbsent(message, CompiledMessage::compileRaw).apply(target);
+		return this.getCompiledRawMessage(message).apply(target);
+	}
+
+	@Override
+	public String getRawMessage(String code, String... metadata)
+	{
+		CommandSender temp = new TemporaryCommandSender();
+		this.addTemporaryMetadata(temp, metadata);
+		String message = this.getDefaultRawMessage(code).apply(temp);
+		Metadata.delete(temp);
+		return message;
+	}
+
+	@Override
+	public String getLegacyMessage(String code, String... metadata)
+	{
+		CommandSender temp = new TemporaryCommandSender();
+		this.addTemporaryMetadata(temp, metadata);
+		String message = this.getDefaultLegacyMessage(code).apply(temp);
+		Metadata.delete(temp);
+		return message;
+	}
+
+	@Override
+	public String getRawMessage(String code)
+	{
+		return this.getDefaultRawMessage(code).apply(TemporaryCommandSender.SHARED);
+	}
+
+	@Override
+	public String getLegacyMessage(String code)
+	{
+		return this.getDefaultLegacyMessage(code).apply(TemporaryCommandSender.SHARED);
+	}
+
+	private CompiledMessage getDefaultRawMessage(String code)
+	{
+		String message = this.getDefaultMessage(code);
+		return this.getCompiledRawMessage(message);
+	}
+
+	private CompiledMessage getDefaultLegacyMessage(String code)
+	{
+		String message = this.getDefaultMessage(code);
+		return this.getCompiledLegacyMessage(message);
+	}
+
+	private CompiledMessage getCompiledLegacyMessage(String message)
+	{
+		return this.legacyMessages.computeIfAbsent(message, CompiledMessage::compileLegacy);
+	}
+
+	private CompiledMessage getCompiledRawMessage(String message)
+	{
+		return this.messages.computeIfAbsent(message, CompiledMessage::compileRaw);
 	}
 
 	private String getLocalizedMessage(CommandSender target, String code)
