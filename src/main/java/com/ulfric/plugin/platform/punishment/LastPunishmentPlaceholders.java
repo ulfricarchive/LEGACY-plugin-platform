@@ -22,7 +22,7 @@ final class LastPunishmentPlaceholders {
 	}
 
 	@Name("LAST_PUNISHED_NAME")
-	static final class LastPunishedPlaceholder implements Placeholder
+	static class LastPunishedPlaceholder implements Placeholder
 	{
 		@Override
 		public String apply(CommandSender to)
@@ -32,7 +32,7 @@ final class LastPunishmentPlaceholders {
 	}
 
 	@Name("LAST_PUNISHED_ID")
-	static final class LastPunishedIdPlaceholder implements Placeholder
+	static class LastPunishedIdPlaceholder implements Placeholder
 	{
 		@Override
 		public String apply(CommandSender to)
@@ -42,7 +42,7 @@ final class LastPunishmentPlaceholders {
 	}
 
 	@Name("LAST_PUNISHED_REASON")
-	static final class LastPunishedReasonPlaceholder implements Placeholder
+	static class LastPunishedReasonPlaceholder implements Placeholder
 	{
 		@Override
 		public String apply(CommandSender to)

@@ -29,7 +29,7 @@ class PunishmentsService implements Punishments {
 	@Initialize
 	private void initialize()
 	{
-		PersistentData config = Data.getDataStore(this.owner).getData("config.yml");
+		PersistentData config = Data.getDataStore(this.owner).getData("config");
 		this.console = SimplePunisher.of(config.getString("punisher.console", "~CONSOLE~"));
 		this.plugin = SimplePunisher.of(config.getString("punisher.plugin", "Ministry of Love"));
 	}

@@ -21,17 +21,17 @@ import com.ulfric.dragoon.inject.Inject;
 class KickService implements Kick {
 
 	@Inject
-	private Logger logger;
+	private Container owner;
 
 	@Inject
-	private Container container;
+	private Logger logger;
 
 	private String defaultReason;
 
 	@Initialize
 	private void initialize()
 	{
-		PersistentData config = Data.getDataStore(this.container).getData("config");
+		PersistentData config = Data.getDataStore(this.owner).getData("config");
 		this.defaultReason = config.getString("default-reason", "The kick hammer has spoken!");
 	}
 

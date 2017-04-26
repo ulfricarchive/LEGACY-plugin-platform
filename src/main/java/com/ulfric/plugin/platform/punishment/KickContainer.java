@@ -9,7 +9,7 @@ public class KickContainer extends Container {
 	private void initialize()
 	{
 		this.install(KickService.class);
-		this.install(KickContainer.class);
+		this.install(KickCommand.class);
 	}
 
 }
