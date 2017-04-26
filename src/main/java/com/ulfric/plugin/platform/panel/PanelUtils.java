@@ -63,7 +63,6 @@ enum PanelUtils {
 		return HandleUtils.createSetter(field);
 	}
 
-
 	public static Constructor<?> getNonNullListConstructor()
 	{
 		return ConstructorUtils.getMatchingAccessibleConstructor(
@@ -78,11 +77,11 @@ enum PanelUtils {
 
 	static void setSize(Inventory inventory, int size)
 	{
-
 		Try.to(() ->
 		{
 			List<?> items = (List<?>) PanelUtils.INVENTORY_ITEMS_GETTER.invokeExact(inventory);
 
+			@SuppressWarnings("unchecked")
 			List<Object> newItems =
 					(List<Object>) PanelUtils.NON_NULL_LIST_CONSTRUCTOR.newInstance(size, PanelUtils.EMPTY_ITEM);
 
@@ -91,4 +90,5 @@ enum PanelUtils {
 			PanelUtils.INVENTORY_ITEMS_SETTER.invokeExact(inventory, newItems);
 		});
 	}
+
 }
