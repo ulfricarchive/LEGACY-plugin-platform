@@ -69,13 +69,16 @@ class GuardService implements Guard {
 	{
 		Map<Flag<?>, Object> flags = new HashMap<>();
 
-		for (PersistentData flagData : data.getSections())
+		if (data != null)
 		{
-			String flagName = flagData.getString("name");
-			Flag<?> flag = this.getFlag(flagName);
-			Objects.requireNonNull(flag, flagName);
-			Object value = flag.parseData(flagData.getObject("data"));
-			flags.put(flag, value);
+			for (PersistentData flagData : data.getSections())
+			{
+				String flagName = flagData.getString("name");
+				Flag<?> flag = this.getFlag(flagName);
+				Objects.requireNonNull(flag, flagName);
+				Object value = flag.parseData(flagData.getObject("data"));
+				flags.put(flag, value);
+			}
 		}
 
 		return flags;
