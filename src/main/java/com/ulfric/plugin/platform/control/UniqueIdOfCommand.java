@@ -15,7 +15,7 @@ import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.Text;
 
 @Name("uniqueidof")
-@Permission("uniqueidof-use")
+@Permission("control-uniqueidof")
 @Alias("uuidof")
 public class UniqueIdOfCommand implements Command {
 	
