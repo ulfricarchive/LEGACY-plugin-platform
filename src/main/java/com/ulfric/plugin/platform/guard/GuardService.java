@@ -7,10 +7,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
-import org.apache.commons.lang3.ClassUtils;
 import org.bukkit.Location;
 
-import com.ulfric.commons.exception.Try;
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.DataStore;
 import com.ulfric.commons.spigot.data.PersistentData;
