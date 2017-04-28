@@ -1,18 +1,18 @@
 package com.ulfric.plugin.platform.droptable;
 
-public class Drop {
+public class Drop<T> {
 
-	private final Object value;
+	private final T value;
 	private final int weight;
 	private Bounds bounds = null;
 
-	public Drop(Object value, int weight)
+	public Drop(T value, int weight)
 	{
 		this.value = value;
 		this.weight = weight;
 	}
 
-	public Object getValue()
+	public T getValue()
 	{
 		return value;
 	}
