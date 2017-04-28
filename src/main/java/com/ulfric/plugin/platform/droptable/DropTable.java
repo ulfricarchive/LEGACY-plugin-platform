@@ -8,9 +8,9 @@ public class DropTable {
 
 	private final XORShiftRandom random = new XORShiftRandom();
 	private final List<Drop> dropList;
-	private int totalWeight = 0;
+	private int totalWeight;
 
-	DropTable()
+	public DropTable()
 	{
 		this.dropList = new ArrayList<>();
 	}
@@ -36,7 +36,8 @@ public class DropTable {
 			if (lastBounds == null)
 			{
 				drop.setBounds(0, drop.getWeight());
-			} else
+			}
+			else
 			{
 				drop.setBounds(lastBounds.getMax(), lastBounds.getMax() + drop.getWeight());
 			}
@@ -81,7 +82,7 @@ public class DropTable {
 			last ^= (last << 21);
 			last ^= (last >>> 35);
 			last ^= (last << 4);
-			int out = (int) last % max;
+			int out = (int) last % (max + 1);
 			return (out < 0) ? -out : out;
 		}
 
