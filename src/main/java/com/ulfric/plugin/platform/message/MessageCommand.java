@@ -33,17 +33,7 @@ public class MessageCommand implements Command {
 		String[] arguments = context.getEnteredArguments();
 		String message = this.getMessage(Arrays.copyOfRange(arguments, 1, arguments.length - 1));
 		
-		Text text = Text.getService();
-		
-		text.sendMessage(target, "message-receive",
-				MetadataDefaults.LAST_MESSAGE_CONTENT, message,
-				MetadataDefaults.LAST_MESSAGE_SENDER, player.getName());
-		
-		text.sendMessage(player, "message-send",
-				MetadataDefaults.LAST_MESSAGE_CONTENT, message,
-				MetadataDefaults.LAST_MESSAGE_RECEIVER, target.getName());
-		
-		Messaging.getService().setLastRecipients(player.getUniqueId(), target.getUniqueId());
+		Messaging.getService().send(player, target, message);
 	}
 	
 	private String getMessage(String[] args)

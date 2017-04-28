@@ -47,13 +47,7 @@ public class ReplyCommand implements Command {
 		String[] arguments = context.getEnteredArguments();
 		String message = this.getMessage(Arrays.copyOfRange(arguments, 0, arguments.length - 1));
 		
-		text.sendMessage(target, "reply-receive",
-				MetadataDefaults.LAST_MESSAGE_REPLY_CONTENT, message,
-				MetadataDefaults.LAST_MESSAGE_REPLY_SENDER, player.getName());
-		
-		text.sendMessage(player, "reply-send",
-				MetadataDefaults.LAST_MESSAGE_REPLY_CONTENT, message,
-				MetadataDefaults.LAST_MESSAGE_REPLY_RECEIVER, target.getName());
+		messaging.reply(player, target, message);
 	}
 	
 	private String getMessage(String[] arguments)
