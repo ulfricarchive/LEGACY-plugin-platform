@@ -2,8 +2,8 @@ package com.ulfric.plugin.platform.droptable;
 
 public class Drop {
 
-	private Object value;
-	private int weight;
+	private final Object value;
+	private final int weight;
 	private Bounds bounds = null;
 
 	public Drop(Object value, int weight)
@@ -17,19 +17,9 @@ public class Drop {
 		return value;
 	}
 
-	public void setValue(Object value)
-	{
-		this.value = value;
-	}
-
 	public int getWeight()
 	{
 		return weight;
-	}
-
-	public void setWeight(int weight)
-	{
-		this.weight = weight;
 	}
 
 	public Bounds getBounds()
@@ -58,12 +48,12 @@ public class Drop {
 			this.max = max;
 		}
 
-		public int getMin()
+		int getMin()
 		{
 			return min;
 		}
 
-		public int getMax()
+		int getMax()
 		{
 			return max;
 		}

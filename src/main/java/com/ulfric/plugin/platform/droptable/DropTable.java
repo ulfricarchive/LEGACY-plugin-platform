@@ -27,7 +27,7 @@ public class DropTable {
 		weights();
 	}
 
-	public void weights()
+	private void weights()
 	{
 		Bounds lastBounds = null;
 
