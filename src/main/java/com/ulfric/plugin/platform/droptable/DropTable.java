@@ -6,9 +6,9 @@ import java.util.List;
 
 public class DropTable {
 
-	XORShiftRandom random = new XORShiftRandom();
-	private List<Drop> dropList;
-	private int totalWright = 0;
+	private final XORShiftRandom random = new XORShiftRandom();
+	private final List<Drop> dropList;
+	private int totalWeight = 0;
 
 	DropTable()
 	{
@@ -18,14 +18,16 @@ public class DropTable {
 	public void add(Drop drop)
 	{
 		dropList.add(drop);
+		weights();
 	}
 
 	public void addAll(List<Drop> drops)
 	{
 		dropList.addAll(drops);
+		weights();
 	}
 
-	public void wieghts()
+	public void weights()
 	{
 		Bounds lastBounds = null;
 
@@ -42,12 +44,12 @@ public class DropTable {
 			lastBounds = drop.getBounds();
 		}
 
-		this.totalWright = lastBounds == null ? 0 : lastBounds.getMax();
+		this.totalWeight = lastBounds == null ? 0 : lastBounds.getMax();
 	}
 
 	public Drop nextDrop()
 	{
-		int roll = this.random.nextInt(this.totalWright);
+		int roll = this.random.nextInt(this.totalWeight);
 
 		for (Drop drop : this.dropList)
 		{
