@@ -4,10 +4,10 @@ import com.ulfric.plugin.platform.droptable.Drop.Bounds;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DropTable {
+public class DropTable<T> {
 
 	private final XORShiftRandom random = new XORShiftRandom();
-	private final List<Drop> dropList;
+	private final List<Drop<T>> dropList;
 	private int totalWeight;
 
 	public DropTable()
@@ -15,13 +15,13 @@ public class DropTable {
 		this.dropList = new ArrayList<>();
 	}
 
-	public void add(Drop drop)
+	public void add(Drop<T> drop)
 	{
 		dropList.add(drop);
 		weights();
 	}
 
-	public void addAll(List<Drop> drops)
+	public void addAll(List<Drop<T>> drops)
 	{
 		dropList.addAll(drops);
 		weights();
@@ -48,11 +48,11 @@ public class DropTable {
 		this.totalWeight = lastBounds == null ? 0 : lastBounds.getMax();
 	}
 
-	public Drop nextDrop()
+	public Drop<T> nextDrop()
 	{
 		int roll = this.random.nextInt(this.totalWeight);
 
-		for (Drop drop : this.dropList)
+		for (Drop<T> drop : this.dropList)
 		{
 			if (roll >= drop.getBounds().getMin() && roll <= drop.getBounds().getMax())
 			{
