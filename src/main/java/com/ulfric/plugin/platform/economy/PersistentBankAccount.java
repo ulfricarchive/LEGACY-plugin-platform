@@ -5,9 +5,11 @@ import java.util.UUID;
 import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.economy.BalanceChangeResult;
 import com.ulfric.commons.spigot.economy.BalanceDeductionResult;
+import com.ulfric.commons.spigot.economy.BalanceUpdateEvent;
 import com.ulfric.commons.spigot.economy.BankAccount;
 import com.ulfric.commons.spigot.economy.Currency;
 import com.ulfric.commons.spigot.economy.CurrencyAmount;
+import com.ulfric.commons.spigot.event.Events;
 
 final class PersistentBankAccount implements BankAccount {
 
@@ -45,11 +47,6 @@ final class PersistentBankAccount implements BankAccount {
 		}
 	}
 
-	private void setBalance(Currency currency, long amount)
-	{
-		this.data.set(currency.getName(), amount);
-	}
-
 	@Override
 	public BalanceDeductionResult deduct(CurrencyAmount amount)
 	{
@@ -83,6 +80,17 @@ final class PersistentBankAccount implements BankAccount {
 			this.setBalance(amount.getCurrency(), newBalance);
 			return BalanceChangeResult.SUCCESS;
 		}
+	}
+
+	private void setBalance(Currency currency, long amount)
+	{
+		this.fireBalanaceChangeEvent(CurrencyAmount.valueOf(currency, amount));
+		this.data.set(currency.getName(), amount);
+	}
+
+	private void fireBalanaceChangeEvent(CurrencyAmount newBalance)
+	{
+		Events.fire(new BalanceUpdateEvent(this, newBalance));
 	}
 
 }
