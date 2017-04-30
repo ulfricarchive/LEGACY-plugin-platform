@@ -9,6 +9,7 @@ public class PunishmentsContainer extends Container {
 	private void initialize()
 	{
 		this.install(PunishmentsService.class);
+		this.install(PunishmentHolderArgumentResolver.class);
 		this.install(LastPunishmentPlaceholders.LastPunishedPlaceholder.class);
 		this.install(KickContainer.class);
 	}
