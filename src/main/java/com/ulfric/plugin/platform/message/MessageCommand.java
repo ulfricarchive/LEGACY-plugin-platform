@@ -15,7 +15,7 @@ import com.ulfric.commons.spigot.command.argument.Argument;
 import com.ulfric.commons.spigot.message.Messaging;
 
 @Name("message")
-@Alias("m")
+@Alias({"m", "msg", "whisper", "w"})
 @Permission("message-use")
 @MustBePlayer
 public class MessageCommand implements Command {
