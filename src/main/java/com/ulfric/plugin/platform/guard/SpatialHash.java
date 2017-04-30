@@ -10,8 +10,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import com.ulfric.commons.bean.Bean;
-import com.ulfric.commons.spigot.guard.Point;
-import com.ulfric.commons.spigot.guard.Shape;
+import com.ulfric.commons.spigot.shape.Point;
+import com.ulfric.commons.spigot.shape.Shape;
 
 public final class SpatialHash<V> extends Bean {
 
