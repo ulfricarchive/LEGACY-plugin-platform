@@ -9,11 +9,13 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.ulfric.commons.spigot.panel.Panel;
 import com.ulfric.commons.spigot.panel.Panels;
 import com.ulfric.commons.spigot.panel.browser.Browser;
 import com.ulfric.commons.spigot.panel.click.ClickResult;
+import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.plugin.platform.panel.browser.BukkitBrowser;
 
 public class ChestPanel implements Panel {
@@ -39,7 +41,7 @@ public class ChestPanel implements Panel {
 	public void open(Browser browser)
 	{
 		this.buttons.forEach((slot, button) ->
-				this.setItem(slot, button.getItem()));
+				this.setItem(browser.owner(), slot, button.getItem()));
 
 		browser.owner().openInventory(this.inventory);
 	}
@@ -68,11 +70,11 @@ public class ChestPanel implements Panel {
 		browser.panelClosed();
 	}
 
-	private void setItem(int slot, ItemStack item)
+	private void setItem(Player player, int slot, ItemStack item)
 	{
 		this.ensureSpace(slot);
 
-		this.inventory.setItem(slot, item);
+		this.inventory.setItem(slot, this.localizeName(player, item));
 	}
 
 	private void ensureSpace(int slot)
@@ -83,6 +85,31 @@ public class ChestPanel implements Panel {
 
 			ChestPanelUtils.setSize(this.inventory, newSize);
 		}
+	}
+
+	private ItemStack localizeName(Player player, ItemStack item)
+	{
+		if (!item.hasItemMeta())
+		{
+			return item;
+		}
+
+		ItemMeta meta = item.getItemMeta();
+
+		if (!meta.hasDisplayName())
+		{
+			return item;
+		}
+
+		String localizedName = Text.getService().getRawMessage(player, meta.getDisplayName());
+
+		if (!localizedName.equals(meta.getDisplayName()))
+		{
+			meta.setDisplayName(localizedName);
+			item.setItemMeta(meta);
+		}
+
+		return item;
 	}
 
 	public static class Builder implements org.apache.commons.lang3.builder.Builder<ChestPanel>
