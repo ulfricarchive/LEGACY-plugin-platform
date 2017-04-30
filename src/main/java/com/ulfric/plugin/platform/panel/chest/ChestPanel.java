@@ -94,6 +94,8 @@ public class ChestPanel implements Panel {
 			return item;
 		}
 
+		item = item.clone();
+
 		ItemMeta meta = item.getItemMeta();
 
 		if (!meta.hasDisplayName())
@@ -101,7 +103,7 @@ public class ChestPanel implements Panel {
 			return item;
 		}
 
-		String localizedName = Text.getService().getRawMessage(player, meta.getDisplayName());
+		String localizedName = Text.getService().getLegacyMessage(player, meta.getDisplayName());
 
 		if (!localizedName.equals(meta.getDisplayName()))
 		{
@@ -131,7 +133,7 @@ public class ChestPanel implements Panel {
 
 		ChestBrowserButton.Builder buildBrowserButton()
 		{
-			return ChestBrowserButton.browserBuilder();
+			return ChestBrowserButton.browserBuilder(this);
 		}
 
 		void add(ChestButton button)

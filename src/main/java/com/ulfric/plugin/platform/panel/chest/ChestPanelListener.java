@@ -20,6 +20,11 @@ class ChestPanelListener implements Listener {
 	@EventHandler
 	public void on(InventoryClickEvent event)
 	{
+		if (event.getClickedInventory() != event.getView().getTopInventory())
+		{
+			return;
+		}
+
 		Browser browser = this.getBrowser(event.getWhoClicked());
 
 		this.currentPanel(browser).ifPresent(panel ->
@@ -42,7 +47,7 @@ class ChestPanelListener implements Listener {
 
 	private Optional<ChestPanel> currentPanel(Browser browser)
 	{
-		if (!browser.isOpen())
+		if (!browser.isOpen() || browser.tabs().isEmpty())
 		{
 			return Optional.empty();
 		}

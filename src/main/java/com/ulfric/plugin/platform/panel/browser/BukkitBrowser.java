@@ -16,6 +16,7 @@ public class BukkitBrowser implements Browser {
 
 	private int index;
 	private boolean open = false;
+	private boolean opening = false;
 
 	public BukkitBrowser(Player owner)
 	{
@@ -84,13 +85,18 @@ public class BukkitBrowser implements Browser {
 
 		Panel panel = this.currentTab();
 
-		this.open = true;
+		this.opening = true;
 		panel.open(this);
+		this.opening = false;
+		this.open = true;
 	}
 
 	public void panelClosed()
 	{
-		this.open = false;
+		if (!this.opening)
+		{
+			this.open = false;
+		}
 	}
 
 	private void ensureIndexValid()

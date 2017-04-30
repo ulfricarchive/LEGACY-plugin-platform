@@ -10,9 +10,9 @@ import com.ulfric.commons.spigot.panel.click.Click;
 
 class ChestBrowserButton extends ChestButton {
 
-	static Builder browserBuilder()
+	static Builder browserBuilder(ChestPanel.Builder builder)
 	{
-		return new Builder();
+		return new Builder(builder);
 	}
 
 	private ChestBrowserButton(List<Click<ChestClickData>> clicks, ItemStack item, int[] slots)
@@ -20,36 +20,39 @@ class ChestBrowserButton extends ChestButton {
 		super(clicks, item, slots);
 	}
 
-	static class Builder implements org.apache.commons.lang3.builder.Builder<ChestBrowserButton> {
+	public static class Builder extends ChestPanel.Builder {
 
 		private final List<Click<ChestClickData>> clicks = new ArrayList<>();
+		private final ChestPanel.Builder builder;
 
 		private ItemStack item;
 		private int[] slots;
 
-		private Builder()
-		{}
+		private Builder(ChestPanel.Builder builder)
+		{
+			this.builder = builder;
+		}
 
-		Builder handle(Click<ChestClickData> click)
+		public ChestBrowserButton.Builder handle(Click<ChestClickData> click)
 		{
 			this.clicks.add(click);
 
 			return this;
 		}
 
-		Builder handle(CancelledClick<ChestClickData> click)
+		public ChestBrowserButton.Builder handle(CancelledClick<ChestClickData> click)
 		{
 			return this.handle((Click<ChestClickData>) click);
 		}
 
-		Builder setItem(ItemStack item)
+		public ChestBrowserButton.Builder setItem(ItemStack item)
 		{
 			this.item = item;
 
 			return this;
 		}
 
-		Builder setSlots(int... slots)
+		public ChestBrowserButton.Builder setSlots(int... slots)
 		{
 			this.slots = slots;
 
@@ -57,9 +60,39 @@ class ChestBrowserButton extends ChestButton {
 		}
 
 		@Override
-		public ChestBrowserButton build()
+		public ChestButton.Builder buildButton()
 		{
-			return new ChestBrowserButton(this.clicks, this.item, this.slots);
+			ChestBrowserButton button = new ChestBrowserButton(this.clicks, this.item, this.slots);
+
+			this.add(button);
+
+			return this.builder.buildButton();
+		}
+
+		@Override
+		public ChestBrowserButton.Builder buildBrowserButton()
+		{
+			ChestBrowserButton button = new ChestBrowserButton(this.clicks, this.item, this.slots);
+
+			this.add(button);
+
+			return this.builder.buildBrowserButton();
+		}
+
+		@Override
+		public ChestPanel build()
+		{
+			ChestBrowserButton button = new ChestBrowserButton(this.clicks, this.item, this.slots);
+
+			this.add(button);
+
+			return this.builder.build();
+		}
+
+		@Override
+		void add(ChestButton button)
+		{
+			this.builder.add(button);
 		}
 
 	}
