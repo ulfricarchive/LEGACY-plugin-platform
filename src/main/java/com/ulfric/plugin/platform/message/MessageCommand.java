@@ -1,5 +1,10 @@
 package com.ulfric.plugin.platform.message;
 
+import java.util.Arrays;
+
+import org.apache.commons.lang3.StringUtils;
+import org.bukkit.entity.Player;
+
 import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.command.Alias;
 import com.ulfric.commons.spigot.command.Command;
@@ -8,12 +13,6 @@ import com.ulfric.commons.spigot.command.MustBePlayer;
 import com.ulfric.commons.spigot.command.Permission;
 import com.ulfric.commons.spigot.command.argument.Argument;
 import com.ulfric.commons.spigot.message.Messaging;
-import com.ulfric.commons.spigot.metadata.MetadataDefaults;
-import com.ulfric.commons.spigot.text.Text;
-import org.apache.commons.lang3.StringUtils;
-import org.bukkit.entity.Player;
-
-import java.util.Arrays;
 
 @Name("message")
 @Alias("m")

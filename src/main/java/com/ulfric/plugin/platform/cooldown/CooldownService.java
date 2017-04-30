@@ -1,5 +1,9 @@
 package com.ulfric.plugin.platform.cooldown;
 
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.ulfric.commons.spigot.cooldown.CooldownAccount;
 import com.ulfric.commons.spigot.cooldown.Cooldowns;
 import com.ulfric.commons.spigot.data.DataStore;
@@ -8,10 +12,6 @@ import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 import com.ulfric.dragoon.inject.Inject;
 import com.ulfric.plugin.platform.data.PlayerData;
-
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CooldownService implements Cooldowns {
 	

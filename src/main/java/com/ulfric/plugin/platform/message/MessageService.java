@@ -1,13 +1,14 @@
 package com.ulfric.plugin.platform.message;
 
-import com.ulfric.commons.spigot.message.Messaging;
-import com.ulfric.commons.spigot.metadata.MetadataDefaults;
-import com.ulfric.commons.spigot.text.Text;
-import org.bukkit.entity.Player;
-
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.bukkit.entity.Player;
+
+import com.ulfric.commons.spigot.message.Messaging;
+import com.ulfric.commons.spigot.metadata.MetadataDefaults;
+import com.ulfric.commons.spigot.text.Text;
 
 public class MessageService implements Messaging {
 	

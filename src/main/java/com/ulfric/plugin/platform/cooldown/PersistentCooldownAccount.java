@@ -1,9 +1,5 @@
 package com.ulfric.plugin.platform.cooldown;
 
-import com.ulfric.commons.spigot.cooldown.Cooldown;
-import com.ulfric.commons.spigot.cooldown.CooldownAccount;
-import com.ulfric.commons.spigot.data.PersistentData;
-
 import java.time.Instant;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
@@ -12,6 +8,10 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
+
+import com.ulfric.commons.spigot.cooldown.Cooldown;
+import com.ulfric.commons.spigot.cooldown.CooldownAccount;
+import com.ulfric.commons.spigot.data.PersistentData;
 
 final class PersistentCooldownAccount implements CooldownAccount {
 	
