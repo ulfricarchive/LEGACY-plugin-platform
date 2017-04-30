@@ -126,12 +126,12 @@ public class ChestPanel implements Panel {
 			return this;
 		}
 
-		public ChestButton.Builder buildButton()
+		public ChestButton.Builder addButton()
 		{
 			return ChestButton.builder(this);
 		}
 
-		ChestBrowserButton.Builder buildBrowserButton()
+		ChestBrowserButton.Builder addBrowserButton()
 		{
 			return ChestBrowserButton.browserBuilder(this);
 		}

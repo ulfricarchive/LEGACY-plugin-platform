@@ -60,23 +60,23 @@ class ChestBrowserButton extends ChestButton {
 		}
 
 		@Override
-		public ChestButton.Builder buildButton()
+		public ChestButton.Builder addButton()
 		{
 			ChestBrowserButton button = new ChestBrowserButton(this.clicks, this.item, this.slots);
 
 			this.add(button);
 
-			return this.builder.buildButton();
+			return this.builder.addButton();
 		}
 
 		@Override
-		public ChestBrowserButton.Builder buildBrowserButton()
+		public ChestBrowserButton.Builder addBrowserButton()
 		{
 			ChestBrowserButton button = new ChestBrowserButton(this.clicks, this.item, this.slots);
 
 			this.add(button);
 
-			return this.builder.buildBrowserButton();
+			return this.builder.addBrowserButton();
 		}
 
 		@Override

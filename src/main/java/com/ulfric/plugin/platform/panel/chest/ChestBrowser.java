@@ -43,7 +43,7 @@ class ChestBrowser {
 
 	void insertInto(ChestPanel.Builder panel)
 	{
-		panel.buildBrowserButton()
+		panel.addBrowserButton()
 					.setSlots(0)
 					.setItem(ChestBrowser.LEFT_ARROW)
 					.handle(click ->
@@ -51,7 +51,7 @@ class ChestBrowser {
 						click.getBrowser().previousTab();
 						click.getBrowser().display();
 					})
-				.buildBrowserButton()
+				.addBrowserButton()
 					.setSlots(1)
 					.setItem(ChestBrowser.RIGHT_ARROW)
 					.handle(click ->
@@ -59,12 +59,12 @@ class ChestBrowser {
 						click.getBrowser().nextTab();
 						click.getBrowser().display();
 					})
-				.buildBrowserButton()
+				.addBrowserButton()
 					.setSlots(7)
 					.setItem(ChestBrowser.MINIMIZE)
 					.handle(click ->
 							click.getPlayer().closeInventory())
-				.buildBrowserButton()
+				.addBrowserButton()
 					.setSlots(8)
 					.setItem(ChestBrowser.CROSS)
 					.handle(click ->
@@ -72,11 +72,11 @@ class ChestBrowser {
 						click.getBrowser().resetSession();
 						click.getPlayer().closeInventory();
 					})
-				.buildBrowserButton()
+				.addBrowserButton()
 					.setSlots(ArrayUtils.addAll(IntStream.range(2, 7).toArray(), IntStream.range(9, 18).toArray()))
 					.setItem(ChestBrowser.DIVIDER)
 					.handle(click -> {})
-				.buildBrowserButton();
+				.addBrowserButton();
 	}
 
 }

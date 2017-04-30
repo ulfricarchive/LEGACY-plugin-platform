@@ -96,23 +96,23 @@ public class ChestButton implements Button {
 		}
 
 		@Override
-		public Builder buildButton()
+		public Builder addButton()
 		{
 			ChestButton button = new ChestButton(this.clicks, this.item, this.slots);
 
 			this.add(button);
 
-			return this.builder.buildButton();
+			return this.builder.addButton();
 		}
 
 		@Override
-		public ChestBrowserButton.Builder buildBrowserButton()
+		public ChestBrowserButton.Builder addBrowserButton()
 		{
 			ChestButton button = new ChestButton(this.clicks, this.item, this.slots);
 
 			this.add(button);
 
-			return this.builder.buildBrowserButton();
+			return this.builder.addBrowserButton();
 		}
 
 		@Override
