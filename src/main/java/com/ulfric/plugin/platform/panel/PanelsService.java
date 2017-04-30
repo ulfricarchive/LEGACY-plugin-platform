@@ -6,17 +6,13 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import com.ulfric.commons.spigot.panel.Browser;
 import com.ulfric.commons.spigot.panel.Panels;
-import com.ulfric.dragoon.ObjectFactory;
-import com.ulfric.dragoon.inject.Inject;
+import com.ulfric.commons.spigot.panel.browser.Browser;
+import com.ulfric.plugin.platform.panel.browser.BukkitBrowser;
 
 public class PanelsService implements Panels {
 
 	private final Map<UUID, Browser> browsers = new HashMap<>();
-
-	@Inject
-	private ObjectFactory factory;
 
 	@Override
 	public Browser getBrowser(Player player)
@@ -26,11 +22,7 @@ public class PanelsService implements Panels {
 
 	private Browser createBrowser(Player player)
 	{
-		BukkitBrowser browser = (BukkitBrowser) this.factory.request(Browser.class);
-
-		browser.setOwner(player);
-
-		return browser;
+		return new BukkitBrowser(player);
 	}
 
 }

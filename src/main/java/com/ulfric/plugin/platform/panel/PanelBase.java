@@ -1,55 +1,21 @@
 package com.ulfric.plugin.platform.panel;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-
 import com.ulfric.commons.spigot.panel.Panel;
-import com.ulfric.commons.spigot.panel.PanelExtension;
-import com.ulfric.commons.spigot.panel.PanelInventory;
+import com.ulfric.commons.spigot.panel.browser.Browser;
 
 public abstract class PanelBase implements Panel {
 
-	private final List<PanelExtension> extensions = new ArrayList<>();
-	private final Player holder;
+	private final Browser browser;
 
-	public PanelBase(Player holder)
+	public PanelBase(Browser browser)
 	{
-		this.holder = holder;
-		this.extensions.add(this::buildInventory);
-	}
-
-	protected abstract void buildInventory(PanelInventory inventory);
-
-	@Override
-	public Player holder()
-	{
-		return this.holder;
+		this.browser = browser;
 	}
 
 	@Override
-	public List<PanelExtension> extensions()
+	public Browser browser()
 	{
-		return Collections.unmodifiableList(this.extensions);
-	}
-
-	@Override
-	public void extend(PanelExtension extension)
-	{
-		this.extensions.add(extension);
-	}
-
-	@Override
-	public Inventory build()
-	{
-		BukkitPanelInventory inventory = new BukkitPanelInventory();
-
-		this.extensions.forEach(extension -> extension.manipulate(inventory));
-
-		return inventory.finalInventory();
+		return this.browser;
 	}
 
 }

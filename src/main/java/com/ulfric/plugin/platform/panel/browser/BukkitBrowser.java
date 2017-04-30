@@ -1,30 +1,37 @@
-package com.ulfric.plugin.platform.panel;
+package com.ulfric.plugin.platform.panel.browser;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
-import com.ulfric.commons.spigot.panel.Browser;
 import com.ulfric.commons.spigot.panel.Panel;
-import com.ulfric.dragoon.ObjectFactory;
-import com.ulfric.dragoon.inject.Inject;
+import com.ulfric.commons.spigot.panel.browser.Browser;
 
-class BukkitBrowser implements Browser {
+public class BukkitBrowser implements Browser {
 
 	private final List<Panel> tabs = new ArrayList<>();
+	private final Player owner;
 
-	private Player owner;
 	private int index;
+	private boolean open = false;
 
-	@Inject
-	private ObjectFactory factory;
-
-	void setOwner(Player owner)
+	public BukkitBrowser(Player owner)
 	{
 		this.owner = owner;
+	}
+
+	@Override
+	public Player owner()
+	{
+		return this.owner;
+	}
+
+	@Override
+	public boolean isOpen()
+	{
+		return this.open;
 	}
 
 	@Override
@@ -70,15 +77,11 @@ class BukkitBrowser implements Browser {
 	}
 
 	@Override
-	public <T extends Panel> T addTab(Class<T> panelClass)
+	public void addTab(Panel panel)
 	{
-		T panel = this.factory.requestExact(panelClass);
-
 		this.index++;
 
 		this.tabs.add(this.index, panel);
-
-		return panel;
 	}
 
 	@Override
@@ -89,9 +92,13 @@ class BukkitBrowser implements Browser {
 
 		Panel panel = this.currentTab();
 
-		Inventory inventory = panel.build();
+		this.open = true;
+		panel.open();
+	}
 
-		this.owner.openInventory(inventory);
+	public void panelClosed()
+	{
+		this.open = false;
 	}
 
 	private void ensureNonEmpty()
