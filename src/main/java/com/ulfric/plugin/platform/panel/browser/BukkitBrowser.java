@@ -51,11 +51,7 @@ public class BukkitBrowser implements Browser {
 	{
 		this.ensureNonEmpty();
 		this.index++;
-
-		if (this.index == this.tabs.size())
-		{
-			this.index = 0;
-		}
+		this.ensureIndexValid();
 	}
 
 	@Override
@@ -63,11 +59,7 @@ public class BukkitBrowser implements Browser {
 	{
 		this.ensureNonEmpty();
 		this.index--;
-
-		if (this.index == -1)
-		{
-			this.index = this.tabs.size() - 1;
-		}
+		this.ensureIndexValid();
 	}
 
 	@Override
@@ -80,7 +72,7 @@ public class BukkitBrowser implements Browser {
 	public void addTab(Panel panel)
 	{
 		this.index++;
-
+		this.ensureIndexValid();
 		this.tabs.add(this.index, panel);
 	}
 
@@ -99,6 +91,22 @@ public class BukkitBrowser implements Browser {
 	public void panelClosed()
 	{
 		this.open = false;
+	}
+
+	private void ensureIndexValid()
+	{
+		if (this.index >= this.tabs.size())
+		{
+			this.index = 0;
+		}
+
+		if (this.index < 0)
+		{
+			if (!this.tabs.isEmpty())
+			{
+				this.index = this.tabs.size() - 1;
+			}
+		}
 	}
 
 	private void ensureNonEmpty()

@@ -116,6 +116,16 @@ public class ChestButton implements Button {
 		}
 
 		@Override
+		public ChestPanel build()
+		{
+			ChestButton button = new ChestButton(this.clicks, this.item, this.slots);
+
+			this.add(button);
+
+			return this.builder.build();
+		}
+
+		@Override
 		void add(ChestButton button)
 		{
 			this.builder.add(button);

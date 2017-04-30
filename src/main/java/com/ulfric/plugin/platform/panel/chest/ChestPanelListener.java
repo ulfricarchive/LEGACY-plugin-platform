@@ -15,7 +15,7 @@ import com.ulfric.commons.spigot.panel.browser.Browser;
 
 class ChestPanelListener implements Listener {
 
-	private Panels panels = Panels.getService();
+	private final Panels panels = Panels.getService();
 
 	@EventHandler
 	public void on(InventoryClickEvent event)
@@ -49,7 +49,7 @@ class ChestPanelListener implements Listener {
 
 		Panel panel = browser.currentTab();
 
-		if (!(browser instanceof ChestPanel))
+		if (!(panel instanceof ChestPanel))
 		{
 			return Optional.empty();
 		}
