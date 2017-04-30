@@ -6,44 +6,36 @@ import java.util.List;
 import org.bukkit.inventory.ItemStack;
 
 import com.ulfric.commons.spigot.panel.click.Button;
-import com.ulfric.commons.spigot.panel.click.ButtonBuilder;
 import com.ulfric.commons.spigot.panel.click.CancelledClick;
 import com.ulfric.commons.spigot.panel.click.Click;
 import com.ulfric.commons.spigot.panel.click.ClickResult;
 
 public class ChestButton implements Button {
 
-	static Builder builder(ChestPanel panel)
+	static Builder builder(ChestPanel.Builder builder)
 	{
-		return new Builder(panel);
+		return new Builder(builder);
 	}
 
-	private final ChestPanel panel;
 	private final List<Click<ChestClickData>> clicks;
 	private final ItemStack item;
 	private final int[] slots;
 
-	ChestButton(ChestPanel panel, List<Click<ChestClickData>> clicks, ItemStack item, int[] slots)
+	ChestButton(List<Click<ChestClickData>> clicks, ItemStack item, int[] slots)
 	{
-		this.panel = panel;
 		this.clicks = clicks;
 		this.item = item;
 		this.slots = slots;
-
-		this.create();
-	}
-
-	private void create()
-	{
-		for (int slot : this.slots)
-		{
-			this.panel.setButton(slot, this);
-		}
 	}
 
 	ItemStack getItem()
 	{
 		return this.item;
+	}
+
+	int[] getSlots()
+	{
+		return this.slots;
 	}
 
 	ClickResult handle(ChestClickData data)
@@ -64,17 +56,17 @@ public class ChestButton implements Button {
 		return result;
 	}
 
-	public static class Builder implements ButtonBuilder<ChestButton> {
+	public static class Builder extends ChestPanel.Builder {
 
-		private final ChestPanel panel;
 		private final List<Click<ChestClickData>> clicks = new ArrayList<>();
+		private final ChestPanel.Builder builder;
 
 		private ItemStack item;
 		private int[] slots;
 
-		private Builder(ChestPanel panel)
+		private Builder(ChestPanel.Builder builder)
 		{
-			this.panel = panel;
+			this.builder = builder;
 		}
 
 		public Builder handle(Click<ChestClickData> click)
@@ -104,9 +96,29 @@ public class ChestButton implements Button {
 		}
 
 		@Override
-		public ChestButton build()
+		public Builder buildButton()
 		{
-			return new ChestButton(this.panel, this.clicks, this.item, this.slots);
+			ChestButton button = new ChestButton(this.clicks, this.item, this.slots);
+
+			this.add(button);
+
+			return this.builder.buildButton();
+		}
+
+		@Override
+		public ChestBrowserButton.Builder buildBrowserButton()
+		{
+			ChestButton button = new ChestButton(this.clicks, this.item, this.slots);
+
+			this.add(button);
+
+			return this.builder.buildBrowserButton();
+		}
+
+		@Override
+		void add(ChestButton button)
+		{
+			this.builder.add(button);
 		}
 
 	}

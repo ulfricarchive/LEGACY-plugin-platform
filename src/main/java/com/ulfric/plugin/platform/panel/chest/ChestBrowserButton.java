@@ -5,34 +5,30 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
-import com.ulfric.commons.spigot.panel.click.ButtonBuilder;
 import com.ulfric.commons.spigot.panel.click.CancelledClick;
 import com.ulfric.commons.spigot.panel.click.Click;
 
 class ChestBrowserButton extends ChestButton {
 
-	static Builder browserBuilder(ChestPanel panel)
+	static Builder browserBuilder()
 	{
-		return new Builder(panel);
+		return new Builder();
 	}
 
-	private ChestBrowserButton(ChestPanel panel, List<Click<ChestClickData>> clicks, ItemStack item, int[] slots)
+	private ChestBrowserButton(List<Click<ChestClickData>> clicks, ItemStack item, int[] slots)
 	{
-		super(panel, clicks, item, slots);
+		super(clicks, item, slots);
 	}
 
-	static class Builder implements ButtonBuilder<ChestBrowserButton> {
+	static class Builder implements org.apache.commons.lang3.builder.Builder<ChestBrowserButton> {
 
-		private final ChestPanel panel;
 		private final List<Click<ChestClickData>> clicks = new ArrayList<>();
 
 		private ItemStack item;
 		private int[] slots;
 
-		private Builder(ChestPanel panel)
-		{
-			this.panel = panel;
-		}
+		private Builder()
+		{}
 
 		Builder handle(Click<ChestClickData> click)
 		{
@@ -63,7 +59,7 @@ class ChestBrowserButton extends ChestButton {
 		@Override
 		public ChestBrowserButton build()
 		{
-			return new ChestBrowserButton(this.panel, this.clicks, this.item, this.slots);
+			return new ChestBrowserButton(this.clicks, this.item, this.slots);
 		}
 
 	}

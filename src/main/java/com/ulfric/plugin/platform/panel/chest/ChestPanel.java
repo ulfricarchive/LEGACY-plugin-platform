@@ -4,74 +4,44 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.ulfric.commons.spigot.panel.Panel;
+import com.ulfric.commons.spigot.panel.Panels;
 import com.ulfric.commons.spigot.panel.browser.Browser;
 import com.ulfric.commons.spigot.panel.click.ClickResult;
-import com.ulfric.plugin.platform.panel.PanelBase;
 import com.ulfric.plugin.platform.panel.browser.BukkitBrowser;
 
-public class ChestPanel extends PanelBase {
+public class ChestPanel implements Panel {
 
 	private static final int BROWSER_ESTATE = 18;
 	private static final int ROW_LENGTH = 9;
 
-	public static ChestPanel create(Browser browser)
+	public static ChestPanel.Builder builder()
 	{
-		return new ChestPanel(browser);
+		return new ChestPanel.Builder();
 	}
 
 	private final Inventory inventory;
-	private final Map<Integer, ChestButton> buttons = new HashMap<>();
+	private final Map<Integer, ChestButton> buttons;
 
-	private ChestPanel(Browser browser)
+	private ChestPanel(String title, Map<Integer, ChestButton> buttons)
 	{
-		super(browser);
-
-		this.inventory = Bukkit.createInventory(null, ChestPanel.BROWSER_ESTATE);
-
-		this.injectBrowser();
+		this.inventory = Bukkit.createInventory(null, ChestPanel.BROWSER_ESTATE, title);
+		this.buttons = buttons;
 	}
 
 	@Override
-	public ChestButton.Builder buildButton()
-	{
-		return ChestButton.builder(this);
-	}
-
-	ChestBrowserButton.Builder buildBrowserButton()
-	{
-		return ChestBrowserButton.browserBuilder(this);
-	}
-
-	@Override
-	public void open()
+	public void open(Browser browser)
 	{
 		this.buttons.forEach((slot, button) ->
 				this.setItem(slot, button.getItem()));
 
-		this.browser().owner().openInventory(this.inventory);
-	}
-
-	public void setTitle(String title)
-	{
-		ChestPanelUtils.setTitle(this.inventory, title);
-	}
-
-	void setButton(int slot, ChestButton button)
-	{
-		if (button instanceof ChestBrowserButton)
-		{
-			this.buttons.put(slot, button);
-		}
-		else
-		{
-			int adjustedSlot = this.getAdjustedSlot(slot);
-			this.buttons.put(adjustedSlot, button);
-		}
+		browser.owner().openInventory(this.inventory);
 	}
 
 	void onClick(InventoryClickEvent event)
@@ -91,14 +61,11 @@ public class ChestPanel extends PanelBase {
 
 	void onClose(InventoryCloseEvent event)
 	{
-		((BukkitBrowser) this.browser()).panelClosed();
-	}
+		Player player = (Player) event.getPlayer();
 
-	private void injectBrowser()
-	{
-		ChestBrowser ui = new ChestBrowser(this.browser());
+		BukkitBrowser browser = (BukkitBrowser) Panels.getService().getBrowser(player);
 
-		ui.insertInto(this);
+		browser.panelClosed();
 	}
 
 	private void setItem(int slot, ItemStack item)
@@ -106,11 +73,6 @@ public class ChestPanel extends PanelBase {
 		this.ensureSpace(slot);
 
 		this.inventory.setItem(slot, item);
-	}
-
-	private int getAdjustedSlot(int slot)
-	{
-		return slot + ChestPanel.BROWSER_ESTATE;
 	}
 
 	private void ensureSpace(int slot)
@@ -122,4 +84,58 @@ public class ChestPanel extends PanelBase {
 			ChestPanelUtils.setSize(this.inventory, newSize);
 		}
 	}
+
+	public static class Builder implements org.apache.commons.lang3.builder.Builder<ChestPanel>
+	{
+		private final Map<Integer, ChestButton> buttons = new HashMap<>();
+		private String title = "Inventory";
+
+		public Builder setTitle(String title)
+		{
+			this.title = title;
+
+			return this;
+		}
+
+		public ChestButton.Builder buildButton()
+		{
+			return ChestButton.builder(this);
+		}
+
+		ChestBrowserButton.Builder buildBrowserButton()
+		{
+			return ChestBrowserButton.browserBuilder();
+		}
+
+		void add(ChestButton button)
+		{
+			for (int slot : button.getSlots())
+			{
+				if (button instanceof ChestBrowserButton)
+				{
+					this.buttons.put(slot, button);
+				}
+				else
+				{
+					this.buttons.put(this.getAdjustedSlot(slot), button);
+				}
+			}
+		}
+
+		@Override
+		public ChestPanel build()
+		{
+			ChestBrowser ui = new ChestBrowser();
+			ui.insertInto(this);
+
+			return new ChestPanel(this.title, this.buttons);
+		}
+
+		private int getAdjustedSlot(int slot)
+		{
+			return slot + ChestPanel.BROWSER_ESTATE;
+		}
+
+	}
+
 }

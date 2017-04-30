@@ -93,7 +93,7 @@ public class BukkitBrowser implements Browser {
 		Panel panel = this.currentTab();
 
 		this.open = true;
-		panel.open();
+		panel.open(this);
 	}
 
 	public void panelClosed()

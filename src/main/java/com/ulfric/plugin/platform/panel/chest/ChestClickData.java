@@ -1,14 +1,18 @@
 package com.ulfric.plugin.platform.panel.chest;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.ulfric.commons.spigot.panel.Panels;
+import com.ulfric.commons.spigot.panel.browser.Browser;
 import com.ulfric.commons.spigot.panel.click.ClickData;
 
 public class ChestClickData implements ClickData {
 
+	private final Browser browser;
 	private final int slot;
 	private final ClickType clickType;
 	private final InventoryAction action;
@@ -17,11 +21,22 @@ public class ChestClickData implements ClickData {
 
 	ChestClickData(InventoryClickEvent event)
 	{
+		this.browser = Panels.getService().getBrowser((Player) event.getWhoClicked());
 		this.slot = event.getSlot();
 		this.clickType = event.getClick();
 		this.action = event.getAction();
 		this.currentItem = event.getCurrentItem();
 		this.cursor = event.getCursor();
+	}
+
+	public Browser getBrowser()
+	{
+		return this.browser;
+	}
+
+	public Player getPlayer()
+	{
+		return this.browser.owner();
 	}
 
 	public int getSlot()
