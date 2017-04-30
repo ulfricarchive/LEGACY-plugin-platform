@@ -1,16 +1,16 @@
 package com.ulfric.plugin.platform.punishment;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
+import com.google.common.net.InetAddresses;
 import com.ulfric.commons.identity.UniqueIdUtils;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.argument.ArgumentResolver;
 import com.ulfric.commons.spigot.network.InetAddressHash;
+import com.ulfric.commons.spigot.player.PlayerUtils;
 import com.ulfric.commons.spigot.punishment.PunishmentHolder;
 import com.ulfric.commons.spigot.punishment.Punishments;
 
@@ -35,8 +35,7 @@ public class PunishmentHolderArgumentResolver implements ArgumentResolver<Punish
 			return punishments.getPunishmentHolder(inet);
 		}
 
-		@SuppressWarnings("deprecation")
-		OfflinePlayer player = Bukkit.getOfflinePlayer(argument);
+		OfflinePlayer player = PlayerUtils.getOfflinePlayer(argument);
 		if (player == null)
 		{
 			return null;
@@ -48,9 +47,9 @@ public class PunishmentHolderArgumentResolver implements ArgumentResolver<Punish
 	{
 		try
 		{
-			return InetAddress.getByName(host);
+			return InetAddresses.forString(host);
 		}
-		catch (UnknownHostException e)
+		catch (IllegalArgumentException thatsOk)
 		{
 			return null;
 		}
