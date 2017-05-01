@@ -74,14 +74,14 @@ final class CompiledMessage implements Function<CommandSender, String> {
 		int textStart = 0;
 		while (variables.find())
 		{
+			String text = message.substring(textStart, variables.start());
+			messages.add(ignore -> text);
+			textStart = variables.end();
+
 			String variable = CompiledMessage.stripVariableBoilerplate(variables.group());
 			Placeholder placeholder = CompiledMessage.PLACEHOLDERS.get(variable);
 			Objects.requireNonNull(placeholder, () -> "Placeholder " + variable + " not found");
 			messages.add(placeholder);
-
-			String text = message.substring(textStart, variables.start());
-			messages.add(ignore -> text);
-			textStart = variables.end();
 		}
 		String text = message.substring(textStart, message.length());
 		messages.add(ignore -> text);

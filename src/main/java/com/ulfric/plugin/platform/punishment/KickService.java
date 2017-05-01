@@ -65,7 +65,7 @@ class KickService implements Kick {
 		Text text = Text.getService();
 		for (Player player : punished)
 		{
-			String message = text.getLegacyMessage(player, "kick-disconnect",
+			String message = text.getPlainMessage(player, "kick-disconnect",
 					MetadataDefaults.PUNISHMENT_ID, punishment.getPunishmentId().toString(),
 					MetadataDefaults.PUNISHMENT_PUNISHER, punishment.getPunisher().getName(),
 					MetadataDefaults.PUNISHMENT_REASON, punishment.getReason());
@@ -106,7 +106,7 @@ class KickService implements Kick {
 
 	private void logKickToConsole()
 	{
-		this.logger.info(Text.getService().getLegacyMessage("kick-console"));
+		this.logger.info(Text.getService().getPlainMessage("kick-console"));
 	}
 
 	@Override

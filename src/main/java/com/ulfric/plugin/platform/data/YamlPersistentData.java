@@ -17,6 +17,7 @@ public final class YamlPersistentData extends BukkitConfigurationDelegator {
 	}
 
 	private final FileConfiguration data;
+	private final String name;
 	private final Path file;
 	private boolean needsWrite;
 
@@ -25,6 +26,24 @@ public final class YamlPersistentData extends BukkitConfigurationDelegator {
 		super(YamlPersistentData.getFileConfiguration(file));
 		this.file = file;
 		this.data = (FileConfiguration) super.data;
+		this.name = this.resolveName();
+	}
+
+	private String resolveName()
+	{
+		String name = this.file.getFileName().toString();
+		int lastIndex = name.lastIndexOf('.');
+		if (lastIndex == -1)
+		{
+			return name;
+		}
+		return name.substring(0, lastIndex);
+	}
+
+	@Override
+	public String getName()
+	{
+		return this.name;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ abstract class BukkitConfigurationDelegator implements PersistentData {
 	}
 
 	@Override
-	public final String getName()
+	public String getName()
 	{
 		return this.data.getName();
 	}

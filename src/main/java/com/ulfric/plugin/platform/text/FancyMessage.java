@@ -49,7 +49,7 @@ enum FancyMessage {
 		}
 		else // TODO run event stuff outside of else?
 		{
-			List<Node> parents = getAllParentEvents(node);
+			List<Node> parents = FancyMessage.getAllParentEvents(node);
 			for (Node event : parents)
 			{
 				NamedNodeMap attributes = event.getAttributes();

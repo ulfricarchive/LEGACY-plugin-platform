@@ -9,6 +9,7 @@ public class ControlContainer extends Container {
 	private void setup()
 	{
 		this.install(UniqueIdOfContainer.class);
+		this.install(ClearChatContainer.class);
 	}
 
 }

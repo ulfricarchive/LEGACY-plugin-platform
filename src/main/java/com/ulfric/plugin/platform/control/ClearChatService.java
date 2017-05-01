@@ -17,12 +17,14 @@ class ClearChatService implements ClearChat {
 		Text text = Text.getService();
 		for (Player player : Bukkit.getOnlinePlayers())
 		{
-			if (!player.hasPermission("control-clearchat"))
+			if (player.hasPermission("control-clearchat"))
+			{
+				text.sendMessage(player, "chat-cleared");
+			}
+			else
 			{
 				player.sendMessage(ClearChatService.EMPTY_CHAT);
 			}
-
-			text.sendMessage(player, "control-chat-cleared");
 		}
 	}
 

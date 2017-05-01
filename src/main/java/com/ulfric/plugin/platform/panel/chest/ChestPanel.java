@@ -103,7 +103,7 @@ public class ChestPanel implements Panel {
 			return item;
 		}
 
-		String localizedName = Text.getService().getLegacyMessage(player, meta.getDisplayName());
+		String localizedName = Text.getService().getPlainMessage(player, meta.getDisplayName());
 
 		if (!localizedName.equals(meta.getDisplayName()))
 		{

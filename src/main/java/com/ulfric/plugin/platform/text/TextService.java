@@ -18,6 +18,8 @@ import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 import com.ulfric.dragoon.inject.Inject;
 
+import net.md_5.bungee.chat.ComponentSerializer;
+
 class TextService implements Text {
 
 	private static final String DEFAULT_LOCALE_CODE = "en_US";
@@ -70,7 +72,23 @@ class TextService implements Text {
 	}
 
 	@Override
-	public String getRawMessage(CommandSender target, String code, String... metadata)
+	public void sendMessage(Player target, String code)
+	{
+		this.sendRaw(target, this.getRawMessage(target, code));
+	}
+
+	@Override
+	public void sendMessage(Player target, String code, String... metadata)
+	{
+		this.sendRaw(target, this.getRawMessage(target, code, metadata));
+	}
+
+	private void sendRaw(Player target, String message)
+	{
+		target.spigot().sendMessage(ComponentSerializer.parse(message));
+	}
+
+	private String getRawMessage(CommandSender target, String code, String... metadata)
 	{
 		this.addTemporaryMetadata(target, metadata);
 		String message = this.getRawMessage(target, code);
@@ -80,10 +98,10 @@ class TextService implements Text {
 	}
 
 	@Override
-	public String getLegacyMessage(CommandSender target, String code, String... metadata)
+	public String getPlainMessage(CommandSender target, String code, String... metadata)
 	{
 		this.addTemporaryMetadata(target, metadata);
-		String message = this.getLegacyMessage(target, code);
+		String message = this.getPlainMessage(target, code);
 		this.deleteTemporaryMetadata(target, metadata);
 
 		return message;
@@ -106,31 +124,20 @@ class TextService implements Text {
 	}
 
 	@Override
-	public String getLegacyMessage(CommandSender target, String code)
+	public String getPlainMessage(CommandSender target, String code)
 	{
 		String message = this.getLocalizedMessage(target, code);
 		return this.getCompiledLegacyMessage(message).apply(target);
 	}
 
-	@Override
-	public String getRawMessage(CommandSender target, String code)
+	private String getRawMessage(CommandSender target, String code)
 	{
 		String message = this.getLocalizedMessage(target, code);
 		return this.getCompiledRawMessage(message).apply(target);
 	}
 
 	@Override
-	public String getRawMessage(String code, String... metadata)
-	{
-		CommandSender temp = new TemporaryCommandSender();
-		this.addTemporaryMetadata(temp, metadata);
-		String message = this.getDefaultRawMessage(code).apply(temp);
-		Metadata.delete(temp);
-		return message;
-	}
-
-	@Override
-	public String getLegacyMessage(String code, String... metadata)
+	public String getPlainMessage(String code, String... metadata)
 	{
 		CommandSender temp = new TemporaryCommandSender();
 		this.addTemporaryMetadata(temp, metadata);
@@ -140,21 +147,9 @@ class TextService implements Text {
 	}
 
 	@Override
-	public String getRawMessage(String code)
-	{
-		return this.getDefaultRawMessage(code).apply(TemporaryCommandSender.SHARED);
-	}
-
-	@Override
-	public String getLegacyMessage(String code)
+	public String getPlainMessage(String code)
 	{
 		return this.getDefaultLegacyMessage(code).apply(TemporaryCommandSender.SHARED);
-	}
-
-	private CompiledMessage getDefaultRawMessage(String code)
-	{
-		String message = this.getDefaultMessage(code);
-		return this.getCompiledRawMessage(message);
 	}
 
 	private CompiledMessage getDefaultLegacyMessage(String code)

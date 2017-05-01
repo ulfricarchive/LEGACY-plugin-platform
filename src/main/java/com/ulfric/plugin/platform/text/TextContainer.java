@@ -9,6 +9,8 @@ public class TextContainer extends Container {
 	private void setup()
 	{
 		this.install(TextService.class);
+		// TODO move to Color container?
+		this.install(PrimaryColorPlaceholder.class);
 	}
 
 }
