@@ -36,7 +36,6 @@ enum ChestPanelUtils {
 	private static final MethodHandle NON_NULL_LIST_SET = ChestPanelUtils.getNonNullListSet();
 
 	private static final ItemStack EMPTY_ITEM = new ItemStack(Material.AIR);
-	private static MethodHandle nonNullListSet;
 
 	private static Class<?> getCraftInventoryClass()
 	{
