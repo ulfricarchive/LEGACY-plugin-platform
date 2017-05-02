@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.time.Instant;
 
-public class CombatListener implements Listener {
+class CombatListener implements Listener {
 	
 	@EventHandler
 	private void on(EntityDamageByEntityEvent event)
@@ -31,7 +31,7 @@ public class CombatListener implements Listener {
 		
 		if (damager instanceof Player)
 		{
-			attacker = (Player) event.getDamager();
+			attacker = (Player) damager;
 		}
 		else if (damager instanceof Projectile)
 		{
@@ -45,6 +45,11 @@ public class CombatListener implements Listener {
 		
 		if (attacker != null)
 		{
+			if (attacker.getUniqueId().equals(victim.getUniqueId()))
+			{
+				return;
+			}
+			
 			this.combat(victim, attacker);
 		}
 	}
