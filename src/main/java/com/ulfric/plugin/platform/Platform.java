@@ -1,6 +1,7 @@
 package com.ulfric.plugin.platform;
 
 import com.ulfric.commons.spigot.plugin.UlfricPlugin;
+import com.ulfric.plugin.platform.combat.CombatContainer;
 import com.ulfric.plugin.platform.control.ControlContainer;
 import com.ulfric.plugin.platform.data.DataContainer;
 import com.ulfric.plugin.platform.economy.EconomyContainer;
@@ -39,6 +40,7 @@ public final class Platform extends UlfricPlugin {
 		this.install(PanelContainer.class);
 		this.install(FriendlyNameContainer.class);
 		this.install(MessageContainer.class);
+		this.install(CombatContainer.class);
 	}
 
 }
