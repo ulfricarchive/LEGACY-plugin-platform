@@ -6,11 +6,12 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import com.ulfric.commons.bean.Bean;
 import com.ulfric.commons.spigot.panel.Panels;
 import com.ulfric.commons.spigot.panel.browser.Browser;
 import com.ulfric.commons.spigot.panel.click.ClickData;
 
-public class ChestClickData implements ClickData {
+public class ChestClickData extends Bean implements ClickData {
 
 	private final Browser browser;
 	private final int slot;

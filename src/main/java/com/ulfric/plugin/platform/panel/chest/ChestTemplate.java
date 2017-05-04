@@ -7,7 +7,9 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-public class ChestTemplate implements ChestPanelBuilder {
+import com.ulfric.commons.bean.Bean;
+
+public class ChestTemplate extends Bean implements ChestPanelBuilder {
 
 	private final ChestPanel.Builder builder;
 	private final String[] template;

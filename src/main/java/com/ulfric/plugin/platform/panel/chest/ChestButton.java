@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
+import com.ulfric.commons.bean.Bean;
 import com.ulfric.commons.spigot.panel.click.Button;
 import com.ulfric.commons.spigot.panel.click.CancelledClick;
 import com.ulfric.commons.spigot.panel.click.Click;
 import com.ulfric.commons.spigot.panel.click.ClickResult;
 
-public class ChestButton implements Button {
+public class ChestButton extends Bean implements Button {
 
 	static Builder builder(ChestPanelBuilder builder)
 	{

@@ -4,7 +4,9 @@ import java.util.function.Consumer;
 
 import org.bukkit.inventory.ItemStack;
 
-public class ChestTemplateMapping {
+import com.ulfric.commons.bean.Bean;
+
+public class ChestTemplateMapping extends Bean {
 
 	private final ChestTemplate template;
 	private final ChestButton.Builder button;

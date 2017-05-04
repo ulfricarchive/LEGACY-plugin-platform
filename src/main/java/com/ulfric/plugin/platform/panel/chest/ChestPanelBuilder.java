@@ -12,6 +12,4 @@ public interface ChestPanelBuilder extends Builder<ChestPanel> {
 
 	ChestTemplate template(String... rows);
 
-	ChestPanel build();
-
 }

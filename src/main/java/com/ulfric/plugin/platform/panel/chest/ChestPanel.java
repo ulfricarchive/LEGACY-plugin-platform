@@ -12,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.ulfric.commons.bean.Bean;
 import com.ulfric.commons.spigot.panel.Panel;
 import com.ulfric.commons.spigot.panel.Panels;
 import com.ulfric.commons.spigot.panel.browser.Browser;
@@ -19,7 +20,7 @@ import com.ulfric.commons.spigot.panel.click.ClickResult;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.plugin.platform.panel.browser.BukkitBrowser;
 
-public class ChestPanel implements Panel {
+public class ChestPanel extends Bean implements Panel {
 
 	private static final int BROWSER_ESTATE = 18;
 	private static final int ROW_LENGTH = 9;
@@ -117,11 +118,12 @@ public class ChestPanel implements Panel {
 		return item;
 	}
 
-	public static class Builder implements ChestPanelBuilder {
-
+	public static class Builder implements ChestPanelBuilder
+	{
 		private final Map<Integer, ChestButton> buttons = new HashMap<>();
 		private String title = "Inventory";
 
+		@Override
 		public ChestPanelBuilder setTitle(String title)
 		{
 			this.title = title;
@@ -129,6 +131,7 @@ public class ChestPanel implements Panel {
 			return this;
 		}
 
+		@Override
 		public ChestButton.Builder addButton()
 		{
 			return ChestButton.builder(this);
@@ -174,7 +177,6 @@ public class ChestPanel implements Panel {
 		{
 			return slot + ChestPanel.BROWSER_ESTATE;
 		}
-
 	}
 
 }

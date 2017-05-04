@@ -7,9 +7,10 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.ulfric.commons.bean.Bean;
 import com.ulfric.commons.spigot.skulls.Skulls;
 
-class ChestBrowser {
+class ChestBrowser extends Bean {
 
 	private static final ItemStack LEFT_ARROW = Skulls.ofTexture(
 			"737648ae7a564a5287792b05fac79c6b6bd47f616a559ce8b543e6947235bce");
