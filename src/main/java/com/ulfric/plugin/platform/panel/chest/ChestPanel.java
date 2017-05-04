@@ -48,15 +48,17 @@ public class ChestPanel implements Panel {
 
 	void onClick(InventoryClickEvent event)
 	{
+		event.setCancelled(true);
+
 		ChestButton button = this.buttons.get(event.getSlot());
 
 		if (button != null)
 		{
 			ClickResult result = button.handle(new ChestClickData(event));
 
-			if (result == ClickResult.CANCEL)
+			if (result == ClickResult.ALLOW)
 			{
-				event.setCancelled(true);
+				event.setCancelled(false);
 			}
 		}
 	}
@@ -114,12 +116,12 @@ public class ChestPanel implements Panel {
 		return item;
 	}
 
-	public static class Builder implements org.apache.commons.lang3.builder.Builder<ChestPanel>
-	{
+	public static class Builder implements ChestPanelBuilder {
+
 		private final Map<Integer, ChestButton> buttons = new HashMap<>();
 		private String title = "Inventory";
 
-		public Builder setTitle(String title)
+		public ChestPanelBuilder setTitle(String title)
 		{
 			this.title = title;
 
@@ -136,7 +138,8 @@ public class ChestPanel implements Panel {
 			return ChestBrowserButton.browserBuilder(this);
 		}
 
-		void add(ChestButton button)
+		@Override
+		public void addBuiltButton(ChestButton button)
 		{
 			for (int slot : button.getSlots())
 			{
@@ -149,6 +152,12 @@ public class ChestPanel implements Panel {
 					this.buttons.put(this.getAdjustedSlot(slot), button);
 				}
 			}
+		}
+
+		@Override
+		public ChestTemplate template(String... rows)
+		{
+			return new ChestTemplate(this, rows);
 		}
 
 		@Override

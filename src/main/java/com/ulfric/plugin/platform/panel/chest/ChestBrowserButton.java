@@ -62,37 +62,51 @@ class ChestBrowserButton extends ChestButton {
 		@Override
 		public ChestButton.Builder addButton()
 		{
-			ChestBrowserButton button = new ChestBrowserButton(this.clicks, this.item, this.slots);
-
-			this.add(button);
+			this.add(this.buildButton());
 
 			return this.builder.addButton();
 		}
 
 		@Override
+		public ChestPanelBuilder setTitle(String title)
+		{
+			this.add(this.buildButton());
+
+			return this.builder.setTitle(title);
+		}
+
+		@Override
 		public ChestBrowserButton.Builder addBrowserButton()
 		{
-			ChestBrowserButton button = new ChestBrowserButton(this.clicks, this.item, this.slots);
-
-			this.add(button);
+			this.add(this.buildButton());
 
 			return this.builder.addBrowserButton();
 		}
 
 		@Override
+		public ChestTemplate template(String... rows)
+		{
+			this.add(this.buildButton());
+
+			return this.builder.template(rows);
+		}
+
+		@Override
 		public ChestPanel build()
 		{
-			ChestBrowserButton button = new ChestBrowserButton(this.clicks, this.item, this.slots);
-
-			this.add(button);
+			this.add(this.buildButton());
 
 			return this.builder.build();
 		}
 
-		@Override
-		void add(ChestButton button)
+		private ChestButton buildButton()
 		{
-			this.builder.add(button);
+			return new ChestBrowserButton(this.clicks, this.item, this.slots);
+		}
+
+		private void add(ChestButton button)
+		{
+			this.builder.addBuiltButton(button);
 		}
 
 	}

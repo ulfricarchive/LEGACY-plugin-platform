@@ -12,7 +12,7 @@ import com.ulfric.commons.spigot.panel.click.ClickResult;
 
 public class ChestButton implements Button {
 
-	static Builder builder(ChestPanel.Builder builder)
+	static Builder builder(ChestPanelBuilder builder)
 	{
 		return new Builder(builder);
 	}
@@ -59,12 +59,12 @@ public class ChestButton implements Button {
 	public static class Builder extends ChestPanel.Builder {
 
 		private final List<Click<ChestClickData>> clicks = new ArrayList<>();
-		private final ChestPanel.Builder builder;
+		private final ChestPanelBuilder builder;
 
 		private ItemStack item;
 		private int[] slots;
 
-		private Builder(ChestPanel.Builder builder)
+		Builder(ChestPanelBuilder builder)
 		{
 			this.builder = builder;
 		}
@@ -98,37 +98,45 @@ public class ChestButton implements Button {
 		@Override
 		public Builder addButton()
 		{
-			ChestButton button = new ChestButton(this.clicks, this.item, this.slots);
-
-			this.add(button);
+			this.add(this.buildButton());
 
 			return this.builder.addButton();
 		}
 
 		@Override
-		public ChestBrowserButton.Builder addBrowserButton()
+		public ChestTemplate template(String... rows)
 		{
-			ChestButton button = new ChestButton(this.clicks, this.item, this.slots);
+			this.add(this.buildButton());
 
-			this.add(button);
+			return this.builder.template(rows);
+		}
 
-			return this.builder.addBrowserButton();
+		@Override
+		public ChestPanelBuilder setTitle(String title)
+		{
+			this.add(this.buildButton());
+
+			return this.builder.setTitle(title);
 		}
 
 		@Override
 		public ChestPanel build()
 		{
-			ChestButton button = new ChestButton(this.clicks, this.item, this.slots);
+			ChestButton button = this.buildButton();
 
 			this.add(button);
 
 			return this.builder.build();
 		}
 
-		@Override
-		void add(ChestButton button)
+		ChestButton buildButton()
 		{
-			this.builder.add(button);
+			return new ChestButton(this.clicks, this.item, this.slots);
+		}
+
+		private void add(ChestButton button)
+		{
+			this.builder.addBuiltButton(button);
 		}
 
 	}
