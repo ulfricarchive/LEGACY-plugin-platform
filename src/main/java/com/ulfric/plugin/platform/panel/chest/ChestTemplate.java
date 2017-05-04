@@ -21,11 +21,15 @@ public class ChestTemplate implements ChestPanelBuilder {
 
 	private void buildTemplate()
 	{
-		for (int row = 0; row < this.template.length; row++)
+		int templateLength = this.template.length;
+
+		for (int row = 0; row < templateLength; row++)
 		{
 			String line = this.template[row];
 
-			if (line.length() != 9)
+			int lineLength = line.length();
+
+			if (lineLength != 9)
 			{
 				throw new IllegalStateException("Line must have 9 characters in template");
 			}
@@ -35,7 +39,7 @@ public class ChestTemplate implements ChestPanelBuilder {
 			{
 				List<Integer> slots = new ArrayList<>();
 
-				for (int i = 0; i < line.length(); i++)
+				for (int i = 0; i < lineLength; i++)
 				{
 					String character = line.substring(i, i + 1);
 
