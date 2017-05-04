@@ -7,6 +7,8 @@ import com.ulfric.commons.spigot.command.Command;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.MustBePlayer;
 import com.ulfric.commons.spigot.command.argument.Argument;
+import com.ulfric.commons.spigot.metadata.MetadataDefaults;
+import com.ulfric.commons.spigot.text.LocaleDefaults;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.warp.Teleport;
 import com.ulfric.commons.spigot.warp.Warp;
@@ -27,13 +29,15 @@ public class WarpCommand implements Command {
 		Warp warp = Warps.getService().getWarp(this.name);
 		if (warp == null)
 		{
-			Text.getService().sendMessage(player, "warp-invalid");
+			Text.getService().sendMessage(player, "warp-not-found");
 			return;
 		}
 
-		if (!player.hasPermission("warp-use-" + warp.getName()))
+		String permission = "warp-use" + warp.getName();
+		if (!player.hasPermission(permission))
 		{
-			Text.getService().sendMessage(player, "warp-no-permission");
+			Text.getService().sendMessage(player, LocaleDefaults.PERMISSION_MISSING,
+					MetadataDefaults.PERMISSION_FAILED, permission);
 			return;
 		}
 

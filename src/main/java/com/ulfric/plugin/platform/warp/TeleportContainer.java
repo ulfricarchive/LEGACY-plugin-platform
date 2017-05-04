@@ -10,6 +10,7 @@ public class TeleportContainer extends Container {
 	{
 		this.install(TeleportService.class);
 		this.install(TimedTeleportCancelListener.class);
+		this.install(TeleportDelayPlaceholder.class);
 	}
 
 }

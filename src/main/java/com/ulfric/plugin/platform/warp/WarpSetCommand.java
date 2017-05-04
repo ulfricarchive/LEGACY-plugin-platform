@@ -7,6 +7,7 @@ import com.ulfric.commons.spigot.command.Alias;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.MustBePlayer;
 import com.ulfric.commons.spigot.command.Permission;
+import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.warp.Warp;
 import com.ulfric.commons.spigot.warp.Warps;
@@ -29,7 +30,8 @@ public class WarpSetCommand extends WarpCommand {
 				.build();
 		service.setWarp(warp);
 
-		Text.getService().sendMessage(player, "warp-set");
+		Text.getService().sendMessage(player, "warp-set",
+				MetadataDefaults.LAST_WARP, this.name);
 	}
 
 }

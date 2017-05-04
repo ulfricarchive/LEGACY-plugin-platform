@@ -21,6 +21,16 @@ final class LastPunishmentPlaceholders {
 		LastPunishmentPlaceholders.lastPunished = lastPunished;
 	}
 
+	@Name("LAST_PUNISHER_NAME")
+	static class LastPunisherPlaceholder implements Placeholder
+	{
+		@Override
+		public String apply(CommandSender to)
+		{
+			return LastPunishmentPlaceholders.lastPunished;
+		}
+	}
+
 	@Name("LAST_PUNISHED_NAME")
 	static class LastPunishedPlaceholder implements Placeholder
 	{

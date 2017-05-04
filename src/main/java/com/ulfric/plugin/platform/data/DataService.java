@@ -28,7 +28,7 @@ class DataService implements Data {
 	private DataStore createDataStore(String category)
 	{
 		Path directory = this.getDirectory(category);
-		return YamlDataStore.newInstance(directory);
+		return FileDataStore.newInstance(directory);
 	}
 
 	private Path getDirectory(String category)

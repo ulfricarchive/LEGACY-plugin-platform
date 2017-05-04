@@ -11,6 +11,9 @@ public class PunishmentsContainer extends Container {
 		this.install(PunishmentsService.class);
 		this.install(PunishmentHolderArgumentResolver.class);
 		this.install(LastPunishmentPlaceholders.LastPunishedPlaceholder.class);
+		this.install(LastPunishmentPlaceholders.LastPunisherPlaceholder.class);
+		this.install(LastPunishmentPlaceholders.LastPunishedIdPlaceholder.class);
+		this.install(LastPunishmentPlaceholders.LastPunishedReasonPlaceholder.class);
 		this.install(KickContainer.class);
 	}
 

@@ -5,6 +5,7 @@ import com.ulfric.commons.spigot.command.Alias;
 import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.MustBePlayer;
 import com.ulfric.commons.spigot.command.Permission;
+import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.service.ServiceUtils;
 import com.ulfric.commons.spigot.text.Text;
 
@@ -19,7 +20,8 @@ public class WarpDeleteCommand extends WarpCommand {
 	{
 		WarpsService service = ServiceUtils.getService(WarpsService.class);
 		service.deleteWarp(this.name);
-		Text.getService().sendMessage(context.getSender(), "warp-delete");
+		Text.getService().sendMessage(context.getSender(), "warp-delete",
+				MetadataDefaults.LAST_WARP, this.name);
 	}
 	
 }

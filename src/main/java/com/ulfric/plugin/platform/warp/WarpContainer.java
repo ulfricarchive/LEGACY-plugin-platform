@@ -24,7 +24,9 @@ public class WarpContainer extends Container {
 		this.install(WarpsCommand.class);
 		this.install(WarpSetCommand.class);
 		this.install(WarpDeleteCommand.class);
+		this.install(LastWarpPlaceholder.class);
 		this.install(WarpsPlaceholder.class);
+		this.install(SpawnContainer.class);
 	}
 	
 	@Override

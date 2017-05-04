@@ -19,7 +19,7 @@ public class SpawnSetCommand extends SpawnCommand {
 	{
 		Player player = (Player) context.getSender();
 		Spawn.getService().setSpawn(player.getLocation());
-		Text.getService().sendMessage(player, "set-spawn");
+		Text.getService().sendMessage(player, "spawn-set");
 	}
 
 }

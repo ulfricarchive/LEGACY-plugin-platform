@@ -6,10 +6,13 @@ import org.bukkit.entity.Entity;
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.metadata.Metadata;
+import com.ulfric.commons.spigot.metadata.MetadataDefaults;
+import com.ulfric.commons.spigot.server.TickUtils;
 import com.ulfric.commons.spigot.task.Task;
 import com.ulfric.commons.spigot.task.Tasks;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.warp.Teleport;
+import com.ulfric.commons.text.FormatUtils;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 import com.ulfric.dragoon.inject.Inject;
@@ -19,20 +22,23 @@ class TeleportService implements Teleport {
 	@Inject
 	private Container container;
 
+	private String secondsDelay;
 	private long tickDelay;
 
 	@Initialize
 	private void initialize()
 	{
 		PersistentData config = Data.getDataStore(this.container).getDefault();
-		this.tickDelay = Tasks.secondsToTicks(config.getInt("delay", 5));
+		this.tickDelay = TickUtils.ticksFromSeconds(config.getInt("delay", 5));
+		this.secondsDelay = FormatUtils.formatDouble((this.tickDelay * 50) / 1000D);
 	}
 
 	@Override
 	public void teleport(Entity entity, Location to)
 	{
 		this.cancelTeleport(entity, TeleportTell.SILENT);
-		Text.getService().sendMessage(entity, "teleport-starting");
+		Text.getService().sendMessage(entity, "teleport-starting",
+				MetadataDefaults.TELEPORT_DELAY, this.secondsDelay);
 		Tasks.runLater(() -> entity.teleport(to), this.tickDelay);
 	}
 
