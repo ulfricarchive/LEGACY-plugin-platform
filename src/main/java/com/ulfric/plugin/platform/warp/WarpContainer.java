@@ -1,7 +1,5 @@
 package com.ulfric.plugin.platform.warp;
 
-import com.ulfric.commons.spigot.service.ServiceUtils;
-import com.ulfric.commons.spigot.warp.Warps;
 import com.ulfric.dragoon.ObjectFactory;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
@@ -11,14 +9,10 @@ public class WarpContainer extends Container {
 	
 	@Inject
 	private ObjectFactory factory;
-	
-	private WarpsService warps;
-	
+
 	@Initialize
 	private void initialize()
 	{
-		this.factory.bind(Warps.class).to(WarpsService.class);
-
 		this.install(WarpsService.class);
 		this.install(WarpCommand.class);
 		this.install(WarpsCommand.class);
@@ -27,18 +21,6 @@ public class WarpContainer extends Container {
 		this.install(LastWarpPlaceholder.class);
 		this.install(WarpsPlaceholder.class);
 		this.install(SpawnContainer.class);
-	}
-	
-	@Override
-	public void onEnable()
-	{
-		this.warps = ServiceUtils.getService(WarpsService.class);
-	}
-	
-	@Override
-	public void onDisable()
-	{
-		ServiceUtils.unregister(WarpsService.class, this.warps);
 	}
 	
 }
