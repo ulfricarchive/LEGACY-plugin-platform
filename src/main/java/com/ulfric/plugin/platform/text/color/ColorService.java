@@ -1,13 +1,16 @@
 package com.ulfric.plugin.platform.text.color;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.CommandSender;
 
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.DataStore;
 import com.ulfric.commons.spigot.data.PersistentData;
+import com.ulfric.commons.spigot.text.ChatUtils;
 import com.ulfric.commons.spigot.text.Color;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
@@ -18,24 +21,24 @@ class ColorService implements Color {
 	@Inject
 	private Container owner;
 
-	private final Map<ColorType, String> colors = new HashMap<>();
+	private Map<ColorType, String> colors = new HashMap<>();
 
 	@Initialize
 	private void initialize()
 	{
 		DataStore folder = Data.getDataStore(this.owner);
-
-		this.loadColors(folder.getData("defaults"));
+		this.colors = this.getColors(folder.getDefault());
 	}
 
-	private void loadColors(PersistentData data)
+	private Map<ColorType, String> getColors(PersistentData data)
 	{
+		Map<ColorType, String> colors = new EnumMap<>(ColorType.class);
 		for (ColorType color : ColorType.values())
 		{
-			String value = color.toString();
-
-			this.colors.put(color, data.getString(value));
+			String key = color.name().toLowerCase();
+			colors.put(color, ChatUtils.format(data.getString(key, StringUtils.EMPTY)));
 		}
+		return colors;
 	}
 
 	@Override
@@ -45,15 +48,15 @@ class ColorService implements Color {
 	}
 
 	@Override
-	public String secondary(CommandSender sender)
+	public String detail(CommandSender sender)
 	{
-		return this.colors.get(ColorType.SECONDARY);
+		return this.colors.get(ColorType.DETAIL);
 	}
 
 	@Override
-	public String tertiary(CommandSender sender)
+	public String button(CommandSender sender)
 	{
-		return this.colors.get(ColorType.TERTIARY);
+		return this.colors.get(ColorType.BUTTON);
 	}
 
 	@Override
@@ -64,23 +67,10 @@ class ColorService implements Color {
 
 	private enum ColorType
 	{
-		PRIMARY("primary"),
-		SECONDARY("secondary"),
-		TERTIARY("tertiary"),
-		WARNING("warning");
-
-		private final String value;
-
-		ColorType(String value)
-		{
-			this.value = value;
-		}
-
-		@Override
-		public String toString()
-		{
-			return this.value;
-		}
+		PRIMARY,
+		DETAIL,
+		BUTTON,
+		WARNING;
 	}
 
 }

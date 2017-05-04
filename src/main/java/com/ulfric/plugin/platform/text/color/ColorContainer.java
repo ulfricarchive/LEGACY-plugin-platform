@@ -11,8 +11,8 @@ public class ColorContainer extends Container {
 		this.install(ColorService.class);
 
 		this.install(PrimaryColorPlaceholder.class);
-		this.install(SecondaryColorPlaceholder.class);
-		this.install(TertiaryColorPlaceholder.class);
+		this.install(DetailColorPlaceholder.class);
+		this.install(ButtonColorPlaceholder.class);
 		this.install(WarningColorPlaceholder.class);
 	}
 

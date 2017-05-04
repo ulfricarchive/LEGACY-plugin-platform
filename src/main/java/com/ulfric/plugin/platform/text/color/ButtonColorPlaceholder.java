@@ -6,13 +6,13 @@ import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.text.Color;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
-@Name("SECONDARY_COLOR")
-class SecondaryColorPlaceholder implements Placeholder {
+@Name("BUTTON_COLOR")
+class ButtonColorPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender to)
 	{
-		return Color.getService().secondary(to);
+		return Color.getService().button(to);
 	}
 
 }

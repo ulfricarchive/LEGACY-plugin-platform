@@ -3,23 +3,11 @@ package com.ulfric.plugin.platform.punishment;
 import org.bukkit.command.CommandSender;
 
 import com.ulfric.commons.naming.Name;
-import com.ulfric.commons.spigot.punishment.Punishment;
+import com.ulfric.commons.spigot.metadata.Metadata;
+import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 final class LastPunishmentPlaceholders {
-
-	private static Punishment lastPunishment;
-	private static String lastPunished;
-
-	static void setLastPunishment(Punishment punishment)
-	{
-		LastPunishmentPlaceholders.lastPunishment = punishment;
-	}
-
-	static void setLastPunished(String lastPunished)
-	{
-		LastPunishmentPlaceholders.lastPunished = lastPunished;
-	}
 
 	@Name("LAST_PUNISHER_NAME")
 	static class LastPunisherPlaceholder implements Placeholder
@@ -27,7 +15,7 @@ final class LastPunishmentPlaceholders {
 		@Override
 		public String apply(CommandSender to)
 		{
-			return LastPunishmentPlaceholders.lastPunished;
+			return Metadata.readString(to, MetadataDefaults.PUNISHMENT_PUNISHER);
 		}
 	}
 
@@ -37,7 +25,7 @@ final class LastPunishmentPlaceholders {
 		@Override
 		public String apply(CommandSender to)
 		{
-			return LastPunishmentPlaceholders.lastPunished;
+			return Metadata.readString(to, MetadataDefaults.PUNISHMENT_PUNISHED);
 		}
 	}
 
@@ -47,7 +35,7 @@ final class LastPunishmentPlaceholders {
 		@Override
 		public String apply(CommandSender to)
 		{
-			return LastPunishmentPlaceholders.lastPunishment.getPunishmentId().toString();
+			return Metadata.readString(to, MetadataDefaults.PUNISHMENT_ID);
 		}
 	}
 
@@ -57,7 +45,7 @@ final class LastPunishmentPlaceholders {
 		@Override
 		public String apply(CommandSender to)
 		{
-			return LastPunishmentPlaceholders.lastPunishment.getReason();
+			return Metadata.readString(to, MetadataDefaults.PUNISHMENT_REASON);
 		}
 	}
 

@@ -29,9 +29,14 @@ final class LangPersistentData extends Bean implements PersistentData {
 		Map<String, String> values = new HashMap<>(lines.size());
 		for (String line : lines)
 		{
+			if (line.isEmpty() || line.startsWith("#"))
+			{
+				continue;
+			}
+
 			int equals = line.indexOf('=');
 			String key = line.substring(0, equals).trim();
-			String value = line.substring(equals).trim();
+			String value = line.substring(equals + 1).trim();
 			values.put(key, value);
 		}
 		return values;

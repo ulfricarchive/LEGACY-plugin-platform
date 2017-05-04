@@ -4,16 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.PersistentData;
-import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.punishment.Kick;
 import com.ulfric.commons.spigot.punishment.Punishment;
 import com.ulfric.commons.spigot.punishment.PunishmentHolder;
-import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 import com.ulfric.dragoon.inject.Inject;
@@ -51,7 +48,7 @@ class KickService implements Kick {
 		}
 
 		this.kickPunished(punished, punishment);
-		this.broadcastKick(holder, punishment);
+		PunishmentUtils.broadcast(this.logger, punishment, "kick");
 	}
 
 	@Override
@@ -62,52 +59,11 @@ class KickService implements Kick {
 
 	private void kickPunished(Iterable<Player> punished, Punishment punishment)
 	{
-		Text text = Text.getService();
-
 		for (Player player : punished)
 		{
-			String message = text.getPlainMessage(player, "kick-disconnect",
-					MetadataDefaults.PUNISHMENT_ID, punishment.getPunishmentId().toString(),
-					MetadataDefaults.PUNISHMENT_PUNISHER, punishment.getPunisher().getName(),
-					MetadataDefaults.PUNISHMENT_REASON, punishment.getReason());
+			String message = PunishmentUtils.format(player, punishment, "kick-disconnect");
 			player.kickPlayer(message);
 		}
-	}
-
-	private void broadcastKick(PunishmentHolder holder, Punishment punishment)
-	{
-		this.setupKickMessage(holder, punishment);
-
-		this.broadcastKick();
-
-		this.cleanupKickMessage();
-	}
-
-	private void setupKickMessage(PunishmentHolder holder, Punishment punishment)
-	{
-		LastPunishmentPlaceholders.setLastPunishment(punishment);
-		LastPunishmentPlaceholders.setLastPunished(holder.getName());
-	}
-
-	private void cleanupKickMessage()
-	{
-		LastPunishmentPlaceholders.setLastPunishment(null);
-		LastPunishmentPlaceholders.setLastPunished(null);
-	}
-
-	private void broadcastKick()
-	{
-		Text text = Text.getService();
-		for (Player player : Bukkit.getOnlinePlayers())
-		{
-			text.sendMessage(player, "kick-broadcast");
-		}
-		this.logKickToConsole();
-	}
-
-	private void logKickToConsole()
-	{
-		this.logger.info(Text.getService().getPlainMessage("kick-console"));
 	}
 
 	@Override
