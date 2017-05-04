@@ -83,6 +83,12 @@ abstract class BukkitConfigurationDelegator implements PersistentData {
 	}
 
 	@Override
+	public final long getLong(String path, long defaultValue)
+	{
+		return this.data.getLong(path, defaultValue);
+	}
+
+	@Override
 	public final boolean getBoolean(String path)
 	{
 		return this.data.getBoolean(path);
