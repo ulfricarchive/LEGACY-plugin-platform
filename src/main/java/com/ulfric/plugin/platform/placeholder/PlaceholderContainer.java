@@ -1,5 +1,8 @@
 package com.ulfric.plugin.platform.placeholder;
 
+import com.ulfric.commons.spigot.command.PermissionFailedPlaceholder;
+import com.ulfric.commons.spigot.command.RuleFailedPlaceholder;
+import com.ulfric.commons.spigot.command.argument.ArgumentFailedPlaceholder;
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 
@@ -23,6 +26,9 @@ public class PlaceholderContainer extends Container {
 		this.install(ServerVersionPlaceholder.class);
 		this.install(LastBalanceViewPlaceholder.class);
 		this.install(LastBalanceViewUserPlaceholder.class);
+		this.install(ArgumentFailedPlaceholder.class);
+		this.install(PermissionFailedPlaceholder.class);
+		this.install(RuleFailedPlaceholder.class);
 	}
 
 }
