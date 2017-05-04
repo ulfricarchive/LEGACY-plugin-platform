@@ -24,7 +24,7 @@ class TeleportService implements Teleport {
 	@Initialize
 	private void initialize()
 	{
-		PersistentData config = Data.getDataStore(this.container).getData("config");
+		PersistentData config = Data.getDataStore(this.container).getDefault();
 		this.tickDelay = Tasks.secondsToTicks(config.getInt("delay", 5));
 	}
 

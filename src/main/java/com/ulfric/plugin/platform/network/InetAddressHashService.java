@@ -35,7 +35,7 @@ class InetAddressHashService implements InetAddressHash {
 	private void initialize()
 	{
 		DataStore folder = Data.getDataStore(this.container);
-		PersistentData config = folder.getData("config");
+		PersistentData config = folder.getDefault();
 		this.hashSize = config.getInt("hash-size", 6);
 		this.hashPrefix = config.getString("hash-prefix", "IP-");
 

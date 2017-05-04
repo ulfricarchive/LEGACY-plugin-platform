@@ -31,7 +31,7 @@ class KickService implements Kick {
 	@Initialize
 	private void initialize()
 	{
-		PersistentData config = Data.getDataStore(this.owner).getData("config");
+		PersistentData config = Data.getDataStore(this.owner).getDefault();
 		this.defaultReason = config.getString("default-reason", "The kick hammer has spoken!");
 	}
 
