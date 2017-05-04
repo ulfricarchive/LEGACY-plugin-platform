@@ -21,11 +21,11 @@ import com.ulfric.commons.spigot.guard.BooleanFlag;
 import com.ulfric.commons.spigot.guard.Guard;
 
 @Name("Break")
-public final class BreakFlag extends BooleanFlag {
+final class BreakFlag extends BooleanFlag {
 
 	private final Guard regions;
 
-	public BreakFlag()
+	BreakFlag()
 	{
 		super(false);
 

@@ -8,7 +8,7 @@ import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("LAST_WARP")
-public class LastWarpPlaceholder implements Placeholder {
+class LastWarpPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender to)

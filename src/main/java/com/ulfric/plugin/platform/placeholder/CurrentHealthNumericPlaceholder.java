@@ -7,7 +7,7 @@ import com.ulfric.commons.spigot.text.placeholder.PlayerPlaceholder;
 import com.ulfric.commons.text.FormatUtils;
 
 @Name("CURRENT_HEALTH_NUMERIC")
-public class CurrentHealthNumericPlaceholder implements PlayerPlaceholder {
+class CurrentHealthNumericPlaceholder implements PlayerPlaceholder {
 
 	@Override
 	public String apply(Player display)

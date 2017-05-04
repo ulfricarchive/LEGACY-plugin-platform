@@ -19,7 +19,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Alias("r")
 @Permission("reply-use")
 @MustBePlayer
-public class ReplyCommand implements Command {
+class ReplyCommand implements Command {
 	
 	@Override
 	public void run(Context context)

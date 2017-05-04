@@ -13,9 +13,9 @@ import com.ulfric.commons.io.YamlFilter;
 import com.ulfric.commons.spigot.data.DataStore;
 import com.ulfric.commons.spigot.data.PersistentData;
 
-public class FileDataStore implements DataStore, Predicate<Path> {
+final class FileDataStore implements DataStore, Predicate<Path> {
 
-	public static FileDataStore newInstance(Path directory)
+	static FileDataStore newInstance(Path directory)
 	{
 		if (Files.exists(directory))
 		{

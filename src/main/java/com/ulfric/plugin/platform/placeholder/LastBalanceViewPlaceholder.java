@@ -8,7 +8,7 @@ import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.placeholder.PlayerPlaceholder;
 
 @Name("LAST_BALANCE_VIEW")
-public class LastBalanceViewPlaceholder implements PlayerPlaceholder {
+class LastBalanceViewPlaceholder implements PlayerPlaceholder {
 
 	@Override
 	public String apply(Player player)

@@ -16,7 +16,7 @@ import com.ulfric.commons.spigot.economy.Economy;
 import com.ulfric.commons.spigot.text.Text;
 
 @Name("pay")
-public class PayCommand implements Command {
+class PayCommand implements Command {
 
 	@Argument
 	private OfflinePlayer target;

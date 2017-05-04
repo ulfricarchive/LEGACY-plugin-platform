@@ -6,7 +6,7 @@ import com.ulfric.dragoon.initialize.Initialize;
 public class ServerEventsContainer extends Container {
 
 	@Initialize
-	private void setup()
+	private void initialize()
 	{
 		this.install(UlfricPluginDisableEventContainer.class);
 		this.install(ServerShutdownEventContainer.class);

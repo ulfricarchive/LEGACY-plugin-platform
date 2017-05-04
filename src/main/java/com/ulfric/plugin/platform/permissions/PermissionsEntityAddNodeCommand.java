@@ -13,7 +13,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Name("node")
 @Alias({"permission", "perm"})
 @Permission("permissions-entity-add-node")
-public class PermissionsEntityAddNodeCommand extends PermissionsEntityAddCommand {
+class PermissionsEntityAddNodeCommand extends PermissionsEntityAddCommand {
 
 	@Argument
 	private String node;

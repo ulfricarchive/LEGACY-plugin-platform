@@ -12,7 +12,7 @@ final class UniqueIdPunishmentHolder extends BeanPunishmentHolder {
 	private final UUID uniqueId;
 	private String name;
 
-	public UniqueIdPunishmentHolder(UUID uniqueId)
+	UniqueIdPunishmentHolder(UUID uniqueId)
 	{
 		this.uniqueId = uniqueId;
 	}
@@ -22,7 +22,7 @@ final class UniqueIdPunishmentHolder extends BeanPunishmentHolder {
 	{
 		if (this.name == null)
 		{
-			this.name = Bukkit.getOfflinePlayer(uniqueId).getName();
+			this.name = Bukkit.getOfflinePlayer(this.uniqueId).getName();
 		}
 		return this.name;
 	}

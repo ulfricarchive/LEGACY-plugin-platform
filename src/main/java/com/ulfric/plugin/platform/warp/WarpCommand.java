@@ -16,7 +16,7 @@ import com.ulfric.commons.spigot.warp.Warps;
 
 @Name("warp")
 @MustBePlayer
-public class WarpCommand implements Command {
+class WarpCommand implements Command {
 	
 	@Argument
 	protected String name;

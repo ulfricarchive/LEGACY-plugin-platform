@@ -6,7 +6,7 @@ import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("SENDER_NAME")
-public class SenderNamePlaceholder implements Placeholder {
+class SenderNamePlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender target)

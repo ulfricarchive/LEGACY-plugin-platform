@@ -13,7 +13,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Alias("remove")
 @Permission("warp-delete")
 @MustBePlayer
-public class WarpDeleteCommand extends WarpCommand {
+class WarpDeleteCommand extends WarpCommand {
 	
 	@Override
 	public void run(Context context)

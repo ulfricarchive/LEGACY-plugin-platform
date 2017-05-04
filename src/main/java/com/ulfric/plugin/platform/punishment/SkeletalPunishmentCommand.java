@@ -12,7 +12,7 @@ import com.ulfric.commons.spigot.punishment.PunishmentService;
 import com.ulfric.commons.spigot.punishment.Punishments;
 import com.ulfric.commons.spigot.service.ServiceUtils;
 
-public abstract class SkeletalPunishmentCommand implements Command {
+abstract class SkeletalPunishmentCommand implements Command {
 
 	@Argument
 	private PunishmentHolder target;
@@ -28,7 +28,7 @@ public abstract class SkeletalPunishmentCommand implements Command {
 		service.apply(this.target, punishment);
 	}
 
-	public final Punishment createPunishment(Context context, PunishmentService service)
+	private Punishment createPunishment(Context context, PunishmentService service)
 	{
 		Punisher punisher = Punishments.getService().getPunisher(context.getSender());
 		return Punishment.builder()
@@ -37,7 +37,7 @@ public abstract class SkeletalPunishmentCommand implements Command {
 				.build();
 	}
 
-	public PunishmentService getPunishmentService()
+	private PunishmentService getPunishmentService()
 	{
 		PunishmentType type = this.getClass().getAnnotation(PunishmentType.class);
 		Objects.requireNonNull(type, "type");

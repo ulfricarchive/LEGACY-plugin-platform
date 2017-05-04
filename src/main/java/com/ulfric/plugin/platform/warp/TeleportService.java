@@ -30,7 +30,7 @@ class TeleportService implements Teleport {
 	{
 		PersistentData config = Data.getDataStore(this.container).getDefault();
 		this.tickDelay = TickUtils.ticksFromSeconds(config.getInt("delay", 5));
-		this.secondsDelay = FormatUtils.formatDouble((this.tickDelay * 50) / 1000D);
+		this.secondsDelay = FormatUtils.formatDouble(TickUtils.secondsFromTicks(this.tickDelay));
 	}
 
 	@Override
@@ -69,11 +69,8 @@ class TeleportService implements Teleport {
 	public boolean isTeleporting(Entity entity)
 	{
 		Task teleport = this.getTeleportTask(entity);
-		if (teleport != null)
-		{
-			return !teleport.isComplete();
-		}
-		return false;
+
+		return teleport != null && !teleport.isComplete();
 	}
 
 	private Task getTeleportTask(Entity entity)
@@ -86,10 +83,10 @@ class TeleportService implements Teleport {
 		return null;
 	}
 
-	enum TeleportTell
+	private enum TeleportTell
 	{
 		SEND_MESSAGE,
-		SILENT;
+		SILENT
 	}
 
 }

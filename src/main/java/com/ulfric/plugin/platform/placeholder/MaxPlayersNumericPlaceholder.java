@@ -7,7 +7,7 @@ import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("MAX_PLAYERS_NUMERIC")
-public class MaxPlayersNumericPlaceholder implements Placeholder {
+class MaxPlayersNumericPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender display)

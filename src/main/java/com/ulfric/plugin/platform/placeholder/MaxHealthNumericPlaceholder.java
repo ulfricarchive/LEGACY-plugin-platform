@@ -8,7 +8,7 @@ import com.ulfric.commons.spigot.text.placeholder.PlayerPlaceholder;
 import com.ulfric.commons.text.FormatUtils;
 
 @Name("MAX_HEALTH_NUMERIC")
-public class MaxHealthNumericPlaceholder implements PlayerPlaceholder {
+class MaxHealthNumericPlaceholder implements PlayerPlaceholder {
 
 	@Override
 	public String apply(Player display)

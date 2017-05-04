@@ -6,7 +6,7 @@ import com.ulfric.dragoon.initialize.Initialize;
 class PlayerMoveBlockEventContainer extends Container {
 
 	@Initialize
-	private void setup()
+	private void initialize()
 	{
 		this.install(PlayerMoveBlockEventListener.class);
 	}

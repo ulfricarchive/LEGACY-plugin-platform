@@ -17,7 +17,7 @@ final class LangPersistentData extends Bean implements PersistentData {
 	private final String name;
 	private final Map<String, String> values;
 
-	public LangPersistentData(Path file)
+	LangPersistentData(Path file)
 	{
 		this.name = file.getFileName().toString().substring(0, ".lang".length());
 		this.values = this.readLanguage(file);

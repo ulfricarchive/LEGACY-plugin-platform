@@ -7,7 +7,9 @@ import com.ulfric.dragoon.inject.Inject;
 import com.ulfric.dragoon.intercept.Context;
 import com.ulfric.dragoon.intercept.Interceptor;
 
-public class ShutdownAuditInterceptor implements Interceptor {
+class ShutdownAuditInterceptor implements Interceptor {
+
+	private static final int TRACE_DEPTH = 13;
 
 	@Inject
 	private Logger logger;
@@ -41,7 +43,7 @@ public class ShutdownAuditInterceptor implements Interceptor {
 
 	private String getShutdownCause()
 	{
-		return Thread.currentThread().getStackTrace()[13].toString();
+		return Thread.currentThread().getStackTrace()[ShutdownAuditInterceptor.TRACE_DEPTH].toString();
 	}
 
 }

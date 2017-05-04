@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 import com.ulfric.commons.spigot.data.Data;
 import com.ulfric.commons.spigot.data.DataStore;
@@ -29,7 +28,7 @@ class EconomyService implements Economy {
 
 	private final List<Currency> currencies = new ArrayList<>();
 	private final Map<String, Currency> currenciesByName = new HashMap<>();
-	private final ConcurrentMap<UUID, BankAccount> accounts = new ConcurrentHashMap<>();
+	private final Map<UUID, BankAccount> accounts = new ConcurrentHashMap<>();
 
 	@Initialize
 	private void initialize()

@@ -7,7 +7,7 @@ import com.ulfric.commons.spigot.metadata.Metadata;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("RULE_FAILED")
-public class RulePlaceholder implements Placeholder {
+class RulePlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender sender)

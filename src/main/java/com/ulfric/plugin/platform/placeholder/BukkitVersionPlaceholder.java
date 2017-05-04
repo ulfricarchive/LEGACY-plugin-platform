@@ -7,7 +7,7 @@ import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("BUKKIT_VERSION")
-public class BukkitVersionPlaceholder implements Placeholder {
+class BukkitVersionPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender display)

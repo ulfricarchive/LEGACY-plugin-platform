@@ -7,7 +7,7 @@ import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("BUKKIT_SHUTDOWN_MESSAGE")
-public class BukkitShutdownMessagePlaceholder implements Placeholder {
+class BukkitShutdownMessagePlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender display)

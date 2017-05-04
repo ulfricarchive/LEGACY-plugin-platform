@@ -13,18 +13,21 @@ import com.ulfric.commons.spigot.text.Text;
 @Name("combattag")
 @Alias("ct")
 @MustBePlayer
-public class CombatTagCommand implements Command {
+class CombatTagCommand implements Command {
 
 	@Override
 	public void run(Context context)
 	{
 		Player player = (Player) context.getSender();
+
 		Text text = Text.getService();
+
 		if (CombatTag.getService().isMarked(player.getUniqueId()))
 		{
 			text.sendMessage(player, "combat-tag-currently-marked");
 			return;
 		}
+
 		text.sendMessage(player, "combat-tag-not-currently-marked");
 	}
 

@@ -23,9 +23,9 @@ import com.ulfric.dragoon.Dynamic;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.DynamicType;
 
-public class BalanceCommand implements Command {
+class BalanceCommand implements Command {
 
-	public static Class<?> createBalanceCommand(Currency currency)
+	static Class<?> createBalanceCommand(Currency currency)
 	{
 		DynamicType.Builder<?> command = new ByteBuddy()
 				.redefine(BalanceCommand.class)

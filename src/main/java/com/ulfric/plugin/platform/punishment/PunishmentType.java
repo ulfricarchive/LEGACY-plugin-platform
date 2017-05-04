@@ -9,7 +9,7 @@ import com.ulfric.commons.spigot.punishment.PunishmentService;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface PunishmentType {
+@interface PunishmentType {
 
 	Class<? extends PunishmentService> value();
 

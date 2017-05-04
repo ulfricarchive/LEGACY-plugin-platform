@@ -7,7 +7,7 @@ import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("BUKKIT_NAME")
-public class BukkitNamePlaceholder implements Placeholder {
+class BukkitNamePlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender display)

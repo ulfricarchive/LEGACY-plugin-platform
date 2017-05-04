@@ -21,7 +21,7 @@ final class PersistentCooldownAccount implements CooldownAccount {
 	
 	private final Map<String, Cooldown> cooldowns = new IdentityHashMap<>();
 	
-	public PersistentCooldownAccount(UUID uniqueId, PersistentData data)
+	PersistentCooldownAccount(UUID uniqueId, PersistentData data)
 	{
 		this.uniqueId = uniqueId;
 		this.data = data.getSection("cooldown");

@@ -10,7 +10,7 @@ import com.ulfric.plugin.platform.data.PlayerData;
 public class PermissionsContainer extends Container {
 
 	@Initialize
-	private void setup()
+	private void initialize()
 	{
 		ServiceUtils.getService(ObjectFactory.class).bind(Permissions.class).to(PermissionsService.class);
 		this.install(PermissionsService.class);

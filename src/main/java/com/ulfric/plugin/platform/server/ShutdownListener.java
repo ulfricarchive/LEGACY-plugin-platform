@@ -10,7 +10,7 @@ import com.ulfric.commons.spigot.event.server.ServerShutdownEvent;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.dragoon.inject.Inject;
 
-public class ShutdownListener implements Listener {
+class ShutdownListener implements Listener {
 
 	@Inject
 	private Logger logger;

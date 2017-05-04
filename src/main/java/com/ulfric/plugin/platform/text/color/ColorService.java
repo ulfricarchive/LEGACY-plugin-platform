@@ -13,7 +13,7 @@ import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 import com.ulfric.dragoon.inject.Inject;
 
-public class ColorService implements Color {
+class ColorService implements Color {
 
 	@Inject
 	private Container owner;

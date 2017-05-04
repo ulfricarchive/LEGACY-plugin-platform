@@ -75,7 +75,7 @@ enum FancyMessage {
 		Node parent = node;
 		while (parent != null)
 		{
-			if (isEvent(parent))
+			if (FancyMessage.isEvent(parent))
 			{
 				parents.add(parent);
 			}

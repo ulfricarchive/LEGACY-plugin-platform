@@ -6,7 +6,7 @@ import com.ulfric.dragoon.initialize.Initialize;
 class AsyncPlayerQuitEventContainer extends Container {
 
 	@Initialize
-	private void setup()
+	private void initialize()
 	{
 		this.install(AsyncPlayerQuitEventListener.class);
 	}

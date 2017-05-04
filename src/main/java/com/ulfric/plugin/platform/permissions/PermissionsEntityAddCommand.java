@@ -8,7 +8,7 @@ import com.ulfric.commons.spigot.text.Text;
 
 @Name("add")
 @Permission("permissions-entity-add")
-public class PermissionsEntityAddCommand extends PermissionsEntityCommand {
+class PermissionsEntityAddCommand extends PermissionsEntityCommand {
 
 	@Override
 	public void run(Context context)

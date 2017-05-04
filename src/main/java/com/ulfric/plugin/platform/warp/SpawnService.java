@@ -49,7 +49,7 @@ public final class SpawnService implements Spawn {
 		Teleport.getService().teleport(entity, spawn);
 	}
 
-	public Location getSpawn()
+	private Location getSpawn()
 	{
 		Warp warp = Warps.getService().getWarp(SpawnService.DEFAULT_SPAWN_NAME);
 		return warp == null ? null : warp.getLocation();

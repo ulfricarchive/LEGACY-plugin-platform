@@ -12,7 +12,7 @@ import com.ulfric.commons.spigot.warp.Spawn;
 @Name("set")
 @Permission("spawn-set")
 @MustBePlayer
-public class SpawnSetCommand extends SpawnCommand {
+class SpawnSetCommand extends SpawnCommand {
 
 	@Override
 	public void run(Context context)

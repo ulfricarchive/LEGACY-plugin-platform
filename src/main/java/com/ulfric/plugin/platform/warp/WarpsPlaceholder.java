@@ -10,7 +10,7 @@ import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 import com.ulfric.commons.spigot.warp.Warp;
 
 @Name("WARPS")
-public class WarpsPlaceholder implements Placeholder {
+class WarpsPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender sender)

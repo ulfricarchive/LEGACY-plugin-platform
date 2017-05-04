@@ -13,7 +13,7 @@ import com.ulfric.commons.bean.Bean;
 import com.ulfric.commons.spigot.shape.Point;
 import com.ulfric.commons.spigot.shape.Shape;
 
-public final class SpatialHash<V> extends Bean {
+final class SpatialHash<V> extends Bean {
 
 	public static <V> Builder<V> builder()
 	{
@@ -31,13 +31,13 @@ public final class SpatialHash<V> extends Bean {
 		{
 			if (this.sectionSize < 1)
 			{
-				throw new IllegalArgumentException("sectionSize must be at least 1, was" + sectionSize);
+				throw new IllegalArgumentException("sectionSize must be at least 1, was" + this.sectionSize);
 			}
 
 			return new SpatialHash<>(this.sectionSize);
 		}
 
-		public Builder<V> setSectionSize(int sectionSize)
+		Builder<V> setSectionSize(int sectionSize)
 		{
 			this.sectionSize = sectionSize;
 			return this;
@@ -92,7 +92,7 @@ public final class SpatialHash<V> extends Bean {
 			{
 				Entry next = iterator.next();
 
-				if (predicate.test(next.value))
+				if (predicate.test(next.getValue()))
 				{
 					iterator.remove();
 				}
@@ -109,20 +109,18 @@ public final class SpatialHash<V> extends Bean {
 			return;
 		}
 
-		for (int c = 0, l = entries.size(); c < l; c++)
+		for (Entry entry : entries)
 		{
-			Entry entry = entries.get(c);
-
-			if (!entry.shape.containsPoint(x, y, z))
+			if (!entry.getShape().containsPoint(x, y, z))
 			{
-				consumer.accept(entry.value);
+				consumer.accept(entry.getValue());
 
 				break;
 			}
 		}
 	}
 
-	public void hitTestAll(int x, int y, int z, Consumer<V> consumer)
+	void hitTestAll(int x, int y, int z, Consumer<V> consumer)
 	{
 		List<Entry> entries = this.getEntries(x, y, z);
 
@@ -131,13 +129,11 @@ public final class SpatialHash<V> extends Bean {
 			return;
 		}
 
-		for (int c = 0, l = entries.size(); c < l; c++)
+		for (Entry entry : entries)
 		{
-			Entry entry = entries.get(c);
-
-			if (entry.shape.containsPoint(x, y, z))
+			if (entry.getShape().containsPoint(x, y, z))
 			{
-				consumer.accept(entry.value);
+				consumer.accept(entry.getValue());
 			}
 		}
 	}
@@ -154,19 +150,29 @@ public final class SpatialHash<V> extends Bean {
 
 	private int pack(int x, int y, int z)
 	{
-		return (x << 16) | ((0xFF & z) << 8) | (y);
+		return (x << 16) | ((0xFF & z) << 8) | (y); // TODO: Magic numbers?
 	}
 
 	private final class Entry
 	{
+		private final Shape shape;
+		private final V value;
+
 		Entry(Shape shape, V value)
 		{
 			this.shape = shape;
 			this.value = value;
 		}
 
-		final Shape shape;
-		final V value;
+		private Shape getShape()
+		{
+			return this.shape;
+		}
+
+		private V getValue()
+		{
+			return this.value;
+		}
 	}
 
 }

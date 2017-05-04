@@ -12,7 +12,7 @@ import org.bukkit.plugin.Plugin;
 
 final class TemporaryCommandSender implements CommandSender {
 
-	public static final TemporaryCommandSender SHARED = new TemporaryCommandSender();
+	static final TemporaryCommandSender SHARED = new TemporaryCommandSender();
 
 	private final String name = "TEMP#" + UUID.randomUUID().toString();
 

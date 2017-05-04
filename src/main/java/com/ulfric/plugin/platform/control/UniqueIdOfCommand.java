@@ -17,7 +17,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Name("uniqueidof")
 @Permission("control-uniqueidof")
 @Alias("uuidof")
-public class UniqueIdOfCommand implements Command {
+class UniqueIdOfCommand implements Command {
 	
 	@Argument
 	private OfflinePlayer target;

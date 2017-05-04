@@ -7,6 +7,6 @@ import com.ulfric.commons.spigot.punishment.Kick;
 @Name("kick")
 @Permission("kick-use")
 @PunishmentType(Kick.class)
-public class KickCommand extends SkeletalPunishmentCommand {
+class KickCommand extends SkeletalPunishmentCommand {
 
 }

@@ -60,9 +60,10 @@ class KickService implements Kick {
 		return this.defaultReason;
 	}
 
-	private void kickPunished(List<Player> punished, Punishment punishment)
+	private void kickPunished(Iterable<Player> punished, Punishment punishment)
 	{
 		Text text = Text.getService();
+
 		for (Player player : punished)
 		{
 			String message = text.getPlainMessage(player, "kick-disconnect",

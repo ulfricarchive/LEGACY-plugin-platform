@@ -8,7 +8,7 @@ final class PersistentDataSubsection extends BukkitConfigurationDelegator {
 
 	private final PersistentData parent;
 
-	public PersistentDataSubsection(PersistentData parent, ConfigurationSection data)
+	PersistentDataSubsection(PersistentData parent, ConfigurationSection data)
 	{
 		super(data);
 		this.parent = parent;

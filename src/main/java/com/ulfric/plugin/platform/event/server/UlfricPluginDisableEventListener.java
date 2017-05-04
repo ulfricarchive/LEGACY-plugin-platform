@@ -9,7 +9,7 @@ import com.ulfric.commons.spigot.event.Events;
 import com.ulfric.commons.spigot.event.server.UlfricPluginDisableEvent;
 import com.ulfric.commons.spigot.plugin.UlfricPlugin;
 
-public class UlfricPluginDisableEventListener implements Listener {
+class UlfricPluginDisableEventListener implements Listener {
 
 	@EventHandler
 	private void onPluginDisable(PluginDisableEvent event)

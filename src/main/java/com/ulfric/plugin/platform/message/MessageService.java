@@ -10,7 +10,7 @@ import com.ulfric.commons.spigot.message.Messaging;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.Text;
 
-public class MessageService implements Messaging {
+class MessageService implements Messaging {
 	
 	private final Map<UUID, UUID> contacts = new ConcurrentHashMap<>();
 	

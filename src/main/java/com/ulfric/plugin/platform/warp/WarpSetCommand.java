@@ -16,7 +16,7 @@ import com.ulfric.commons.spigot.warp.Warps;
 @Alias({"add", "create"})
 @Permission("warp-set")
 @MustBePlayer
-public class WarpSetCommand extends WarpCommand {
+class WarpSetCommand extends WarpCommand {
 
 	@Override
 	public void run(Context context)

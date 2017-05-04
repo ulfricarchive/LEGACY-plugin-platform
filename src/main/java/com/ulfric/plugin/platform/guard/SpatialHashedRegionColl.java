@@ -10,7 +10,7 @@ import com.ulfric.commons.spigot.guard.Region;
 import com.ulfric.commons.spigot.guard.RegionColl;
 import com.ulfric.commons.spigot.guard.RegionList;
 
-public class SpatialHashedRegionColl implements RegionColl {
+class SpatialHashedRegionColl implements RegionColl {
 
 	private final SpatialHash<Region> regions = SpatialHash.<Region>builder()
 			.setSectionSize(128)

@@ -15,7 +15,7 @@ public class WarpContainer extends Container {
 	private WarpsService warps;
 	
 	@Initialize
-	private void setup()
+	private void initialize()
 	{
 		this.factory.bind(Warps.class).to(WarpsService.class);
 

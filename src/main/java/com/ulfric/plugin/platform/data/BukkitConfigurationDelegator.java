@@ -9,11 +9,16 @@ import com.ulfric.commons.spigot.data.PersistentData;
 
 abstract class BukkitConfigurationDelegator implements PersistentData {
 
-	protected final ConfigurationSection data;
+	private final ConfigurationSection data;
 
-	public BukkitConfigurationDelegator(ConfigurationSection data)
+	BukkitConfigurationDelegator(ConfigurationSection data)
 	{
 		this.data = data;
+	}
+
+	protected ConfigurationSection getData()
+	{
+		return this.data;
 	}
 
 	@Override

@@ -11,7 +11,7 @@ import com.ulfric.commons.spigot.warp.Spawn;
 
 @Name("spawn")
 @MustBePlayer
-public class SpawnCommand implements Command {
+class SpawnCommand implements Command {
 
 	@Override
 	public void run(Context context)

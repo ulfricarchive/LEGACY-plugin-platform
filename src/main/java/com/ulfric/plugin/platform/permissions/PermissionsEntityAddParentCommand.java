@@ -14,7 +14,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Name("node")
 @Alias({"permission", "perm"})
 @Permission("permissions-entity-add-node")
-public class PermissionsEntityAddParentCommand extends PermissionsEntityAddCommand {
+class PermissionsEntityAddParentCommand extends PermissionsEntityAddCommand {
 
 	@Argument
 	private PermissionEntity parent;

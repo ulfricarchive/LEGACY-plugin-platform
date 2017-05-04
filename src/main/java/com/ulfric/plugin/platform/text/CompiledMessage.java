@@ -17,6 +17,7 @@ import net.md_5.bungee.chat.ComponentSerializer;
 
 final class CompiledMessage implements Function<CommandSender, String> {
 
+	private static final double EXPECTED_LENGTH_MULTIPLIER = 0.2;
 	private static final Map<String, Placeholder> PLACEHOLDERS = new HashMap<>();
 	private static final Pattern VARIABLE = Pattern.compile(CompiledMessage.escape("(?i)${[A-Z0-9_]+}"));
 
@@ -42,7 +43,7 @@ final class CompiledMessage implements Function<CommandSender, String> {
 		CompiledMessage.PLACEHOLDERS.remove(placeholder.getName(), placeholder);
 	}
 
-	public static CompiledMessage compileLegacy(String message)
+	static CompiledMessage compileLegacy(String message)
 	{
 		Objects.requireNonNull(message);
 
@@ -50,7 +51,7 @@ final class CompiledMessage implements Function<CommandSender, String> {
 		return CompiledMessage.compile(legacy);
 	}
 
-	public static CompiledMessage compileRaw(String message)
+	static CompiledMessage compileRaw(String message)
 	{
 		Objects.requireNonNull(message);
 
@@ -96,7 +97,7 @@ final class CompiledMessage implements Function<CommandSender, String> {
 
 	private static int getExpectedLength(String precompile)
 	{
-		return (int) (precompile.length() + (0.2 * precompile.length()));
+		return (int) (precompile.length() + (CompiledMessage.EXPECTED_LENGTH_MULTIPLIER * precompile.length()));
 	}
 
 	private final List<Function<CommandSender, String>> compiled;

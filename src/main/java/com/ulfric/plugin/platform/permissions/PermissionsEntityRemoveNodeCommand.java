@@ -13,7 +13,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Name("node")
 @Alias({"permission", "perm"})
 @Permission("permissions-entity-remove-node")
-public class PermissionsEntityRemoveNodeCommand extends PermissionsEntityRemoveCommand {
+class PermissionsEntityRemoveNodeCommand extends PermissionsEntityRemoveCommand {
 
 	@Argument
 	private String node;

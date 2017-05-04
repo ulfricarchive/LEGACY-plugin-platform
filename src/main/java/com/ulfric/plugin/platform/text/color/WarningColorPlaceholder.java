@@ -7,7 +7,7 @@ import com.ulfric.commons.spigot.text.Color;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("WARNING_COLOR")
-public class WarningColorPlaceholder implements Placeholder {
+class WarningColorPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender to)

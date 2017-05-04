@@ -8,7 +8,7 @@ import com.ulfric.plugin.platform.event.server.ServerEventsContainer;
 public class EventsContainer extends Container {
 
 	@Initialize
-	private void setup()
+	private void initialize()
 	{
 		this.install(PlayerEventsContainer.class);
 		this.install(ServerEventsContainer.class);

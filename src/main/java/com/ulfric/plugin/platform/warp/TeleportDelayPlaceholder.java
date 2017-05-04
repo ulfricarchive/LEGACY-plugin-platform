@@ -8,7 +8,7 @@ import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("TELEPORT_DELAY")
-public class TeleportDelayPlaceholder implements Placeholder {
+class TeleportDelayPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender to)

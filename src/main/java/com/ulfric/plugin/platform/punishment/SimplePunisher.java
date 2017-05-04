@@ -7,7 +7,7 @@ import com.ulfric.commons.spigot.punishment.Punisher;
 
 final class SimplePunisher extends Bean implements Punisher {
 
-	public static final SimplePunisher of(String name)
+	static SimplePunisher of(String name)
 	{
 		Objects.requireNonNull(name);
 		return new SimplePunisher(name);

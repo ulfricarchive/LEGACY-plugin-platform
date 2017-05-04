@@ -3,17 +3,18 @@ package com.ulfric.plugin.platform.data;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.ulfric.commons.exception.Try;
 
-public final class YamlPersistentData extends BukkitConfigurationDelegator {
+final class YamlPersistentData extends BukkitConfigurationDelegator {
 
-	private static FileConfiguration getFileConfiguration(Path file)
+	private static ConfigurationSection getFileConfiguration(Path file)
 	{
 		return Try.toWithResources(() -> Files.newBufferedReader(file),
-				reader -> YamlConfiguration.loadConfiguration(reader));
+				YamlConfiguration::loadConfiguration);
 	}
 
 	private final FileConfiguration data;
@@ -21,11 +22,11 @@ public final class YamlPersistentData extends BukkitConfigurationDelegator {
 	private final Path file;
 	private boolean needsWrite;
 
-	public YamlPersistentData(Path file)
+	YamlPersistentData(Path file)
 	{
 		super(YamlPersistentData.getFileConfiguration(file));
 		this.file = file;
-		this.data = (FileConfiguration) super.data;
+		this.data = (FileConfiguration) this.getData();
 		this.name = this.resolveName();
 	}
 

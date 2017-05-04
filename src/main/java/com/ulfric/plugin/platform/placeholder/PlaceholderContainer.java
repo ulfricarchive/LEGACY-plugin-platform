@@ -9,7 +9,7 @@ import com.ulfric.dragoon.initialize.Initialize;
 public class PlaceholderContainer extends Container {
 
 	@Initialize
-	private void setup()
+	private void initialize()
 	{
 		this.install(RulePlaceholder.class);
 		this.install(BukkitNamePlaceholder.class);

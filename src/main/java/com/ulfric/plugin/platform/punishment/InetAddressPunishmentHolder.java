@@ -11,7 +11,7 @@ final class InetAddressPunishmentHolder extends BeanPunishmentHolder {
 
 	private final String hash;
 
-	public InetAddressPunishmentHolder(String hash)
+	InetAddressPunishmentHolder(String hash)
 	{
 		this.hash = hash;
 	}

@@ -7,7 +7,7 @@ import com.ulfric.commons.spigot.text.Color;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("SECONDARY_COLOR")
-public class SecondaryColorPlaceholder implements Placeholder {
+class SecondaryColorPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender to)

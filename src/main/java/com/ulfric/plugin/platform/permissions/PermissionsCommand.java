@@ -10,7 +10,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Name("permissions")
 @Alias({"permission", "perms", "perm"})
 @Permission("permissions")
-public class PermissionsCommand implements Command {
+class PermissionsCommand implements Command {
 
 	@Override
 	public void run(Context context)

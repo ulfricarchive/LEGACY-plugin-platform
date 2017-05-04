@@ -11,12 +11,12 @@ final class LastPunishmentPlaceholders {
 	private static Punishment lastPunishment;
 	private static String lastPunished;
 
-	public static void setLastPunishment(Punishment punishment)
+	static void setLastPunishment(Punishment punishment)
 	{
 		LastPunishmentPlaceholders.lastPunishment = punishment;
 	}
 
-	public static void setLastPunished(String lastPunished)
+	static void setLastPunished(String lastPunished)
 	{
 		LastPunishmentPlaceholders.lastPunished = lastPunished;
 	}

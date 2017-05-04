@@ -9,16 +9,16 @@ import com.ulfric.commons.spigot.guard.Flag;
 import com.ulfric.commons.spigot.guard.Region;
 import com.ulfric.commons.spigot.guard.RegionList;
 
-public final class SortedRegionList implements RegionList {
+final class SortedRegionList implements RegionList {
 
 	private final List<Region> regions = new ArrayList<>();
 
-	public void addRegion(Region region)
+	void addRegion(Region region)
 	{
 		this.regions.add(region);
 	}
 
-	public void sort()
+	void sort()
 	{
 		Collections.sort(this.regions);
 	}

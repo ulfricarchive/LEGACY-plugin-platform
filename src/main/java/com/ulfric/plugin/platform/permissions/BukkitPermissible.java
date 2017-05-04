@@ -13,7 +13,7 @@ final class BukkitPermissible extends PermissibleBase {
 	private final PermissionEntity entity;
 	private final Object metadata;
 
-	public BukkitPermissible(ServerOperator opable, PermissionEntity entity)
+	BukkitPermissible(ServerOperator opable, PermissionEntity entity)
 	{
 		super(opable);
 		this.entity = entity;

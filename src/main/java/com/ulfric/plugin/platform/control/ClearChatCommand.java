@@ -10,7 +10,7 @@ import com.ulfric.commons.spigot.control.ClearChat;
 @Name("clearchat")
 @Permission("control-clearchat")
 @Alias("cc")
-public class ClearChatCommand implements Command {
+class ClearChatCommand implements Command {
 
 	@Override
 	public void run(Context context)

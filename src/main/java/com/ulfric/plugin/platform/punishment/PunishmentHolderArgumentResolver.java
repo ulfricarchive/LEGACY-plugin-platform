@@ -14,7 +14,7 @@ import com.ulfric.commons.spigot.player.PlayerUtils;
 import com.ulfric.commons.spigot.punishment.PunishmentHolder;
 import com.ulfric.commons.spigot.punishment.Punishments;
 
-public class PunishmentHolderArgumentResolver implements ArgumentResolver<PunishmentHolder> {
+class PunishmentHolderArgumentResolver implements ArgumentResolver<PunishmentHolder> {
 
 	@Override
 	public PunishmentHolder apply(Context context, String argument)

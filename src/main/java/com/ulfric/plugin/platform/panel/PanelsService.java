@@ -10,7 +10,7 @@ import com.ulfric.commons.spigot.panel.Panels;
 import com.ulfric.commons.spigot.panel.browser.Browser;
 import com.ulfric.plugin.platform.panel.browser.BukkitBrowser;
 
-public class PanelsService implements Panels {
+class PanelsService implements Panels {
 
 	private final Map<UUID, Browser> browsers = new HashMap<>();
 

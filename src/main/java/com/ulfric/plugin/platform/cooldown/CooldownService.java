@@ -13,7 +13,7 @@ import com.ulfric.dragoon.initialize.Initialize;
 import com.ulfric.dragoon.inject.Inject;
 import com.ulfric.plugin.platform.data.PlayerData;
 
-public class CooldownService implements Cooldowns {
+class CooldownService implements Cooldowns {
 	
 	@Inject
 	private Container owner;

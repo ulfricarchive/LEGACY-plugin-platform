@@ -13,7 +13,9 @@ import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;
 import com.ulfric.dragoon.inject.Inject;
 
-public class CombatTagService implements CombatTag {
+class CombatTagService implements CombatTag {
+
+	private static final long DEFAULT_TAG_TICKS = TickUtils.ticksFromSeconds(15);
 
 	@Inject
 	private Container owner;
@@ -26,7 +28,7 @@ public class CombatTagService implements CombatTag {
 	{
 		PersistentData config = Data.getDataStore(this.owner).getDefault();
 		this.combatTagMetadataKey = config.getString("combat-tag-metadata-key", "CombatTag");
-		this.durationInTicks = config.getLong("combat-tag-ticks", TickUtils.ticksFromSeconds(15));
+		this.durationInTicks = config.getLong("combat-tag-ticks", CombatTagService.DEFAULT_TAG_TICKS);
 	}
 
 	@Override

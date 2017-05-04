@@ -130,7 +130,7 @@ enum ChestPanelUtils {
 	{
 		Try.to(() ->
 		{
-			Object iInventory = IINVENTORY_GETTER.invoke(inventory);
+			Object iInventory = ChestPanelUtils.IINVENTORY_GETTER.invoke(inventory);
 
 			Object items = ChestPanelUtils.INVENTORY_ITEMS_GETTER.invoke(iInventory);
 

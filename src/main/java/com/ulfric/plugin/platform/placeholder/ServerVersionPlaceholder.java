@@ -7,7 +7,7 @@ import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.text.placeholder.Placeholder;
 
 @Name("SERVER_VERSION")
-public class ServerVersionPlaceholder implements Placeholder {
+class ServerVersionPlaceholder implements Placeholder {
 
 	@Override
 	public String apply(CommandSender display)

@@ -9,7 +9,7 @@ import com.ulfric.commons.spigot.event.server.ServerShutdownEvent;
 import com.ulfric.commons.spigot.event.server.UlfricPluginDisableEvent;
 import com.ulfric.commons.spigot.plugin.PluginUtils;
 
-public class ServerShutdownEventListener implements Listener {
+class ServerShutdownEventListener implements Listener {
 
 	@EventHandler
 	private void onPluginDisable(UlfricPluginDisableEvent event)

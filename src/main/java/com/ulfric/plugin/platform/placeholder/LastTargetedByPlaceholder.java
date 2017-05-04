@@ -8,7 +8,7 @@ import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.placeholder.PlayerPlaceholder;
 
 @Name("LAST_TARGETED_BY")
-public class LastTargetedByPlaceholder implements PlayerPlaceholder {
+class LastTargetedByPlaceholder implements PlayerPlaceholder {
 
 	@Override
 	public String apply(Player target)

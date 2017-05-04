@@ -49,6 +49,7 @@ class CombatTagListener implements Listener {
 		if (combat.isMarked(player.getUniqueId()))
 		{
 			combat.unmark(player.getUniqueId());
+
 			player.setHealth(0); // TODO set last damage cause?
 		}
 	}

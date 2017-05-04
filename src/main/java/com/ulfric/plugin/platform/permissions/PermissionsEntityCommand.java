@@ -12,7 +12,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Name("entity")
 @Alias({"ent", "user", "group"})
 @Permission("permissions-entity")
-public class PermissionsEntityCommand extends PermissionsCommand {
+class PermissionsEntityCommand extends PermissionsCommand {
 
 	@Argument
 	protected PermissionEntity target;

@@ -12,15 +12,15 @@ import com.ulfric.commons.identity.Identity;
 import com.ulfric.commons.spigot.permissions.PermissionEntity;
 import com.ulfric.commons.spigot.permissions.Permissions;
 
-public class RadixTreePermissionEntity extends SkeletalPermissionEntity {
+class RadixTreePermissionEntity extends SkeletalPermissionEntity {
 
-	public static final char PREFIX_SEPERATOR = '-';
+	private static final char PREFIX_SEPERATOR = '-';
 
 	protected final List<RadixTreePermissionEntity> parents;
 	protected final Set<String> permissions;
 	private final Map<String, Boolean> stateCache;
 
-	protected RadixTreePermissionEntity(Identity identity)
+	RadixTreePermissionEntity(Identity identity)
 	{
 		super(identity);
 

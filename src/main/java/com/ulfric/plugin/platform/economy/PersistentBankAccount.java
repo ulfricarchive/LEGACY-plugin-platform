@@ -17,7 +17,7 @@ final class PersistentBankAccount implements BankAccount {
 	private final UUID uniqueId;
 	private final PersistentData data;
 
-	public PersistentBankAccount(UUID uniqueId, PersistentData data)
+	PersistentBankAccount(UUID uniqueId, PersistentData data)
 	{
 		this.uniqueId = uniqueId;
 		this.data = data.getSection("balance");

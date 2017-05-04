@@ -8,17 +8,20 @@ import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.text.placeholder.PlayerPlaceholder;
 
 @Name("COMBAT_TAGGED")
-public final class CombatTaggedPlaceholder implements PlayerPlaceholder {
+final class CombatTaggedPlaceholder implements PlayerPlaceholder {
 	
 	@Override
 	public String apply(Player player)
 	{
 		boolean tagged = CombatTag.getService().isMarked(player.getUniqueId());
+
 		Text text = Text.getService();
+
 		if (tagged)
 		{
 			return text.getPlainMessage(player, "combat-tag-marked-placeholder");
 		}
+
 		return text.getPlainMessage(player, "combat-tag-not-marked-placeholder");
 	}
 	

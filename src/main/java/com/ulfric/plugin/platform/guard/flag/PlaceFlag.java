@@ -12,11 +12,11 @@ import com.ulfric.commons.spigot.guard.BooleanFlag;
 import com.ulfric.commons.spigot.guard.Guard;
 
 @Name("Place")
-public final class PlaceFlag extends BooleanFlag {
+final class PlaceFlag extends BooleanFlag {
 
 	private final Guard regions;
 
-	public PlaceFlag()
+	PlaceFlag()
 	{
 		super(false);
 

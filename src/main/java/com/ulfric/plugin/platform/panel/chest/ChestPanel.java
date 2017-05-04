@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -89,7 +90,7 @@ public class ChestPanel implements Panel {
 		}
 	}
 
-	private ItemStack localizeName(Player player, ItemStack item)
+	private ItemStack localizeName(CommandSender player, ItemStack item)
 	{
 		if (!item.hasItemMeta())
 		{

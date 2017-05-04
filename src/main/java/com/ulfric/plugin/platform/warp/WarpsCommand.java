@@ -10,7 +10,7 @@ import com.ulfric.commons.spigot.text.Text;
 @Name("warps")
 @Permission("warps-use")
 @MustBePlayer
-public class WarpsCommand implements Command {
+class WarpsCommand implements Command {
 	
 	@Override
 	public void run(Context context)
