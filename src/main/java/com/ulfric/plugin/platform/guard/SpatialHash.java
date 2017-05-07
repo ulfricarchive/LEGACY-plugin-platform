@@ -1,10 +1,8 @@
 package com.ulfric.plugin.platform.guard;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -12,6 +10,9 @@ import java.util.function.Predicate;
 import com.ulfric.commons.bean.Bean;
 import com.ulfric.commons.spigot.shape.Point;
 import com.ulfric.commons.spigot.shape.Shape;
+
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 final class SpatialHash<V> extends Bean {
 
@@ -50,7 +51,7 @@ final class SpatialHash<V> extends Bean {
 	}
 
 	private final int sectionSize;
-	private final Map<Integer, List<Entry>> data = new HashMap<>();
+	private final TIntObjectMap<List<Entry>> data = new TIntObjectHashMap<>();
 
 	public void put(Shape shape, V value)
 	{
@@ -68,7 +69,7 @@ final class SpatialHash<V> extends Bean {
 		int minZ = min.getZ() / size;
 		int maxZ = max.getZ() / size;
 
-		Map<Integer, List<Entry>> data = this.data;
+		TIntObjectMap<List<Entry>> data = this.data;
 
 		for (int x = minX; x < maxX; x++)
 		{
@@ -76,7 +77,14 @@ final class SpatialHash<V> extends Bean {
 			{
 				for (int z = minZ; z < maxZ; z++)
 				{
-					data.computeIfAbsent(this.pack(x, y, z), key -> new ArrayList<>()).add(new Entry(shape, value));
+					int packed = this.pack(x, y, z);
+					List<Entry> entries = data.get(packed);
+					if (entries == null)
+					{
+						entries = new ArrayList<>();
+						data.put(packed, entries);
+					}
+					entries.add(new Entry(shape, value));
 				}
 			}
 		}
@@ -84,7 +92,7 @@ final class SpatialHash<V> extends Bean {
 
 	public void remove(Predicate<V> predicate)
 	{
-		for (List<Entry> list : this.data.values())
+		for (List<Entry> list : this.data.valueCollection())
 		{
 			Iterator<Entry> iterator = list.iterator();
 
