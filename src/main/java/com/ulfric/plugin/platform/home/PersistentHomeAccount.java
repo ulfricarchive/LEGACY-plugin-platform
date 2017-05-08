@@ -81,10 +81,8 @@ class PersistentHomeAccount implements HomeAccount {
 	}
 	
 	@Override
-	public void deleteHome(Home home)
+	public void deleteHome(String name)
 	{
-		String name = home.getName();
-		
 		this.homes.remove(name);
 		
 		synchronized (this.lock)
