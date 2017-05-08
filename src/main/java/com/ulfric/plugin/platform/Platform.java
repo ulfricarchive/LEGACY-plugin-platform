@@ -8,6 +8,7 @@ import com.ulfric.plugin.platform.data.DataContainer;
 import com.ulfric.plugin.platform.economy.EconomyContainer;
 import com.ulfric.plugin.platform.event.EventsContainer;
 import com.ulfric.plugin.platform.guard.GuardContainer;
+import com.ulfric.plugin.platform.kit.KitContainer;
 import com.ulfric.plugin.platform.message.MessageContainer;
 import com.ulfric.plugin.platform.naming.FriendlyNameContainer;
 import com.ulfric.plugin.platform.network.InetAddressHashContainer;
@@ -43,6 +44,7 @@ public final class Platform extends UlfricPlugin {
 		this.install(MessageContainer.class);
 		this.install(CombatTagContainer.class);
 		this.install(CooldownContainer.class);
+		this.install(KitContainer.class);
 	}
 
 }

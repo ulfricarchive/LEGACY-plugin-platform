@@ -105,4 +105,16 @@ abstract class BukkitConfigurationDelegator implements PersistentData {
 		return this.data.getKeys(false);
 	}
 
+	@Override
+	public final boolean contains(String key)
+	{
+		return this.data.contains(key);
+	}
+
+	@Override
+	public final PersistentData createSection(String key)
+	{
+		return new PersistentDataSubsection(this, this.data.createSection(key));
+	}
+
 }
