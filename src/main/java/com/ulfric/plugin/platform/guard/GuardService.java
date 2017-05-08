@@ -10,8 +10,8 @@ import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.bukkit.Location;
 
 import com.ulfric.commons.spigot.data.Data;
+import com.ulfric.commons.spigot.data.DataSection;
 import com.ulfric.commons.spigot.data.DataStore;
-import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.guard.EmptyRegionList;
 import com.ulfric.commons.spigot.guard.Flag;
 import com.ulfric.commons.spigot.guard.Guard;
@@ -50,7 +50,7 @@ class GuardService implements Guard {
 		folder.loadAllData().forEach(this::loadRegion);
 	}
 
-	private void loadRegion(PersistentData data)
+	private void loadRegion(DataSection data)
 	{
 		Region region = Region.builder()
 			.setName(data.getString("name", data.getName()))
@@ -64,13 +64,13 @@ class GuardService implements Guard {
 		this.addActiveRegion(region);
 	}
 
-	private Map<Flag<?>, Object> loadFlags(PersistentData data)
+	private Map<Flag<?>, Object> loadFlags(DataSection data)
 	{
 		Map<Flag<?>, Object> flags = new IdentityHashMap<>();
 
 		if (data != null)
 		{
-			for (PersistentData flagData : data.getSections())
+			for (DataSection flagData : data.getSections())
 			{
 				String flagName = flagData.getString("name");
 				Flag<?> flag = this.getFlag(flagName);
@@ -83,13 +83,13 @@ class GuardService implements Guard {
 		return flags;
 	}
 
-	private Shape getShape(PersistentData data)
+	private Shape getShape(DataSection data)
 	{
 		ShapeType type = ShapeType.getShapeType(data.getString("type"));
 		Shape creator = InstanceUtils.createOrNull(type.getShapeType());
 
 		Map<String, Object> shapeData = new HashMap<>();
-		PersistentData shapeConfig = data.getSection("shape");
+		DataSection shapeConfig = data.getSection("shape");
 		if (shapeConfig != null)
 		{
 			for (String shapePart : shapeConfig.getKeys())

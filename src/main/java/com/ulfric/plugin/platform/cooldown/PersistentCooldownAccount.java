@@ -11,13 +11,14 @@ import java.util.stream.Stream;
 
 import com.ulfric.commons.spigot.cooldown.Cooldown;
 import com.ulfric.commons.spigot.cooldown.CooldownAccount;
+import com.ulfric.commons.spigot.data.DataSection;
 import com.ulfric.commons.spigot.data.PersistentData;
 
 final class PersistentCooldownAccount implements CooldownAccount {
 	
 	private final Object lock = new Object();
 	private final UUID uniqueId;
-	private final PersistentData data;
+	private final DataSection data;
 	
 	private final Map<String, Cooldown> cooldowns = new IdentityHashMap<>();
 	
@@ -65,7 +66,7 @@ final class PersistentCooldownAccount implements CooldownAccount {
 	{
 		synchronized (this.lock)
 		{
-			PersistentData data = this.data.getSection(name);
+			DataSection data = this.data.getSection(name);
 			
 			if (data == null)
 			{
@@ -105,7 +106,7 @@ final class PersistentCooldownAccount implements CooldownAccount {
 		
 		synchronized (this.lock)
 		{
-			PersistentData data = this.data.getSection(name);
+			DataSection data = this.data.getSection(name);
 			
 			data.set("start", cooldown.getStart().get(ChronoField.MILLI_OF_SECOND));
 			data.set("expiry", cooldown.getExpiry().get(ChronoField.MILLI_OF_SECOND));

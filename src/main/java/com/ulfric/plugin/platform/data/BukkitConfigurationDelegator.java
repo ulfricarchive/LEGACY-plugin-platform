@@ -2,23 +2,20 @@ package com.ulfric.plugin.platform.data;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import com.ulfric.commons.spigot.data.PersistentData;
+import com.ulfric.commons.identity.UniqueIdUtils;
+import com.ulfric.commons.spigot.data.DataSection;
 
-abstract class BukkitConfigurationDelegator implements PersistentData {
+abstract class BukkitConfigurationDelegator<T extends ConfigurationSection> implements DataSection {
 
-	private final ConfigurationSection data;
+	protected final T data;
 
-	BukkitConfigurationDelegator(ConfigurationSection data)
+	BukkitConfigurationDelegator(T data)
 	{
 		this.data = data;
-	}
-
-	protected ConfigurationSection getData()
-	{
-		return this.data;
 	}
 
 	@Override
@@ -28,93 +25,87 @@ abstract class BukkitConfigurationDelegator implements PersistentData {
 	}
 
 	@Override
-	public final void set(String path, Object value)
+	public void set(String path, Object value)
 	{
-		this.markForWrite();
 		this.data.set(path, value);
 	}
 
 	@Override
-	public final PersistentData getSection(String path)
-	{
-		ConfigurationSection data = this.data.getConfigurationSection(path);
-		if (data == null)
-		{
-			return null;
-		}
-		return new PersistentDataSubsection(this, data);
-	}
-
-	@Override
-	public final Object getObject(String path)
+	public Object getObject(String path)
 	{
 		return this.data.get(path);
 	}
 
 	@Override
-	public final String getString(String path)
+	public String getString(String path)
 	{
 		return this.data.getString(path);
 	}
 
 	@Override
-	public final String getString(String path, String defaultValue)
+	public String getString(String path, String defaultValue)
 	{
 		return this.data.getString(path, defaultValue);
 	}
 
 	@Override
-	public final List<String> getStringList(String path)
+	public List<String> getStringList(String path)
 	{
 		return this.data.getStringList(path);
 	}
 
 	@Override
-	public final int getInt(String path)
+	public int getInt(String path)
 	{
 		return this.data.getInt(path);
 	}
 
 	@Override
-	public final int getInt(String path, int defaultValue)
+	public int getInt(String path, int defaultValue)
 	{
 		return this.data.getInt(path, defaultValue);
 	}
 
 	@Override
-	public final long getLong(String path)
+	public long getLong(String path)
 	{
 		return this.data.getLong(path);
 	}
 
 	@Override
-	public final long getLong(String path, long defaultValue)
+	public long getLong(String path, long defaultValue)
 	{
 		return this.data.getLong(path, defaultValue);
 	}
 
 	@Override
-	public final boolean getBoolean(String path)
+	public boolean getBoolean(String path)
 	{
 		return this.data.getBoolean(path);
 	}
 
 	@Override
-	public final Set<String> getKeys()
+	public boolean getBoolean(String path, boolean defaultValue)
+	{
+		return this.data.getBoolean(path, defaultValue);
+	}
+
+	@Override
+	public UUID getUniqueId(String path)
+	{
+		return UniqueIdUtils.parseUniqueId(this.getString(path));
+	}
+
+	@Override
+	public Set<String> getKeys()
 	{
 		return this.data.getKeys(false);
 	}
 
 	@Override
-	public final boolean contains(String key)
+	public boolean contains(String key)
 	{
 		return this.data.contains(key);
-	}
-
-	@Override
-	public final PersistentData createSection(String key)
-	{
-		return new PersistentDataSubsection(this, this.data.createSection(key));
 	}
 
 }

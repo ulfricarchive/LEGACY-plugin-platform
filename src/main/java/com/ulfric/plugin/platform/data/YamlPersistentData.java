@@ -3,30 +3,26 @@ package com.ulfric.plugin.platform.data;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import com.ulfric.commons.exception.Try;
 
-final class YamlPersistentData extends BukkitConfigurationDelegator {
+final class YamlPersistentData extends PersistentBukkitConfigurationDelegator<FileConfiguration> {
 
-	private static ConfigurationSection getFileConfiguration(Path file)
+	private static FileConfiguration getFileConfiguration(Path file)
 	{
 		return Try.toWithResources(() -> Files.newBufferedReader(file),
 				YamlConfiguration::loadConfiguration);
 	}
 
-	private final FileConfiguration data;
 	private final String name;
 	private final Path file;
-	private boolean needsWrite;
 
 	YamlPersistentData(Path file)
 	{
 		super(YamlPersistentData.getFileConfiguration(file));
 		this.file = file;
-		this.data = (FileConfiguration) this.getData();
 		this.name = this.resolveName();
 	}
 
@@ -48,21 +44,9 @@ final class YamlPersistentData extends BukkitConfigurationDelegator {
 	}
 
 	@Override
-	public void markForWrite()
-	{
-		this.needsWrite = true;
-	}
-
-	@Override
-	public void unmarkForWrite()
-	{
-		this.needsWrite = false;
-	}
-
-	@Override
 	public void save()
 	{
-		if (this.needsWrite)
+		if (this.modified)
 		{
 			this.unmarkForWrite();
 			this.forceSave();

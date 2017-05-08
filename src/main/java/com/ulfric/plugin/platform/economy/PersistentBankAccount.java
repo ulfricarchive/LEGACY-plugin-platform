@@ -2,6 +2,7 @@ package com.ulfric.plugin.platform.economy;
 
 import java.util.UUID;
 
+import com.ulfric.commons.spigot.data.DataSection;
 import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.economy.BalanceChangeResult;
 import com.ulfric.commons.spigot.economy.BalanceDeductionResult;
@@ -15,7 +16,7 @@ final class PersistentBankAccount implements BankAccount {
 
 	private final Object lock = new Object();
 	private final UUID uniqueId;
-	private final PersistentData data;
+	private final DataSection data;
 
 	PersistentBankAccount(UUID uniqueId, PersistentData data)
 	{

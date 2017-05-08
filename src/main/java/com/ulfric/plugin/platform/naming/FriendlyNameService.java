@@ -6,6 +6,7 @@ import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.bukkit.Material;
 
 import com.ulfric.commons.spigot.data.Data;
+import com.ulfric.commons.spigot.data.DataSection;
 import com.ulfric.commons.spigot.data.DataStore;
 import com.ulfric.commons.spigot.data.PersistentData;
 import com.ulfric.commons.spigot.item.MaterialType;
@@ -35,7 +36,7 @@ class FriendlyNameService implements FriendlyName {
 		this.registerDefaultItems();
 
 		PersistentData names = this.folder.getData("items");
-		for (PersistentData name : names.getSections())
+		for (DataSection name : names.getSections())
 		{
 			this.nameToType.put(name.getName(), this.getMaterialType(name));
 		}
@@ -52,7 +53,7 @@ class FriendlyNameService implements FriendlyName {
 		}
 	}
 
-	private MaterialType getMaterialType(PersistentData name)
+	private MaterialType getMaterialType(DataSection name)
 	{
 		String materialString = name.getString("material");
 		Material material = Material.getMaterial(materialString);

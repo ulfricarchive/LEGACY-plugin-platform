@@ -2,34 +2,31 @@ package com.ulfric.plugin.platform.data;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import com.ulfric.commons.spigot.data.PersistentData;
+import com.ulfric.commons.data.Persistent;
 
-final class PersistentDataSubsection extends BukkitConfigurationDelegator {
+final class PersistentDataSubsection extends PersistentBukkitConfigurationDelegator<ConfigurationSection> {
 
-	private final PersistentData parent;
-
-	PersistentDataSubsection(PersistentData parent, ConfigurationSection data)
+	PersistentDataSubsection(Persistent delegate, ConfigurationSection data)
 	{
 		super(data);
-		this.parent = parent;
 	}
 
 	@Override
-	public void save()
-	{
-		this.parent.save();
+	public void save() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void markForWrite()
-	{
-		this.parent.markForWrite();
+	public void markForWrite() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void unmarkForWrite()
-	{
-		throw new UnsupportedOperationException("Cannot unmark a subsection for write");
+	public void unmarkForWrite() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -7,10 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import com.ulfric.commons.bean.Bean;
 import com.ulfric.commons.exception.Try;
 import com.ulfric.commons.spigot.data.PersistentData;
+import com.ulfric.commons.spigot.data.DataSection;
 
 final class LangPersistentData extends Bean implements PersistentData {
 
@@ -71,6 +73,12 @@ final class LangPersistentData extends Bean implements PersistentData {
 	public Set<String> getKeys()
 	{
 		return Collections.unmodifiableSet(this.values.keySet());
+	}
+
+	@Override
+	public boolean contains(String key)
+	{
+		return this.values.containsKey(key);
 	}
 
 	@Override
@@ -136,6 +144,30 @@ final class LangPersistentData extends Bean implements PersistentData {
 
 	@Override
 	public boolean getBoolean(String path)
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean getBoolean(String path, boolean defaultValue)
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public UUID getUniqueId(String path)
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public DataSection createSection(String key)
+	{
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public List<DataSection> getSections()
 	{
 		throw new UnsupportedOperationException();
 	}
