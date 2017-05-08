@@ -1,30 +1,30 @@
 package com.ulfric.plugin.platform.cooldown;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.IdentityHashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.stream.Stream;
-
 import com.ulfric.commons.spigot.cooldown.Cooldown;
 import com.ulfric.commons.spigot.cooldown.CooldownAccount;
 import com.ulfric.commons.spigot.data.DataSection;
 import com.ulfric.commons.spigot.data.PersistentData;
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
 
-final class PersistentCooldownAccount implements CooldownAccount {
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+final class PersistentGlobalAccount implements CooldownAccount {
 	
 	private final Object lock = new Object();
 	private final UUID uniqueId;
-	private final DataSection data;
+	private final DataSection dataSection;
 	
-	private final Map<String, Cooldown> cooldowns = new IdentityHashMap<>();
+	private final Map<String, Cooldown> cooldowns = new CaseInsensitiveMap<>();
 	
-	PersistentCooldownAccount(UUID uniqueId, PersistentData data)
+	PersistentGlobalAccount(PersistentData data)
 	{
-		this.uniqueId = uniqueId;
-		this.data = data.getSection("cooldown");
+		this.uniqueId = UUID.randomUUID();
+		this.dataSection = data.getSection("cooldowns");
 	}
 	
 	@Override
@@ -65,7 +65,7 @@ final class PersistentCooldownAccount implements CooldownAccount {
 	{
 		synchronized (this.lock)
 		{
-			DataSection data = this.data.getSection(name);
+			DataSection data = this.dataSection.getSection(name);
 			
 			if (data == null)
 			{
@@ -85,10 +85,11 @@ final class PersistentCooldownAccount implements CooldownAccount {
 	{
 		synchronized (this.lock)
 		{
-			this.data.set(name, null);
+			this.dataSection.set(name, null);
 			this.cooldowns.remove(name);
 		}
 	}
+	
 	
 	@Override
 	public Stream<Cooldown> getCooldowns()
@@ -105,7 +106,7 @@ final class PersistentCooldownAccount implements CooldownAccount {
 		
 		synchronized (this.lock)
 		{
-			DataSection data = this.data.getSection(name);
+			DataSection data = this.dataSection.getSection(name);
 			
 			data.set("start", cooldown.getStart().toEpochMilli());
 			data.set("expiry", cooldown.getExpiry().toEpochMilli());
