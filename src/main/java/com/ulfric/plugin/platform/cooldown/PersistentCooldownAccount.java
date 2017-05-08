@@ -25,6 +25,26 @@ final class PersistentCooldownAccount implements CooldownAccount {
 	{
 		this.uniqueId = uniqueId;
 		this.data = data.getSection("cooldown");
+		this.loadCooldowns();
+	}
+	
+	private void loadCooldowns()
+	{
+		this.data.getSections().forEach(this::loadCooldown);
+	}
+	
+	private void loadCooldown(DataSection section)
+	{
+		String name = section.getString("name");
+		
+		Cooldown cooldown = Cooldown.builder()
+				.setName(name)
+				.setUniqueId(this.uniqueId)
+				.setStart(Instant.ofEpochMilli(new Date(data.getLong("start")).getTime()))
+				.setExpiry(Instant.ofEpochMilli(new Date(data.getLong("expiry")).getTime()))
+				.build();
+		
+		this.cooldowns.put(name, cooldown);
 	}
 	
 	@Override
@@ -36,49 +56,15 @@ final class PersistentCooldownAccount implements CooldownAccount {
 	@Override
 	public Cooldown getCooldown(String name)
 	{
-		Cooldown cooldown;
+		Cooldown cooldown = this.cooldowns.get(name);
 		
-		if (this.cooldowns.containsKey(name))
-		{
-			cooldown = this.cooldowns.get(name);
-		}
-		else
-		{
-			cooldown = this.getCooldownFromData(name);
-		}
-		
-		if (cooldown == null)
-		{
-			return null;
-		}
-		
-		if (cooldown.isExpired())
+		if (cooldown != null && cooldown.isExpired())
 		{
 			this.removeCooldown(name);
-			return null;
+			cooldown = null;
 		}
 		
-		return this.cooldowns.computeIfAbsent(name, ignore -> cooldown);
-	}
-	
-	private Cooldown getCooldownFromData(String name)
-	{
-		synchronized (this.lock)
-		{
-			DataSection data = this.data.getSection(name);
-			
-			if (data == null)
-			{
-				return null;
-			}
-			
-			return Cooldown.builder()
-					.setName(name)
-					.setUniqueId(this.uniqueId)
-					.setStart(Instant.ofEpochMilli(new Date(data.getLong("start")).getTime()))
-					.setExpiry(Instant.ofEpochMilli(new Date(data.getLong("expiry")).getTime()))
-					.build();
-		}
+		return cooldown;
 	}
 	
 	private void removeCooldown(String name)
@@ -105,7 +91,7 @@ final class PersistentCooldownAccount implements CooldownAccount {
 		
 		synchronized (this.lock)
 		{
-			DataSection data = this.data.getSection(name);
+			DataSection data = this.data.createSection(name);
 			
 			data.set("start", cooldown.getStart().toEpochMilli());
 			data.set("expiry", cooldown.getExpiry().toEpochMilli());
