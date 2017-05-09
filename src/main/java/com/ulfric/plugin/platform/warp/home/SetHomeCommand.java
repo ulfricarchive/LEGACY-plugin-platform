@@ -28,11 +28,17 @@ class SetHomeCommand implements Command {
 	@Override
 	public void run(Context context)
 	{
+		Text text = Text.getService();
 		Player player = (Player) context.getSender();
 		String name = this.name;
 
+		if (!Warp.isValidName(name))
+		{
+			text.sendMessage(player, "sethome-invalid-name",
+					MetadataDefaults.LAST_HOME_SET, name);
+		}
+
 		WarpAccount account = Warps.getService().getAccount(player.getUniqueId());
-		Text text = Text.getService();
 
 		if (account.isWarp(name))
 		{
