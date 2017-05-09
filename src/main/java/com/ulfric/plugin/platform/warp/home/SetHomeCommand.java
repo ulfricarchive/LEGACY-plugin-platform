@@ -1,4 +1,6 @@
-package com.ulfric.plugin.platform.home;
+package com.ulfric.plugin.platform.warp.home;
+
+import org.bukkit.entity.Player;
 
 import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.command.Alias;
@@ -7,15 +9,14 @@ import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.MustBePlayer;
 import com.ulfric.commons.spigot.command.Permission;
 import com.ulfric.commons.spigot.command.argument.Argument;
-import com.ulfric.commons.spigot.home.Home;
-import com.ulfric.commons.spigot.home.HomeAccount;
-import com.ulfric.commons.spigot.home.Homes;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.Text;
-import org.bukkit.entity.Player;
+import com.ulfric.commons.spigot.warp.Warp;
+import com.ulfric.commons.spigot.warp.WarpAccount;
+import com.ulfric.commons.spigot.warp.Warps;
 
 @Name("sethome")
-@Alias("createhome")
+@Alias({"createhome", "newhome", "addhome", "shome"})
 @Permission("sethome-use")
 @MustBePlayer
 class SetHomeCommand implements Command {
@@ -23,30 +24,31 @@ class SetHomeCommand implements Command {
 	@Argument
 	private String name;
 	
-	// todo check if the user can set more homes
+	// TODO home limits
 	@Override
 	public void run(Context context)
 	{
 		Player player = (Player) context.getSender();
 		String name = this.name;
-		
-		HomeAccount account = Homes.getHomes().getAccount(player.getUniqueId());
+
+		WarpAccount account = Warps.getService().getAccount(player.getUniqueId());
 		Text text = Text.getService();
-		
-		if (account.isHome(name))
+
+		if (account.isWarp(name))
 		{
 			text.sendMessage(player, "sethome-already-set");
 		}
 		else
 		{
-			Home home = Home.builder()
+			Warp home = Warp.builder()
 					.setName(name)
 					.setLocation(player.getLocation())
 					.build();
-			
-			account.setHome(home);
-			
-			text.sendMessage(player, "sethome-set", MetadataDefaults.LAST_HOME_SET, name);
+
+			account.setWarp(home);
+
+			text.sendMessage(player, "sethome-set",
+					MetadataDefaults.LAST_HOME_SET, name);
 		}
 	}
 	

@@ -10,6 +10,7 @@ import com.ulfric.commons.spigot.command.Permission;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.warp.Warp;
+import com.ulfric.commons.spigot.warp.WarpAccount;
 import com.ulfric.commons.spigot.warp.Warps;
 
 @Name("set")
@@ -22,13 +23,13 @@ class WarpSetCommand extends WarpCommand {
 	public void run(Context context)
 	{
 		Player player = (Player) context.getSender();
-		Warps service = Warps.getService();
+		WarpAccount warps = Warps.getService().getGlobalAccount();
 
 		Warp warp = Warp.builder()
 				.setName(this.name)
 				.setLocation(player.getLocation())
 				.build();
-		service.setWarp(warp);
+		warps.setWarp(warp);
 
 		Text.getService().sendMessage(player, "warp-set",
 				MetadataDefaults.LAST_WARP, this.name);

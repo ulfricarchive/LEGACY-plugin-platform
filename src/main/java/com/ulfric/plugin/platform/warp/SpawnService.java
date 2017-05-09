@@ -6,6 +6,7 @@ import org.bukkit.entity.Entity;
 import com.ulfric.commons.spigot.warp.Spawn;
 import com.ulfric.commons.spigot.warp.Teleport;
 import com.ulfric.commons.spigot.warp.Warp;
+import com.ulfric.commons.spigot.warp.WarpAccount;
 import com.ulfric.commons.spigot.warp.Warps;
 
 public final class SpawnService implements Spawn {
@@ -15,7 +16,7 @@ public final class SpawnService implements Spawn {
 	@Override
 	public void setSpawn(Location spawn)
 	{
-		Warps warps = Warps.getService();
+		WarpAccount warps = Warps.getService().getGlobalAccount();
 		
 		if (spawn == null)
 		{
@@ -51,7 +52,7 @@ public final class SpawnService implements Spawn {
 
 	private Location getSpawn()
 	{
-		Warp warp = Warps.getService().getWarp(SpawnService.DEFAULT_SPAWN_NAME);
+		Warp warp = Warps.getService().getGlobalAccount().getWarp(SpawnService.DEFAULT_SPAWN_NAME);
 		return warp == null ? null : warp.getLocation();
 	}
 	

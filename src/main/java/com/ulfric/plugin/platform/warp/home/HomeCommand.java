@@ -1,4 +1,6 @@
-package com.ulfric.plugin.platform.home;
+package com.ulfric.plugin.platform.warp.home;
+
+import org.bukkit.entity.Player;
 
 import com.ulfric.commons.naming.Name;
 import com.ulfric.commons.spigot.command.Command;
@@ -6,13 +8,12 @@ import com.ulfric.commons.spigot.command.Context;
 import com.ulfric.commons.spigot.command.MustBePlayer;
 import com.ulfric.commons.spigot.command.Permission;
 import com.ulfric.commons.spigot.command.argument.Argument;
-import com.ulfric.commons.spigot.home.Home;
-import com.ulfric.commons.spigot.home.HomeAccount;
-import com.ulfric.commons.spigot.home.Homes;
 import com.ulfric.commons.spigot.metadata.MetadataDefaults;
 import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.warp.Teleport;
-import org.bukkit.entity.Player;
+import com.ulfric.commons.spigot.warp.Warp;
+import com.ulfric.commons.spigot.warp.WarpAccount;
+import com.ulfric.commons.spigot.warp.Warps;
 
 @Name("home")
 @Permission("home-use")
@@ -29,17 +30,19 @@ class HomeCommand implements Command {
 		String name = this.name;
 		
 		Text text = Text.getService();
-		HomeAccount account = Homes.getHomes().getAccount(player.getUniqueId());
-		
-		if (account.isHome(name))
+		WarpAccount account = Warps.getService().getAccount(player.getUniqueId());
+		Warp home = account.getWarp(name);
+
+		if (home != null)
 		{
-			Home home = account.getHome(name);
+			name = home.getName();
 			text.sendMessage(player, "home-teleport", MetadataDefaults.LAST_HOME_TELEPORT, name);
 			Teleport.getService().teleport(player, home.getLocation());
 		}
 		else
 		{
-			text.sendMessage(player, "home-no-set");
+			text.sendMessage(player, "home-no-set",
+					MetadataDefaults.LAST_HOME_TELEPORT, name);
 		}
 	}
 	

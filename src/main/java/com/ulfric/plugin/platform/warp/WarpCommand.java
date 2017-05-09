@@ -26,7 +26,7 @@ class WarpCommand implements Command {
 	{
 		Player player = (Player) context.getSender();
 
-		Warp warp = Warps.getService().getWarp(this.name);
+		Warp warp = Warps.getService().getGlobalAccount().getWarp(this.name);
 		if (warp == null)
 		{
 			Text.getService().sendMessage(player, "warp-not-found");
