@@ -24,7 +24,7 @@ final class PersistentGlobalAccount implements CooldownAccount {
 	PersistentGlobalAccount(PersistentData data)
 	{
 		this.uniqueId = UUID.randomUUID();
-		this.dataSection = data.getSection("cooldowns");
+		this.dataSection = data.createSection("cooldowns");
 		this.loadCooldowns();
 	}
 	

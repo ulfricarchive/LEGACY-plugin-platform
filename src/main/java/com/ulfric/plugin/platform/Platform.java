@@ -42,8 +42,8 @@ public final class Platform extends UlfricPlugin {
 		this.install(PanelContainer.class);
 		this.install(FriendlyNameContainer.class);
 		this.install(MessageContainer.class);
-		this.install(CombatTagContainer.class);
 		this.install(CooldownContainer.class);
+		this.install(CombatTagContainer.class);
 		this.install(KitContainer.class);
 	}
 
