@@ -25,7 +25,6 @@ class SetHomeCommand implements Command {
 	@Argument
 	private String name;
 	
-	// TODO home limits
 	@Override
 	public void run(Context context)
 	{
