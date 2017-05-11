@@ -47,7 +47,8 @@ class SetHomeCommand implements Command {
 		}
 		else if (account.isWarp(name))
 		{
-			text.sendMessage(player, "sethome-already-set");
+			text.sendMessage(player, "sethome-already-set",
+					MetadataDefaults.LAST_HOME_SET, name);
 		}
 		else
 		{
