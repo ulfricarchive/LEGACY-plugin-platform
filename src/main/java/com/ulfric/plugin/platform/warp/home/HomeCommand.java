@@ -41,7 +41,7 @@ class HomeCommand implements Command {
 		}
 		else
 		{
-			text.sendMessage(player, "home-no-set",
+			text.sendMessage(player, "home-not-set",
 					MetadataDefaults.LAST_HOME_TELEPORT, name);
 		}
 	}

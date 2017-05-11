@@ -14,6 +14,7 @@ import com.ulfric.commons.spigot.text.Text;
 import com.ulfric.commons.spigot.warp.Warp;
 import com.ulfric.commons.spigot.warp.WarpAccount;
 import com.ulfric.commons.spigot.warp.Warps;
+import com.ulfric.commons.spigot.warp.home.Homes;
 
 @Name("sethome")
 @Alias({"createhome", "newhome", "addhome", "shome"})
@@ -36,11 +37,16 @@ class SetHomeCommand implements Command {
 		{
 			text.sendMessage(player, "sethome-invalid-name",
 					MetadataDefaults.LAST_HOME_SET, name);
+			return;
 		}
 
 		WarpAccount account = Warps.getService().getAccount(player.getUniqueId());
-
-		if (account.isWarp(name))
+		
+		if (Homes.getService().getTotalHomes(player) <= account.getWarps().size())
+		{
+			text.sendMessage(player, "sethome-max");
+		}
+		else if (account.isWarp(name))
 		{
 			text.sendMessage(player, "sethome-already-set");
 		}
