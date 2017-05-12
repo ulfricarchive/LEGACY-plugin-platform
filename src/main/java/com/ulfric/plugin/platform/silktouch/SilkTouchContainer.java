@@ -1,4 +1,4 @@
-package com.ulfric.plugin.platform.silkspawners;
+package com.ulfric.plugin.platform.silktouch;
 
 import com.ulfric.dragoon.container.Container;
 import com.ulfric.dragoon.initialize.Initialize;

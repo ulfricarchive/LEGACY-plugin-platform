@@ -17,7 +17,7 @@ import com.ulfric.plugin.platform.permissions.PermissionsContainer;
 import com.ulfric.plugin.platform.placeholder.PlaceholderContainer;
 import com.ulfric.plugin.platform.punishment.PunishmentsContainer;
 import com.ulfric.plugin.platform.server.ShutdownContainer;
-import com.ulfric.plugin.platform.silkspawners.SilkTouchContainer;
+import com.ulfric.plugin.platform.silktouch.SilkTouchContainer;
 import com.ulfric.plugin.platform.text.TextContainer;
 import com.ulfric.plugin.platform.warp.TeleportContainer;
 import com.ulfric.plugin.platform.warp.WarpContainer;

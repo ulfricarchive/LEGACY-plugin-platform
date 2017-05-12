@@ -1,4 +1,4 @@
-package com.ulfric.plugin.platform.silkspawners;
+package com.ulfric.plugin.platform.silktouch;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
