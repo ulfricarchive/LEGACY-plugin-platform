@@ -64,19 +64,17 @@ class SilkTouchListener implements Listener {
 			return;
 		}
 		
-		ItemMeta meta = itemStack.getItemMeta();
+		String name = this.getEntityNameFromMeta(itemStack.getItemMeta());
 		
-		String[] nameSplit = ChatColor.stripColor(meta.getDisplayName()).split(" ");
-		
-		if (nameSplit.length > 1)
+		if (name == null)
 		{
-			EntityType type = this.getEntityType(nameSplit[0]);
-			
-			if (type == null)
-			{
-				return;
-			}
-			
+			return;
+		}
+		
+		EntityType type = this.getEntityType(name);
+		
+		if (type != null)
+		{
 			CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
 			creatureSpawner.setSpawnedType(type);
 			creatureSpawner.update();
@@ -95,6 +93,24 @@ class SilkTouchListener implements Listener {
 				.setMaterialType(MaterialType.getType(Material.MOB_SPAWNER, type.getTypeId()))
 				.setDisplayName(ChatUtils.format("&e" + name + " Spawner"))
 				.build();
+	}
+	
+	private String getEntityNameFromMeta(ItemMeta meta)
+	{
+		if (!meta.hasDisplayName())
+		{
+			return null;
+		}
+		
+		String name = ChatColor.stripColor(meta.getDisplayName());
+		String[] splitName = name.split(" ");
+		
+		if (splitName.length > 1)
+		{
+			return splitName[0];
+		}
+		
+		return null;
 	}
 	
 	private boolean isSpawner(ItemStack itemStack)
