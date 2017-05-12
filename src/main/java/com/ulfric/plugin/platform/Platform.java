@@ -17,6 +17,7 @@ import com.ulfric.plugin.platform.permissions.PermissionsContainer;
 import com.ulfric.plugin.platform.placeholder.PlaceholderContainer;
 import com.ulfric.plugin.platform.punishment.PunishmentsContainer;
 import com.ulfric.plugin.platform.server.ShutdownContainer;
+import com.ulfric.plugin.platform.silkspawners.SilkTouchContainer;
 import com.ulfric.plugin.platform.text.TextContainer;
 import com.ulfric.plugin.platform.warp.TeleportContainer;
 import com.ulfric.plugin.platform.warp.WarpContainer;
@@ -45,6 +46,7 @@ public final class Platform extends UlfricPlugin {
 		this.install(CooldownContainer.class);
 		this.install(CombatTagContainer.class);
 		this.install(KitContainer.class);
+		this.install(SilkTouchContainer.class);
 	}
 
 }
